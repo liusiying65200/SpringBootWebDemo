@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,6 +24,10 @@ public class App {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet resultSet = preparedStatement.executeQuery();
 //            System.err.println(resultSet.getObject("phone"));
+            for (Field field : resultSet.getClass().getDeclaredFields()) {
+                String name = field.getName();
+                System.err.println(name);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

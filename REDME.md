@@ -541,3 +541,14 @@ spring.datasource.url=jdbc:mysql://127.0.0.1:3306/vip_local_test
 spring.datasource.username=root
 spring.datasource.password=root
 ```
+
+#### 通过配置文件指定数据源类型
+```properties
+spring.datasource.type=com.zaxxer.hikari.HikariDataSource
+```
+```java
+ @Import({Tomcat.class, Hikari.class, Dbcp.class, Dbcp2.class, Generic.class})
+```
+
+
+
