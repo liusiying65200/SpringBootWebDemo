@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.OrderExceptionAddFeeMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFee" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="payment_type" property="paymentType" jdbcType="INTEGER" />
+    <result column="luban_money" property="lubanMoney" jdbcType="REAL" />
+    <result column="business_money" property="businessMoney" jdbcType="REAL" />
+    <result column="check_result" property="checkResult" jdbcType="INTEGER" />
+    <result column="business_check_result" property="businessCheckResult" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="record_status" property="recordStatus" jdbcType="INTEGER" />
+    <result column="orderlog_id" property="orderlogId" jdbcType="INTEGER" />
+    <result column="if_percentage" property="ifPercentage" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFee" extends="BaseResultMap" >
+    <result column="service_image" property="serviceImage" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_id, payment_type, luban_money, business_money, check_result, business_check_result, 
+    description, update_time, create_time, record_status, orderlog_id, if_percentage
+  </sql>
+  <sql id="Blob_Column_List" >
+    service_image
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_exception_add_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_exception_add_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_exception_add_fee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_exception_add_fee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFeeExample" >
+    delete from order_exception_add_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFee" >
+    insert into order_exception_add_fee (id, order_id, payment_type, 
+      luban_money, business_money, check_result, 
+      business_check_result, description, update_time, 
+      create_time, record_status, orderlog_id, 
+      if_percentage, service_image)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{paymentType,jdbcType=INTEGER}, 
+      #{lubanMoney,jdbcType=REAL}, #{businessMoney,jdbcType=REAL}, #{checkResult,jdbcType=INTEGER}, 
+      #{businessCheckResult,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{recordStatus,jdbcType=INTEGER}, #{orderlogId,jdbcType=INTEGER}, 
+      #{ifPercentage,jdbcType=INTEGER}, #{serviceImage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFee" >
+    insert into order_exception_add_fee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="paymentType != null" >
+        payment_type,
+      </if>
+      <if test="lubanMoney != null" >
+        luban_money,
+      </if>
+      <if test="businessMoney != null" >
+        business_money,
+      </if>
+      <if test="checkResult != null" >
+        check_result,
+      </if>
+      <if test="businessCheckResult != null" >
+        business_check_result,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="recordStatus != null" >
+        record_status,
+      </if>
+      <if test="orderlogId != null" >
+        orderlog_id,
+      </if>
+      <if test="ifPercentage != null" >
+        if_percentage,
+      </if>
+      <if test="serviceImage != null" >
+        service_image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentType != null" >
+        #{paymentType,jdbcType=INTEGER},
+      </if>
+      <if test="lubanMoney != null" >
+        #{lubanMoney,jdbcType=REAL},
+      </if>
+      <if test="businessMoney != null" >
+        #{businessMoney,jdbcType=REAL},
+      </if>
+      <if test="checkResult != null" >
+        #{checkResult,jdbcType=INTEGER},
+      </if>
+      <if test="businessCheckResult != null" >
+        #{businessCheckResult,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null" >
+        #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderlogId != null" >
+        #{orderlogId,jdbcType=INTEGER},
+      </if>
+      <if test="ifPercentage != null" >
+        #{ifPercentage,jdbcType=INTEGER},
+      </if>
+      <if test="serviceImage != null" >
+        #{serviceImage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFeeExample" resultType="java.lang.Integer" >
+    select count(*) from order_exception_add_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_exception_add_fee
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.paymentType != null" >
+        payment_type = #{record.paymentType,jdbcType=INTEGER},
+      </if>
+      <if test="record.lubanMoney != null" >
+        luban_money = #{record.lubanMoney,jdbcType=REAL},
+      </if>
+      <if test="record.businessMoney != null" >
+        business_money = #{record.businessMoney,jdbcType=REAL},
+      </if>
+      <if test="record.checkResult != null" >
+        check_result = #{record.checkResult,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessCheckResult != null" >
+        business_check_result = #{record.businessCheckResult,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.recordStatus != null" >
+        record_status = #{record.recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderlogId != null" >
+        orderlog_id = #{record.orderlogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.ifPercentage != null" >
+        if_percentage = #{record.ifPercentage,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceImage != null" >
+        service_image = #{record.serviceImage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update order_exception_add_fee
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      payment_type = #{record.paymentType,jdbcType=INTEGER},
+      luban_money = #{record.lubanMoney,jdbcType=REAL},
+      business_money = #{record.businessMoney,jdbcType=REAL},
+      check_result = #{record.checkResult,jdbcType=INTEGER},
+      business_check_result = #{record.businessCheckResult,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      record_status = #{record.recordStatus,jdbcType=INTEGER},
+      orderlog_id = #{record.orderlogId,jdbcType=INTEGER},
+      if_percentage = #{record.ifPercentage,jdbcType=INTEGER},
+      service_image = #{record.serviceImage,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_exception_add_fee
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      payment_type = #{record.paymentType,jdbcType=INTEGER},
+      luban_money = #{record.lubanMoney,jdbcType=REAL},
+      business_money = #{record.businessMoney,jdbcType=REAL},
+      check_result = #{record.checkResult,jdbcType=INTEGER},
+      business_check_result = #{record.businessCheckResult,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      record_status = #{record.recordStatus,jdbcType=INTEGER},
+      orderlog_id = #{record.orderlogId,jdbcType=INTEGER},
+      if_percentage = #{record.ifPercentage,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFee" >
+    update order_exception_add_fee
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="paymentType != null" >
+        payment_type = #{paymentType,jdbcType=INTEGER},
+      </if>
+      <if test="lubanMoney != null" >
+        luban_money = #{lubanMoney,jdbcType=REAL},
+      </if>
+      <if test="businessMoney != null" >
+        business_money = #{businessMoney,jdbcType=REAL},
+      </if>
+      <if test="checkResult != null" >
+        check_result = #{checkResult,jdbcType=INTEGER},
+      </if>
+      <if test="businessCheckResult != null" >
+        business_check_result = #{businessCheckResult,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="recordStatus != null" >
+        record_status = #{recordStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderlogId != null" >
+        orderlog_id = #{orderlogId,jdbcType=INTEGER},
+      </if>
+      <if test="ifPercentage != null" >
+        if_percentage = #{ifPercentage,jdbcType=INTEGER},
+      </if>
+      <if test="serviceImage != null" >
+        service_image = #{serviceImage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFee" >
+    update order_exception_add_fee
+    set order_id = #{orderId,jdbcType=INTEGER},
+      payment_type = #{paymentType,jdbcType=INTEGER},
+      luban_money = #{lubanMoney,jdbcType=REAL},
+      business_money = #{businessMoney,jdbcType=REAL},
+      check_result = #{checkResult,jdbcType=INTEGER},
+      business_check_result = #{businessCheckResult,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      orderlog_id = #{orderlogId,jdbcType=INTEGER},
+      if_percentage = #{ifPercentage,jdbcType=INTEGER},
+      service_image = #{serviceImage,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionAddFee" >
+    update order_exception_add_fee
+    set order_id = #{orderId,jdbcType=INTEGER},
+      payment_type = #{paymentType,jdbcType=INTEGER},
+      luban_money = #{lubanMoney,jdbcType=REAL},
+      business_money = #{businessMoney,jdbcType=REAL},
+      check_result = #{checkResult,jdbcType=INTEGER},
+      business_check_result = #{businessCheckResult,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      record_status = #{recordStatus,jdbcType=INTEGER},
+      orderlog_id = #{orderlogId,jdbcType=INTEGER},
+      if_percentage = #{ifPercentage,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

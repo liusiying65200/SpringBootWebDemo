@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.LbdjActivityMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.LbdjActivity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="act_object" property="actObject" jdbcType="INTEGER" />
+    <result column="act_type" property="actType" jdbcType="TINYINT" />
+    <result column="act_rule" property="actRule" jdbcType="VARCHAR" />
+    <result column="act_name" property="actName" jdbcType="VARCHAR" />
+    <result column="act_intro" property="actIntro" jdbcType="VARCHAR" />
+    <result column="act_img" property="actImg" jdbcType="VARCHAR" />
+    <result column="act_href" property="actHref" jdbcType="VARCHAR" />
+    <result column="act_href_type" property="actHrefType" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="BIT" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="change_time" property="changeTime" jdbcType="TIMESTAMP" />
+    <result column="change_user" property="changeUser" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="top" property="top" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.LbdjActivity" extends="BaseResultMap" >
+    <result column="act_detail" property="actDetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, code, act_object, act_type, act_rule, act_name, act_intro, act_img, act_href, 
+    act_href_type, status, start_time, end_time, create_time, change_time, change_user, 
+    create_user, top
+  </sql>
+  <sql id="Blob_Column_List" >
+    act_detail
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lbdj_activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from lbdj_activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lbdj_activity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lbdj_activity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityExample" >
+    delete from lbdj_activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivity" >
+    insert into lbdj_activity (id, code, act_object, 
+      act_type, act_rule, act_name, 
+      act_intro, act_img, act_href, 
+      act_href_type, status, start_time, 
+      end_time, create_time, change_time, 
+      change_user, create_user, top, 
+      act_detail)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{actObject,jdbcType=INTEGER}, 
+      #{actType,jdbcType=TINYINT}, #{actRule,jdbcType=VARCHAR}, #{actName,jdbcType=VARCHAR}, 
+      #{actIntro,jdbcType=VARCHAR}, #{actImg,jdbcType=VARCHAR}, #{actHref,jdbcType=VARCHAR}, 
+      #{actHrefType,jdbcType=INTEGER}, #{status,jdbcType=BIT}, #{startTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{changeTime,jdbcType=TIMESTAMP}, 
+      #{changeUser,jdbcType=INTEGER}, #{createUser,jdbcType=INTEGER}, #{top,jdbcType=INTEGER}, 
+      #{actDetail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivity" >
+    insert into lbdj_activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="actObject != null" >
+        act_object,
+      </if>
+      <if test="actType != null" >
+        act_type,
+      </if>
+      <if test="actRule != null" >
+        act_rule,
+      </if>
+      <if test="actName != null" >
+        act_name,
+      </if>
+      <if test="actIntro != null" >
+        act_intro,
+      </if>
+      <if test="actImg != null" >
+        act_img,
+      </if>
+      <if test="actHref != null" >
+        act_href,
+      </if>
+      <if test="actHrefType != null" >
+        act_href_type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="changeTime != null" >
+        change_time,
+      </if>
+      <if test="changeUser != null" >
+        change_user,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="top != null" >
+        top,
+      </if>
+      <if test="actDetail != null" >
+        act_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="actObject != null" >
+        #{actObject,jdbcType=INTEGER},
+      </if>
+      <if test="actType != null" >
+        #{actType,jdbcType=TINYINT},
+      </if>
+      <if test="actRule != null" >
+        #{actRule,jdbcType=VARCHAR},
+      </if>
+      <if test="actName != null" >
+        #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="actIntro != null" >
+        #{actIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="actImg != null" >
+        #{actImg,jdbcType=VARCHAR},
+      </if>
+      <if test="actHref != null" >
+        #{actHref,jdbcType=VARCHAR},
+      </if>
+      <if test="actHrefType != null" >
+        #{actHrefType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeTime != null" >
+        #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeUser != null" >
+        #{changeUser,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="top != null" >
+        #{top,jdbcType=INTEGER},
+      </if>
+      <if test="actDetail != null" >
+        #{actDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityExample" resultType="java.lang.Integer" >
+    select count(*) from lbdj_activity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lbdj_activity
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.code != null" >
+        code = #{record.code,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actObject != null" >
+        act_object = #{record.actObject,jdbcType=INTEGER},
+      </if>
+      <if test="record.actType != null" >
+        act_type = #{record.actType,jdbcType=TINYINT},
+      </if>
+      <if test="record.actRule != null" >
+        act_rule = #{record.actRule,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actName != null" >
+        act_name = #{record.actName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actIntro != null" >
+        act_intro = #{record.actIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actImg != null" >
+        act_img = #{record.actImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actHref != null" >
+        act_href = #{record.actHref,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actHrefType != null" >
+        act_href_type = #{record.actHrefType,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeTime != null" >
+        change_time = #{record.changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeUser != null" >
+        change_user = #{record.changeUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.top != null" >
+        top = #{record.top,jdbcType=INTEGER},
+      </if>
+      <if test="record.actDetail != null" >
+        act_detail = #{record.actDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update lbdj_activity
+    set id = #{record.id,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      act_object = #{record.actObject,jdbcType=INTEGER},
+      act_type = #{record.actType,jdbcType=TINYINT},
+      act_rule = #{record.actRule,jdbcType=VARCHAR},
+      act_name = #{record.actName,jdbcType=VARCHAR},
+      act_intro = #{record.actIntro,jdbcType=VARCHAR},
+      act_img = #{record.actImg,jdbcType=VARCHAR},
+      act_href = #{record.actHref,jdbcType=VARCHAR},
+      act_href_type = #{record.actHrefType,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      change_time = #{record.changeTime,jdbcType=TIMESTAMP},
+      change_user = #{record.changeUser,jdbcType=INTEGER},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      top = #{record.top,jdbcType=INTEGER},
+      act_detail = #{record.actDetail,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lbdj_activity
+    set id = #{record.id,jdbcType=INTEGER},
+      code = #{record.code,jdbcType=VARCHAR},
+      act_object = #{record.actObject,jdbcType=INTEGER},
+      act_type = #{record.actType,jdbcType=TINYINT},
+      act_rule = #{record.actRule,jdbcType=VARCHAR},
+      act_name = #{record.actName,jdbcType=VARCHAR},
+      act_intro = #{record.actIntro,jdbcType=VARCHAR},
+      act_img = #{record.actImg,jdbcType=VARCHAR},
+      act_href = #{record.actHref,jdbcType=VARCHAR},
+      act_href_type = #{record.actHrefType,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      change_time = #{record.changeTime,jdbcType=TIMESTAMP},
+      change_user = #{record.changeUser,jdbcType=INTEGER},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      top = #{record.top,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivity" >
+    update lbdj_activity
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="actObject != null" >
+        act_object = #{actObject,jdbcType=INTEGER},
+      </if>
+      <if test="actType != null" >
+        act_type = #{actType,jdbcType=TINYINT},
+      </if>
+      <if test="actRule != null" >
+        act_rule = #{actRule,jdbcType=VARCHAR},
+      </if>
+      <if test="actName != null" >
+        act_name = #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="actIntro != null" >
+        act_intro = #{actIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="actImg != null" >
+        act_img = #{actImg,jdbcType=VARCHAR},
+      </if>
+      <if test="actHref != null" >
+        act_href = #{actHref,jdbcType=VARCHAR},
+      </if>
+      <if test="actHrefType != null" >
+        act_href_type = #{actHrefType,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeTime != null" >
+        change_time = #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeUser != null" >
+        change_user = #{changeUser,jdbcType=INTEGER},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="top != null" >
+        top = #{top,jdbcType=INTEGER},
+      </if>
+      <if test="actDetail != null" >
+        act_detail = #{actDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivity" >
+    update lbdj_activity
+    set code = #{code,jdbcType=VARCHAR},
+      act_object = #{actObject,jdbcType=INTEGER},
+      act_type = #{actType,jdbcType=TINYINT},
+      act_rule = #{actRule,jdbcType=VARCHAR},
+      act_name = #{actName,jdbcType=VARCHAR},
+      act_intro = #{actIntro,jdbcType=VARCHAR},
+      act_img = #{actImg,jdbcType=VARCHAR},
+      act_href = #{actHref,jdbcType=VARCHAR},
+      act_href_type = #{actHrefType,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      change_time = #{changeTime,jdbcType=TIMESTAMP},
+      change_user = #{changeUser,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=INTEGER},
+      top = #{top,jdbcType=INTEGER},
+      act_detail = #{actDetail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivity" >
+    update lbdj_activity
+    set code = #{code,jdbcType=VARCHAR},
+      act_object = #{actObject,jdbcType=INTEGER},
+      act_type = #{actType,jdbcType=TINYINT},
+      act_rule = #{actRule,jdbcType=VARCHAR},
+      act_name = #{actName,jdbcType=VARCHAR},
+      act_intro = #{actIntro,jdbcType=VARCHAR},
+      act_img = #{actImg,jdbcType=VARCHAR},
+      act_href = #{actHref,jdbcType=VARCHAR},
+      act_href_type = #{actHrefType,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      change_time = #{changeTime,jdbcType=TIMESTAMP},
+      change_user = #{changeUser,jdbcType=INTEGER},
+      create_user = #{createUser,jdbcType=INTEGER},
+      top = #{top,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

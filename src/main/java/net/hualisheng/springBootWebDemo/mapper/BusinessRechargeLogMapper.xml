@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.BusinessRechargeLogMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.BusinessRechargeLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="order_amount" property="orderAmount" jdbcType="INTEGER" />
+    <result column="pay_amount" property="payAmount" jdbcType="INTEGER" />
+    <result column="order_time" property="orderTime" jdbcType="VARCHAR" />
+    <result column="order_expiretime" property="orderExpiretime" jdbcType="TIMESTAMP" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="pay_type" property="payType" jdbcType="INTEGER" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_no, business_id, order_amount, pay_amount, order_time, order_expiretime, 
+    order_status, create_time, update_time, pay_type, note
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.BusinessRechargeLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from business_recharge_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from business_recharge_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from business_recharge_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessRechargeLogExample" >
+    delete from business_recharge_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.BusinessRechargeLog" >
+    insert into business_recharge_log (id, order_no, business_id, 
+      order_amount, pay_amount, order_time, 
+      order_expiretime, order_status, create_time, 
+      update_time, pay_type, note
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{businessId,jdbcType=INTEGER}, 
+      #{orderAmount,jdbcType=INTEGER}, #{payAmount,jdbcType=INTEGER}, #{orderTime,jdbcType=VARCHAR}, 
+      #{orderExpiretime,jdbcType=TIMESTAMP}, #{orderStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{payType,jdbcType=INTEGER}, #{note,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessRechargeLog" >
+    insert into business_recharge_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="orderAmount != null" >
+        order_amount,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="orderExpiretime != null" >
+        order_expiretime,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="payType != null" >
+        pay_type,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmount != null" >
+        #{orderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderExpiretime != null" >
+        #{orderExpiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null" >
+        #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessRechargeLogExample" resultType="java.lang.Integer" >
+    select count(*) from business_recharge_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update business_recharge_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderNo != null" >
+        order_no = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderAmount != null" >
+        order_amount = #{record.orderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.payAmount != null" >
+        pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderTime != null" >
+        order_time = #{record.orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderExpiretime != null" >
+        order_expiretime = #{record.orderExpiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payType != null" >
+        pay_type = #{record.payType,jdbcType=INTEGER},
+      </if>
+      <if test="record.note != null" >
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update business_recharge_log
+    set id = #{record.id,jdbcType=INTEGER},
+      order_no = #{record.orderNo,jdbcType=VARCHAR},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      order_amount = #{record.orderAmount,jdbcType=INTEGER},
+      pay_amount = #{record.payAmount,jdbcType=INTEGER},
+      order_time = #{record.orderTime,jdbcType=VARCHAR},
+      order_expiretime = #{record.orderExpiretime,jdbcType=TIMESTAMP},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      pay_type = #{record.payType,jdbcType=INTEGER},
+      note = #{record.note,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessRechargeLog" >
+    update business_recharge_log
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="orderAmount != null" >
+        order_amount = #{orderAmount,jdbcType=INTEGER},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderExpiretime != null" >
+        order_expiretime = #{orderExpiretime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payType != null" >
+        pay_type = #{payType,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.BusinessRechargeLog" >
+    update business_recharge_log
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      business_id = #{businessId,jdbcType=INTEGER},
+      order_amount = #{orderAmount,jdbcType=INTEGER},
+      pay_amount = #{payAmount,jdbcType=INTEGER},
+      order_time = #{orderTime,jdbcType=VARCHAR},
+      order_expiretime = #{orderExpiretime,jdbcType=TIMESTAMP},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      pay_type = #{payType,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

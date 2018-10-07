@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.ComplainMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.Complain" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="plaintiff" property="plaintiff" jdbcType="VARCHAR" />
+    <result column="defendant" property="defendant" jdbcType="VARCHAR" />
+    <result column="defendant_phone" property="defendantPhone" jdbcType="VARCHAR" />
+    <result column="defendant_id" property="defendantId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="sign_imgs" property="signImgs" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+    <result column="compensate" property="compensate" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="update_admin_id" property="updateAdminId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, number, order_sn, plaintiff, defendant, defendant_phone, defendant_id, type, 
+    content, sign_imgs, status, result, compensate, admin_id, update_admin_id, update_time, 
+    create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.ComplainExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from complain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from complain
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from complain
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.ComplainExample" >
+    delete from complain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.Complain" >
+    insert into complain (id, number, order_sn, 
+      plaintiff, defendant, defendant_phone, 
+      defendant_id, type, content, 
+      sign_imgs, status, result, 
+      compensate, admin_id, update_admin_id, 
+      update_time, create_time)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{orderSn,jdbcType=VARCHAR}, 
+      #{plaintiff,jdbcType=VARCHAR}, #{defendant,jdbcType=VARCHAR}, #{defendantPhone,jdbcType=VARCHAR}, 
+      #{defendantId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, 
+      #{signImgs,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{result,jdbcType=INTEGER}, 
+      #{compensate,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{updateAdminId,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.Complain" >
+    insert into complain
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="plaintiff != null" >
+        plaintiff,
+      </if>
+      <if test="defendant != null" >
+        defendant,
+      </if>
+      <if test="defendantPhone != null" >
+        defendant_phone,
+      </if>
+      <if test="defendantId != null" >
+        defendant_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="signImgs != null" >
+        sign_imgs,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="compensate != null" >
+        compensate,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="updateAdminId != null" >
+        update_admin_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="plaintiff != null" >
+        #{plaintiff,jdbcType=VARCHAR},
+      </if>
+      <if test="defendant != null" >
+        #{defendant,jdbcType=VARCHAR},
+      </if>
+      <if test="defendantPhone != null" >
+        #{defendantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="defendantId != null" >
+        #{defendantId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="signImgs != null" >
+        #{signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="compensate != null" >
+        #{compensate,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="updateAdminId != null" >
+        #{updateAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.ComplainExample" resultType="java.lang.Integer" >
+    select count(*) from complain
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update complain
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plaintiff != null" >
+        plaintiff = #{record.plaintiff,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defendant != null" >
+        defendant = #{record.defendant,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defendantPhone != null" >
+        defendant_phone = #{record.defendantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.defendantId != null" >
+        defendant_id = #{record.defendantId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signImgs != null" >
+        sign_imgs = #{record.signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.result != null" >
+        result = #{record.result,jdbcType=INTEGER},
+      </if>
+      <if test="record.compensate != null" >
+        compensate = #{record.compensate,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateAdminId != null" >
+        update_admin_id = #{record.updateAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update complain
+    set id = #{record.id,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=VARCHAR},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      plaintiff = #{record.plaintiff,jdbcType=VARCHAR},
+      defendant = #{record.defendant,jdbcType=VARCHAR},
+      defendant_phone = #{record.defendantPhone,jdbcType=VARCHAR},
+      defendant_id = #{record.defendantId,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      sign_imgs = #{record.signImgs,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      result = #{record.result,jdbcType=INTEGER},
+      compensate = #{record.compensate,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      update_admin_id = #{record.updateAdminId,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.Complain" >
+    update complain
+    <set >
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="plaintiff != null" >
+        plaintiff = #{plaintiff,jdbcType=VARCHAR},
+      </if>
+      <if test="defendant != null" >
+        defendant = #{defendant,jdbcType=VARCHAR},
+      </if>
+      <if test="defendantPhone != null" >
+        defendant_phone = #{defendantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="defendantId != null" >
+        defendant_id = #{defendantId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="signImgs != null" >
+        sign_imgs = #{signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="compensate != null" >
+        compensate = #{compensate,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="updateAdminId != null" >
+        update_admin_id = #{updateAdminId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.Complain" >
+    update complain
+    set number = #{number,jdbcType=VARCHAR},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      plaintiff = #{plaintiff,jdbcType=VARCHAR},
+      defendant = #{defendant,jdbcType=VARCHAR},
+      defendant_phone = #{defendantPhone,jdbcType=VARCHAR},
+      defendant_id = #{defendantId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      sign_imgs = #{signImgs,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      result = #{result,jdbcType=INTEGER},
+      compensate = #{compensate,jdbcType=INTEGER},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      update_admin_id = #{updateAdminId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.AdminActLogMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.AdminActLog" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <id column="act_type" property="actType" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, act_type, admin_id, order_status, result, create_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from admin_act_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLogKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin_act_log
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and act_type = #{actType,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLogKey" >
+    delete from admin_act_log
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and act_type = #{actType,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLogExample" >
+    delete from admin_act_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLog" >
+    insert into admin_act_log (order_id, act_type, admin_id, 
+      order_status, result, create_time, 
+      remark)
+    values (#{orderId,jdbcType=INTEGER}, #{actType,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, 
+      #{orderStatus,jdbcType=INTEGER}, #{result,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLog" >
+    insert into admin_act_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="actType != null" >
+        act_type,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="actType != null" >
+        #{actType,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLogExample" resultType="java.lang.Integer" >
+    select count(*) from admin_act_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admin_act_log
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.actType != null" >
+        act_type = #{record.actType,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.result != null" >
+        result = #{record.result,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admin_act_log
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      act_type = #{record.actType,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      result = #{record.result,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLog" >
+    update admin_act_log
+    <set >
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and act_type = #{actType,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.AdminActLog" >
+    update admin_act_log
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      result = #{result,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=INTEGER}
+      and act_type = #{actType,jdbcType=INTEGER}
+  </update>
+</mapper>

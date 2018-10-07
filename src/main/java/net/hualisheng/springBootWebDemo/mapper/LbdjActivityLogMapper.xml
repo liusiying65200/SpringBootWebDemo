@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.LbdjActivityLogMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.LbdjActivityLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="act_id" property="actId" jdbcType="INTEGER" />
+    <result column="act_object" property="actObject" jdbcType="INTEGER" />
+    <result column="object_id" property="objectId" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="act_type" property="actType" jdbcType="INTEGER" />
+    <result column="act_name" property="actName" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="is_due" property="isDue" jdbcType="INTEGER" />
+    <result column="open_time" property="openTime" jdbcType="TIMESTAMP" />
+    <result column="due_time" property="dueTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, act_id, act_object, object_id, order_sn, act_type, act_name, money, status, is_due, 
+    open_time, due_time, create_time, last_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from lbdj_activity_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lbdj_activity_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lbdj_activity_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityLogExample" >
+    delete from lbdj_activity_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityLog" >
+    insert into lbdj_activity_log (id, act_id, act_object, 
+      object_id, order_sn, act_type, 
+      act_name, money, status, 
+      is_due, open_time, due_time, 
+      create_time, last_time)
+    values (#{id,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{actObject,jdbcType=INTEGER}, 
+      #{objectId,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, #{actType,jdbcType=INTEGER}, 
+      #{actName,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, 
+      #{isDue,jdbcType=INTEGER}, #{openTime,jdbcType=TIMESTAMP}, #{dueTime,jdbcType=TIMESTAMP}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{lastTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityLog" >
+    insert into lbdj_activity_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="actId != null" >
+        act_id,
+      </if>
+      <if test="actObject != null" >
+        act_object,
+      </if>
+      <if test="objectId != null" >
+        object_id,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="actType != null" >
+        act_type,
+      </if>
+      <if test="actName != null" >
+        act_name,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="isDue != null" >
+        is_due,
+      </if>
+      <if test="openTime != null" >
+        open_time,
+      </if>
+      <if test="dueTime != null" >
+        due_time,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="lastTime != null" >
+        last_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="actId != null" >
+        #{actId,jdbcType=INTEGER},
+      </if>
+      <if test="actObject != null" >
+        #{actObject,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null" >
+        #{objectId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="actType != null" >
+        #{actType,jdbcType=INTEGER},
+      </if>
+      <if test="actName != null" >
+        #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDue != null" >
+        #{isDue,jdbcType=INTEGER},
+      </if>
+      <if test="openTime != null" >
+        #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueTime != null" >
+        #{dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityLogExample" resultType="java.lang.Integer" >
+    select count(*) from lbdj_activity_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lbdj_activity_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.actId != null" >
+        act_id = #{record.actId,jdbcType=INTEGER},
+      </if>
+      <if test="record.actObject != null" >
+        act_object = #{record.actObject,jdbcType=INTEGER},
+      </if>
+      <if test="record.objectId != null" >
+        object_id = #{record.objectId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actType != null" >
+        act_type = #{record.actType,jdbcType=INTEGER},
+      </if>
+      <if test="record.actName != null" >
+        act_name = #{record.actName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=DOUBLE},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDue != null" >
+        is_due = #{record.isDue,jdbcType=INTEGER},
+      </if>
+      <if test="record.openTime != null" >
+        open_time = #{record.openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dueTime != null" >
+        due_time = #{record.dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastTime != null" >
+        last_time = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lbdj_activity_log
+    set id = #{record.id,jdbcType=INTEGER},
+      act_id = #{record.actId,jdbcType=INTEGER},
+      act_object = #{record.actObject,jdbcType=INTEGER},
+      object_id = #{record.objectId,jdbcType=INTEGER},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      act_type = #{record.actType,jdbcType=INTEGER},
+      act_name = #{record.actName,jdbcType=VARCHAR},
+      money = #{record.money,jdbcType=DOUBLE},
+      status = #{record.status,jdbcType=INTEGER},
+      is_due = #{record.isDue,jdbcType=INTEGER},
+      open_time = #{record.openTime,jdbcType=TIMESTAMP},
+      due_time = #{record.dueTime,jdbcType=TIMESTAMP},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      last_time = #{record.lastTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityLog" >
+    update lbdj_activity_log
+    <set >
+      <if test="actId != null" >
+        act_id = #{actId,jdbcType=INTEGER},
+      </if>
+      <if test="actObject != null" >
+        act_object = #{actObject,jdbcType=INTEGER},
+      </if>
+      <if test="objectId != null" >
+        object_id = #{objectId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="actType != null" >
+        act_type = #{actType,jdbcType=INTEGER},
+      </if>
+      <if test="actName != null" >
+        act_name = #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDue != null" >
+        is_due = #{isDue,jdbcType=INTEGER},
+      </if>
+      <if test="openTime != null" >
+        open_time = #{openTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dueTime != null" >
+        due_time = #{dueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityLog" >
+    update lbdj_activity_log
+    set act_id = #{actId,jdbcType=INTEGER},
+      act_object = #{actObject,jdbcType=INTEGER},
+      object_id = #{objectId,jdbcType=INTEGER},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      act_type = #{actType,jdbcType=INTEGER},
+      act_name = #{actName,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      status = #{status,jdbcType=INTEGER},
+      is_due = #{isDue,jdbcType=INTEGER},
+      open_time = #{openTime,jdbcType=TIMESTAMP},
+      due_time = #{dueTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      last_time = #{lastTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

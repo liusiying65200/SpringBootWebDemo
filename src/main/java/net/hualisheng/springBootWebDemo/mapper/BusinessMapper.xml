@@ -1,0 +1,1133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.BusinessMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.Business" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+    <result column="company_tel" property="companyTel" jdbcType="VARCHAR" />
+    <result column="company_website" property="companyWebsite" jdbcType="VARCHAR" />
+    <result column="company_mail" property="companyMail" jdbcType="VARCHAR" />
+    <result column="company_account_type" property="companyAccountType" jdbcType="VARCHAR" />
+    <result column="company_account_number" property="companyAccountNumber" jdbcType="VARCHAR" />
+    <result column="legal_person" property="legalPerson" jdbcType="VARCHAR" />
+    <result column="legal_person_phone" property="legalPersonPhone" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+    <result column="contacts_tel" property="contactsTel" jdbcType="VARCHAR" />
+    <result column="contacts_qq" property="contactsQq" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="district" property="district" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="rank_id" property="rankId" jdbcType="INTEGER" />
+    <result column="salesperson_id" property="salespersonId" jdbcType="INTEGER" />
+    <result column="cooperation_starttime" property="cooperationStarttime" jdbcType="TIMESTAMP" />
+    <result column="cooperation_endtime" property="cooperationEndtime" jdbcType="TIMESTAMP" />
+    <result column="is_sign_contract" property="isSignContract" jdbcType="TINYINT" />
+    <result column="is_forever_probation_period" property="isForeverProbationPeriod" jdbcType="TINYINT" />
+    <result column="compare_account_time_limit" property="compareAccountTimeLimit" jdbcType="INTEGER" />
+    <result column="account_time" property="accountTime" jdbcType="INTEGER" />
+    <result column="money_limit" property="moneyLimit" jdbcType="INTEGER" />
+    <result column="accountant_name" property="accountantName" jdbcType="VARCHAR" />
+    <result column="accountant_phone" property="accountantPhone" jdbcType="VARCHAR" />
+    <result column="accountant_qq" property="accountantQq" jdbcType="VARCHAR" />
+    <result column="is_lock" property="isLock" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="login_account" property="loginAccount" jdbcType="VARCHAR" />
+    <result column="login_password" property="loginPassword" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="delete_states" property="deleteStates" jdbcType="INTEGER" />
+    <result column="delete_time" property="deleteTime" jdbcType="TIMESTAMP" />
+    <result column="is_tryout" property="isTryout" jdbcType="INTEGER" />
+    <result column="trial" property="trial" jdbcType="INTEGER" />
+    <result column="minimum_fee_door" property="minimumFeeDoor" jdbcType="DOUBLE" />
+    <result column="belong_customer" property="belongCustomer" jdbcType="VARCHAR" />
+    <result column="discount_type" property="discountType" jdbcType="INTEGER" />
+    <result column="accept_agreement" property="acceptAgreement" jdbcType="INTEGER" />
+    <result column="tech_phone" property="techPhone" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+    <result column="make_good_money" property="makeGoodMoney" jdbcType="DOUBLE" />
+    <result column="make_good_status" property="makeGoodStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.BusinessWithBLOBs" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="cooperation_files" property="cooperationFiles" jdbcType="LONGVARCHAR" />
+    <result column="cooperation_desc" property="cooperationDesc" jdbcType="LONGVARCHAR" />
+    <result column="cooperation_agreement" property="cooperationAgreement" jdbcType="LONGVARCHAR" />
+    <result column="lock_reason" property="lockReason" jdbcType="LONGVARCHAR" />
+    <result column="agreement" property="agreement" jdbcType="LONGVARCHAR" />
+    <result column="agreement_note" property="agreementNote" jdbcType="LONGVARCHAR" />
+    <result column="license" property="license" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, company_name, company_tel, company_website, company_mail, company_account_type, 
+    company_account_number, legal_person, legal_person_phone, contacts, contacts_tel, 
+    contacts_qq, province, city, district, address, rank_id, salesperson_id, cooperation_starttime, 
+    cooperation_endtime, is_sign_contract, is_forever_probation_period, compare_account_time_limit, 
+    account_time, money_limit, accountant_name, accountant_phone, accountant_qq, is_lock, 
+    create_time, login_account, login_password, email, grade, status, delete_states, 
+    delete_time, is_tryout, trial, minimum_fee_door, belong_customer, discount_type, 
+    accept_agreement, tech_phone, source, make_good_money, make_good_status
+  </sql>
+  <sql id="Blob_Column_List" >
+    description, cooperation_files, cooperation_desc, cooperation_agreement, lock_reason, 
+    agreement, agreement_note, license
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.BusinessExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.BusinessExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from business
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from business
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessExample" >
+    delete from business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.BusinessWithBLOBs" >
+    insert into business (id, company_name, company_tel, 
+      company_website, company_mail, company_account_type, 
+      company_account_number, legal_person, legal_person_phone, 
+      contacts, contacts_tel, contacts_qq, 
+      province, city, district, 
+      address, rank_id, salesperson_id, 
+      cooperation_starttime, cooperation_endtime, 
+      is_sign_contract, is_forever_probation_period, 
+      compare_account_time_limit, account_time, money_limit, 
+      accountant_name, accountant_phone, accountant_qq, 
+      is_lock, create_time, login_account, 
+      login_password, email, grade, 
+      status, delete_states, delete_time, 
+      is_tryout, trial, minimum_fee_door, 
+      belong_customer, discount_type, accept_agreement, 
+      tech_phone, source, make_good_money, 
+      make_good_status, description, cooperation_files, 
+      cooperation_desc, cooperation_agreement, 
+      lock_reason, agreement, agreement_note, 
+      license)
+    values (#{id,jdbcType=INTEGER}, #{companyName,jdbcType=VARCHAR}, #{companyTel,jdbcType=VARCHAR}, 
+      #{companyWebsite,jdbcType=VARCHAR}, #{companyMail,jdbcType=VARCHAR}, #{companyAccountType,jdbcType=VARCHAR}, 
+      #{companyAccountNumber,jdbcType=VARCHAR}, #{legalPerson,jdbcType=VARCHAR}, #{legalPersonPhone,jdbcType=VARCHAR}, 
+      #{contacts,jdbcType=VARCHAR}, #{contactsTel,jdbcType=VARCHAR}, #{contactsQq,jdbcType=VARCHAR}, 
+      #{province,jdbcType=INTEGER}, #{city,jdbcType=INTEGER}, #{district,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{rankId,jdbcType=INTEGER}, #{salespersonId,jdbcType=INTEGER}, 
+      #{cooperationStarttime,jdbcType=TIMESTAMP}, #{cooperationEndtime,jdbcType=TIMESTAMP}, 
+      #{isSignContract,jdbcType=TINYINT}, #{isForeverProbationPeriod,jdbcType=TINYINT}, 
+      #{compareAccountTimeLimit,jdbcType=INTEGER}, #{accountTime,jdbcType=INTEGER}, #{moneyLimit,jdbcType=INTEGER}, 
+      #{accountantName,jdbcType=VARCHAR}, #{accountantPhone,jdbcType=VARCHAR}, #{accountantQq,jdbcType=VARCHAR}, 
+      #{isLock,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{loginAccount,jdbcType=VARCHAR}, 
+      #{loginPassword,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{deleteStates,jdbcType=INTEGER}, #{deleteTime,jdbcType=TIMESTAMP}, 
+      #{isTryout,jdbcType=INTEGER}, #{trial,jdbcType=INTEGER}, #{minimumFeeDoor,jdbcType=DOUBLE}, 
+      #{belongCustomer,jdbcType=VARCHAR}, #{discountType,jdbcType=INTEGER}, #{acceptAgreement,jdbcType=INTEGER}, 
+      #{techPhone,jdbcType=VARCHAR}, #{source,jdbcType=INTEGER}, #{makeGoodMoney,jdbcType=DOUBLE}, 
+      #{makeGoodStatus,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{cooperationFiles,jdbcType=LONGVARCHAR}, 
+      #{cooperationDesc,jdbcType=LONGVARCHAR}, #{cooperationAgreement,jdbcType=LONGVARCHAR}, 
+      #{lockReason,jdbcType=LONGVARCHAR}, #{agreement,jdbcType=LONGVARCHAR}, #{agreementNote,jdbcType=LONGVARCHAR}, 
+      #{license,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessWithBLOBs" >
+    insert into business
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="companyName != null" >
+        company_name,
+      </if>
+      <if test="companyTel != null" >
+        company_tel,
+      </if>
+      <if test="companyWebsite != null" >
+        company_website,
+      </if>
+      <if test="companyMail != null" >
+        company_mail,
+      </if>
+      <if test="companyAccountType != null" >
+        company_account_type,
+      </if>
+      <if test="companyAccountNumber != null" >
+        company_account_number,
+      </if>
+      <if test="legalPerson != null" >
+        legal_person,
+      </if>
+      <if test="legalPersonPhone != null" >
+        legal_person_phone,
+      </if>
+      <if test="contacts != null" >
+        contacts,
+      </if>
+      <if test="contactsTel != null" >
+        contacts_tel,
+      </if>
+      <if test="contactsQq != null" >
+        contacts_qq,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="district != null" >
+        district,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="rankId != null" >
+        rank_id,
+      </if>
+      <if test="salespersonId != null" >
+        salesperson_id,
+      </if>
+      <if test="cooperationStarttime != null" >
+        cooperation_starttime,
+      </if>
+      <if test="cooperationEndtime != null" >
+        cooperation_endtime,
+      </if>
+      <if test="isSignContract != null" >
+        is_sign_contract,
+      </if>
+      <if test="isForeverProbationPeriod != null" >
+        is_forever_probation_period,
+      </if>
+      <if test="compareAccountTimeLimit != null" >
+        compare_account_time_limit,
+      </if>
+      <if test="accountTime != null" >
+        account_time,
+      </if>
+      <if test="moneyLimit != null" >
+        money_limit,
+      </if>
+      <if test="accountantName != null" >
+        accountant_name,
+      </if>
+      <if test="accountantPhone != null" >
+        accountant_phone,
+      </if>
+      <if test="accountantQq != null" >
+        accountant_qq,
+      </if>
+      <if test="isLock != null" >
+        is_lock,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="loginAccount != null" >
+        login_account,
+      </if>
+      <if test="loginPassword != null" >
+        login_password,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="deleteStates != null" >
+        delete_states,
+      </if>
+      <if test="deleteTime != null" >
+        delete_time,
+      </if>
+      <if test="isTryout != null" >
+        is_tryout,
+      </if>
+      <if test="trial != null" >
+        trial,
+      </if>
+      <if test="minimumFeeDoor != null" >
+        minimum_fee_door,
+      </if>
+      <if test="belongCustomer != null" >
+        belong_customer,
+      </if>
+      <if test="discountType != null" >
+        discount_type,
+      </if>
+      <if test="acceptAgreement != null" >
+        accept_agreement,
+      </if>
+      <if test="techPhone != null" >
+        tech_phone,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="makeGoodMoney != null" >
+        make_good_money,
+      </if>
+      <if test="makeGoodStatus != null" >
+        make_good_status,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="cooperationFiles != null" >
+        cooperation_files,
+      </if>
+      <if test="cooperationDesc != null" >
+        cooperation_desc,
+      </if>
+      <if test="cooperationAgreement != null" >
+        cooperation_agreement,
+      </if>
+      <if test="lockReason != null" >
+        lock_reason,
+      </if>
+      <if test="agreement != null" >
+        agreement,
+      </if>
+      <if test="agreementNote != null" >
+        agreement_note,
+      </if>
+      <if test="license != null" >
+        license,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTel != null" >
+        #{companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="companyWebsite != null" >
+        #{companyWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="companyMail != null" >
+        #{companyMail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAccountType != null" >
+        #{companyAccountType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAccountNumber != null" >
+        #{companyAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonPhone != null" >
+        #{legalPersonPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsTel != null" >
+        #{contactsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsQq != null" >
+        #{contactsQq,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=INTEGER},
+      </if>
+      <if test="district != null" >
+        #{district,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="rankId != null" >
+        #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="salespersonId != null" >
+        #{salespersonId,jdbcType=INTEGER},
+      </if>
+      <if test="cooperationStarttime != null" >
+        #{cooperationStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cooperationEndtime != null" >
+        #{cooperationEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSignContract != null" >
+        #{isSignContract,jdbcType=TINYINT},
+      </if>
+      <if test="isForeverProbationPeriod != null" >
+        #{isForeverProbationPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="compareAccountTimeLimit != null" >
+        #{compareAccountTimeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="accountTime != null" >
+        #{accountTime,jdbcType=INTEGER},
+      </if>
+      <if test="moneyLimit != null" >
+        #{moneyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="accountantName != null" >
+        #{accountantName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountantPhone != null" >
+        #{accountantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="accountantQq != null" >
+        #{accountantQq,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null" >
+        #{isLock,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginAccount != null" >
+        #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null" >
+        #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStates != null" >
+        #{deleteStates,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null" >
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isTryout != null" >
+        #{isTryout,jdbcType=INTEGER},
+      </if>
+      <if test="trial != null" >
+        #{trial,jdbcType=INTEGER},
+      </if>
+      <if test="minimumFeeDoor != null" >
+        #{minimumFeeDoor,jdbcType=DOUBLE},
+      </if>
+      <if test="belongCustomer != null" >
+        #{belongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="discountType != null" >
+        #{discountType,jdbcType=INTEGER},
+      </if>
+      <if test="acceptAgreement != null" >
+        #{acceptAgreement,jdbcType=INTEGER},
+      </if>
+      <if test="techPhone != null" >
+        #{techPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+      <if test="makeGoodMoney != null" >
+        #{makeGoodMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="makeGoodStatus != null" >
+        #{makeGoodStatus,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cooperationFiles != null" >
+        #{cooperationFiles,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cooperationDesc != null" >
+        #{cooperationDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cooperationAgreement != null" >
+        #{cooperationAgreement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lockReason != null" >
+        #{lockReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="agreement != null" >
+        #{agreement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="agreementNote != null" >
+        #{agreementNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="license != null" >
+        #{license,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessExample" resultType="java.lang.Integer" >
+    select count(*) from business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update business
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.companyName != null" >
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyTel != null" >
+        company_tel = #{record.companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyWebsite != null" >
+        company_website = #{record.companyWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyMail != null" >
+        company_mail = #{record.companyMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyAccountType != null" >
+        company_account_type = #{record.companyAccountType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyAccountNumber != null" >
+        company_account_number = #{record.companyAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPerson != null" >
+        legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="record.legalPersonPhone != null" >
+        legal_person_phone = #{record.legalPersonPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contacts != null" >
+        contacts = #{record.contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactsTel != null" >
+        contacts_tel = #{record.contactsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactsQq != null" >
+        contacts_qq = #{record.contactsQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=INTEGER},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=INTEGER},
+      </if>
+      <if test="record.district != null" >
+        district = #{record.district,jdbcType=INTEGER},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankId != null" >
+        rank_id = #{record.rankId,jdbcType=INTEGER},
+      </if>
+      <if test="record.salespersonId != null" >
+        salesperson_id = #{record.salespersonId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cooperationStarttime != null" >
+        cooperation_starttime = #{record.cooperationStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cooperationEndtime != null" >
+        cooperation_endtime = #{record.cooperationEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isSignContract != null" >
+        is_sign_contract = #{record.isSignContract,jdbcType=TINYINT},
+      </if>
+      <if test="record.isForeverProbationPeriod != null" >
+        is_forever_probation_period = #{record.isForeverProbationPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="record.compareAccountTimeLimit != null" >
+        compare_account_time_limit = #{record.compareAccountTimeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountTime != null" >
+        account_time = #{record.accountTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.moneyLimit != null" >
+        money_limit = #{record.moneyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.accountantName != null" >
+        accountant_name = #{record.accountantName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountantPhone != null" >
+        accountant_phone = #{record.accountantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountantQq != null" >
+        accountant_qq = #{record.accountantQq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isLock != null" >
+        is_lock = #{record.isLock,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.loginAccount != null" >
+        login_account = #{record.loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginPassword != null" >
+        login_password = #{record.loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleteStates != null" >
+        delete_states = #{record.deleteStates,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleteTime != null" >
+        delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isTryout != null" >
+        is_tryout = #{record.isTryout,jdbcType=INTEGER},
+      </if>
+      <if test="record.trial != null" >
+        trial = #{record.trial,jdbcType=INTEGER},
+      </if>
+      <if test="record.minimumFeeDoor != null" >
+        minimum_fee_door = #{record.minimumFeeDoor,jdbcType=DOUBLE},
+      </if>
+      <if test="record.belongCustomer != null" >
+        belong_customer = #{record.belongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discountType != null" >
+        discount_type = #{record.discountType,jdbcType=INTEGER},
+      </if>
+      <if test="record.acceptAgreement != null" >
+        accept_agreement = #{record.acceptAgreement,jdbcType=INTEGER},
+      </if>
+      <if test="record.techPhone != null" >
+        tech_phone = #{record.techPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=INTEGER},
+      </if>
+      <if test="record.makeGoodMoney != null" >
+        make_good_money = #{record.makeGoodMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.makeGoodStatus != null" >
+        make_good_status = #{record.makeGoodStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.cooperationFiles != null" >
+        cooperation_files = #{record.cooperationFiles,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.cooperationDesc != null" >
+        cooperation_desc = #{record.cooperationDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.cooperationAgreement != null" >
+        cooperation_agreement = #{record.cooperationAgreement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.lockReason != null" >
+        lock_reason = #{record.lockReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.agreement != null" >
+        agreement = #{record.agreement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.agreementNote != null" >
+        agreement_note = #{record.agreementNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.license != null" >
+        license = #{record.license,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update business
+    set id = #{record.id,jdbcType=INTEGER},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_tel = #{record.companyTel,jdbcType=VARCHAR},
+      company_website = #{record.companyWebsite,jdbcType=VARCHAR},
+      company_mail = #{record.companyMail,jdbcType=VARCHAR},
+      company_account_type = #{record.companyAccountType,jdbcType=VARCHAR},
+      company_account_number = #{record.companyAccountNumber,jdbcType=VARCHAR},
+      legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      legal_person_phone = #{record.legalPersonPhone,jdbcType=VARCHAR},
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      contacts_tel = #{record.contactsTel,jdbcType=VARCHAR},
+      contacts_qq = #{record.contactsQq,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=INTEGER},
+      district = #{record.district,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      rank_id = #{record.rankId,jdbcType=INTEGER},
+      salesperson_id = #{record.salespersonId,jdbcType=INTEGER},
+      cooperation_starttime = #{record.cooperationStarttime,jdbcType=TIMESTAMP},
+      cooperation_endtime = #{record.cooperationEndtime,jdbcType=TIMESTAMP},
+      is_sign_contract = #{record.isSignContract,jdbcType=TINYINT},
+      is_forever_probation_period = #{record.isForeverProbationPeriod,jdbcType=TINYINT},
+      compare_account_time_limit = #{record.compareAccountTimeLimit,jdbcType=INTEGER},
+      account_time = #{record.accountTime,jdbcType=INTEGER},
+      money_limit = #{record.moneyLimit,jdbcType=INTEGER},
+      accountant_name = #{record.accountantName,jdbcType=VARCHAR},
+      accountant_phone = #{record.accountantPhone,jdbcType=VARCHAR},
+      accountant_qq = #{record.accountantQq,jdbcType=VARCHAR},
+      is_lock = #{record.isLock,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      login_account = #{record.loginAccount,jdbcType=VARCHAR},
+      login_password = #{record.loginPassword,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      delete_states = #{record.deleteStates,jdbcType=INTEGER},
+      delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      is_tryout = #{record.isTryout,jdbcType=INTEGER},
+      trial = #{record.trial,jdbcType=INTEGER},
+      minimum_fee_door = #{record.minimumFeeDoor,jdbcType=DOUBLE},
+      belong_customer = #{record.belongCustomer,jdbcType=VARCHAR},
+      discount_type = #{record.discountType,jdbcType=INTEGER},
+      accept_agreement = #{record.acceptAgreement,jdbcType=INTEGER},
+      tech_phone = #{record.techPhone,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=INTEGER},
+      make_good_money = #{record.makeGoodMoney,jdbcType=DOUBLE},
+      make_good_status = #{record.makeGoodStatus,jdbcType=INTEGER},
+      description = #{record.description,jdbcType=LONGVARCHAR},
+      cooperation_files = #{record.cooperationFiles,jdbcType=LONGVARCHAR},
+      cooperation_desc = #{record.cooperationDesc,jdbcType=LONGVARCHAR},
+      cooperation_agreement = #{record.cooperationAgreement,jdbcType=LONGVARCHAR},
+      lock_reason = #{record.lockReason,jdbcType=LONGVARCHAR},
+      agreement = #{record.agreement,jdbcType=LONGVARCHAR},
+      agreement_note = #{record.agreementNote,jdbcType=LONGVARCHAR},
+      license = #{record.license,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update business
+    set id = #{record.id,jdbcType=INTEGER},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      company_tel = #{record.companyTel,jdbcType=VARCHAR},
+      company_website = #{record.companyWebsite,jdbcType=VARCHAR},
+      company_mail = #{record.companyMail,jdbcType=VARCHAR},
+      company_account_type = #{record.companyAccountType,jdbcType=VARCHAR},
+      company_account_number = #{record.companyAccountNumber,jdbcType=VARCHAR},
+      legal_person = #{record.legalPerson,jdbcType=VARCHAR},
+      legal_person_phone = #{record.legalPersonPhone,jdbcType=VARCHAR},
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      contacts_tel = #{record.contactsTel,jdbcType=VARCHAR},
+      contacts_qq = #{record.contactsQq,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=INTEGER},
+      district = #{record.district,jdbcType=INTEGER},
+      address = #{record.address,jdbcType=VARCHAR},
+      rank_id = #{record.rankId,jdbcType=INTEGER},
+      salesperson_id = #{record.salespersonId,jdbcType=INTEGER},
+      cooperation_starttime = #{record.cooperationStarttime,jdbcType=TIMESTAMP},
+      cooperation_endtime = #{record.cooperationEndtime,jdbcType=TIMESTAMP},
+      is_sign_contract = #{record.isSignContract,jdbcType=TINYINT},
+      is_forever_probation_period = #{record.isForeverProbationPeriod,jdbcType=TINYINT},
+      compare_account_time_limit = #{record.compareAccountTimeLimit,jdbcType=INTEGER},
+      account_time = #{record.accountTime,jdbcType=INTEGER},
+      money_limit = #{record.moneyLimit,jdbcType=INTEGER},
+      accountant_name = #{record.accountantName,jdbcType=VARCHAR},
+      accountant_phone = #{record.accountantPhone,jdbcType=VARCHAR},
+      accountant_qq = #{record.accountantQq,jdbcType=VARCHAR},
+      is_lock = #{record.isLock,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      login_account = #{record.loginAccount,jdbcType=VARCHAR},
+      login_password = #{record.loginPassword,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      delete_states = #{record.deleteStates,jdbcType=INTEGER},
+      delete_time = #{record.deleteTime,jdbcType=TIMESTAMP},
+      is_tryout = #{record.isTryout,jdbcType=INTEGER},
+      trial = #{record.trial,jdbcType=INTEGER},
+      minimum_fee_door = #{record.minimumFeeDoor,jdbcType=DOUBLE},
+      belong_customer = #{record.belongCustomer,jdbcType=VARCHAR},
+      discount_type = #{record.discountType,jdbcType=INTEGER},
+      accept_agreement = #{record.acceptAgreement,jdbcType=INTEGER},
+      tech_phone = #{record.techPhone,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=INTEGER},
+      make_good_money = #{record.makeGoodMoney,jdbcType=DOUBLE},
+      make_good_status = #{record.makeGoodStatus,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessWithBLOBs" >
+    update business
+    <set >
+      <if test="companyName != null" >
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="companyTel != null" >
+        company_tel = #{companyTel,jdbcType=VARCHAR},
+      </if>
+      <if test="companyWebsite != null" >
+        company_website = #{companyWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="companyMail != null" >
+        company_mail = #{companyMail,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAccountType != null" >
+        company_account_type = #{companyAccountType,jdbcType=VARCHAR},
+      </if>
+      <if test="companyAccountNumber != null" >
+        company_account_number = #{companyAccountNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPerson != null" >
+        legal_person = #{legalPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="legalPersonPhone != null" >
+        legal_person_phone = #{legalPersonPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsTel != null" >
+        contacts_tel = #{contactsTel,jdbcType=VARCHAR},
+      </if>
+      <if test="contactsQq != null" >
+        contacts_qq = #{contactsQq,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=INTEGER},
+      </if>
+      <if test="district != null" >
+        district = #{district,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="rankId != null" >
+        rank_id = #{rankId,jdbcType=INTEGER},
+      </if>
+      <if test="salespersonId != null" >
+        salesperson_id = #{salespersonId,jdbcType=INTEGER},
+      </if>
+      <if test="cooperationStarttime != null" >
+        cooperation_starttime = #{cooperationStarttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cooperationEndtime != null" >
+        cooperation_endtime = #{cooperationEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isSignContract != null" >
+        is_sign_contract = #{isSignContract,jdbcType=TINYINT},
+      </if>
+      <if test="isForeverProbationPeriod != null" >
+        is_forever_probation_period = #{isForeverProbationPeriod,jdbcType=TINYINT},
+      </if>
+      <if test="compareAccountTimeLimit != null" >
+        compare_account_time_limit = #{compareAccountTimeLimit,jdbcType=INTEGER},
+      </if>
+      <if test="accountTime != null" >
+        account_time = #{accountTime,jdbcType=INTEGER},
+      </if>
+      <if test="moneyLimit != null" >
+        money_limit = #{moneyLimit,jdbcType=INTEGER},
+      </if>
+      <if test="accountantName != null" >
+        accountant_name = #{accountantName,jdbcType=VARCHAR},
+      </if>
+      <if test="accountantPhone != null" >
+        accountant_phone = #{accountantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="accountantQq != null" >
+        accountant_qq = #{accountantQq,jdbcType=VARCHAR},
+      </if>
+      <if test="isLock != null" >
+        is_lock = #{isLock,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginAccount != null" >
+        login_account = #{loginAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPassword != null" >
+        login_password = #{loginPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="deleteStates != null" >
+        delete_states = #{deleteStates,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null" >
+        delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isTryout != null" >
+        is_tryout = #{isTryout,jdbcType=INTEGER},
+      </if>
+      <if test="trial != null" >
+        trial = #{trial,jdbcType=INTEGER},
+      </if>
+      <if test="minimumFeeDoor != null" >
+        minimum_fee_door = #{minimumFeeDoor,jdbcType=DOUBLE},
+      </if>
+      <if test="belongCustomer != null" >
+        belong_customer = #{belongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="discountType != null" >
+        discount_type = #{discountType,jdbcType=INTEGER},
+      </if>
+      <if test="acceptAgreement != null" >
+        accept_agreement = #{acceptAgreement,jdbcType=INTEGER},
+      </if>
+      <if test="techPhone != null" >
+        tech_phone = #{techPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+      <if test="makeGoodMoney != null" >
+        make_good_money = #{makeGoodMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="makeGoodStatus != null" >
+        make_good_status = #{makeGoodStatus,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cooperationFiles != null" >
+        cooperation_files = #{cooperationFiles,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cooperationDesc != null" >
+        cooperation_desc = #{cooperationDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cooperationAgreement != null" >
+        cooperation_agreement = #{cooperationAgreement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lockReason != null" >
+        lock_reason = #{lockReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="agreement != null" >
+        agreement = #{agreement,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="agreementNote != null" >
+        agreement_note = #{agreementNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="license != null" >
+        license = #{license,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.BusinessWithBLOBs" >
+    update business
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      company_tel = #{companyTel,jdbcType=VARCHAR},
+      company_website = #{companyWebsite,jdbcType=VARCHAR},
+      company_mail = #{companyMail,jdbcType=VARCHAR},
+      company_account_type = #{companyAccountType,jdbcType=VARCHAR},
+      company_account_number = #{companyAccountNumber,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      legal_person_phone = #{legalPersonPhone,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      contacts_tel = #{contactsTel,jdbcType=VARCHAR},
+      contacts_qq = #{contactsQq,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      district = #{district,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      rank_id = #{rankId,jdbcType=INTEGER},
+      salesperson_id = #{salespersonId,jdbcType=INTEGER},
+      cooperation_starttime = #{cooperationStarttime,jdbcType=TIMESTAMP},
+      cooperation_endtime = #{cooperationEndtime,jdbcType=TIMESTAMP},
+      is_sign_contract = #{isSignContract,jdbcType=TINYINT},
+      is_forever_probation_period = #{isForeverProbationPeriod,jdbcType=TINYINT},
+      compare_account_time_limit = #{compareAccountTimeLimit,jdbcType=INTEGER},
+      account_time = #{accountTime,jdbcType=INTEGER},
+      money_limit = #{moneyLimit,jdbcType=INTEGER},
+      accountant_name = #{accountantName,jdbcType=VARCHAR},
+      accountant_phone = #{accountantPhone,jdbcType=VARCHAR},
+      accountant_qq = #{accountantQq,jdbcType=VARCHAR},
+      is_lock = #{isLock,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      login_account = #{loginAccount,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      delete_states = #{deleteStates,jdbcType=INTEGER},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      is_tryout = #{isTryout,jdbcType=INTEGER},
+      trial = #{trial,jdbcType=INTEGER},
+      minimum_fee_door = #{minimumFeeDoor,jdbcType=DOUBLE},
+      belong_customer = #{belongCustomer,jdbcType=VARCHAR},
+      discount_type = #{discountType,jdbcType=INTEGER},
+      accept_agreement = #{acceptAgreement,jdbcType=INTEGER},
+      tech_phone = #{techPhone,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      make_good_money = #{makeGoodMoney,jdbcType=DOUBLE},
+      make_good_status = #{makeGoodStatus,jdbcType=INTEGER},
+      description = #{description,jdbcType=LONGVARCHAR},
+      cooperation_files = #{cooperationFiles,jdbcType=LONGVARCHAR},
+      cooperation_desc = #{cooperationDesc,jdbcType=LONGVARCHAR},
+      cooperation_agreement = #{cooperationAgreement,jdbcType=LONGVARCHAR},
+      lock_reason = #{lockReason,jdbcType=LONGVARCHAR},
+      agreement = #{agreement,jdbcType=LONGVARCHAR},
+      agreement_note = #{agreementNote,jdbcType=LONGVARCHAR},
+      license = #{license,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.Business" >
+    update business
+    set company_name = #{companyName,jdbcType=VARCHAR},
+      company_tel = #{companyTel,jdbcType=VARCHAR},
+      company_website = #{companyWebsite,jdbcType=VARCHAR},
+      company_mail = #{companyMail,jdbcType=VARCHAR},
+      company_account_type = #{companyAccountType,jdbcType=VARCHAR},
+      company_account_number = #{companyAccountNumber,jdbcType=VARCHAR},
+      legal_person = #{legalPerson,jdbcType=VARCHAR},
+      legal_person_phone = #{legalPersonPhone,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR},
+      contacts_tel = #{contactsTel,jdbcType=VARCHAR},
+      contacts_qq = #{contactsQq,jdbcType=VARCHAR},
+      province = #{province,jdbcType=INTEGER},
+      city = #{city,jdbcType=INTEGER},
+      district = #{district,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      rank_id = #{rankId,jdbcType=INTEGER},
+      salesperson_id = #{salespersonId,jdbcType=INTEGER},
+      cooperation_starttime = #{cooperationStarttime,jdbcType=TIMESTAMP},
+      cooperation_endtime = #{cooperationEndtime,jdbcType=TIMESTAMP},
+      is_sign_contract = #{isSignContract,jdbcType=TINYINT},
+      is_forever_probation_period = #{isForeverProbationPeriod,jdbcType=TINYINT},
+      compare_account_time_limit = #{compareAccountTimeLimit,jdbcType=INTEGER},
+      account_time = #{accountTime,jdbcType=INTEGER},
+      money_limit = #{moneyLimit,jdbcType=INTEGER},
+      accountant_name = #{accountantName,jdbcType=VARCHAR},
+      accountant_phone = #{accountantPhone,jdbcType=VARCHAR},
+      accountant_qq = #{accountantQq,jdbcType=VARCHAR},
+      is_lock = #{isLock,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      login_account = #{loginAccount,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      delete_states = #{deleteStates,jdbcType=INTEGER},
+      delete_time = #{deleteTime,jdbcType=TIMESTAMP},
+      is_tryout = #{isTryout,jdbcType=INTEGER},
+      trial = #{trial,jdbcType=INTEGER},
+      minimum_fee_door = #{minimumFeeDoor,jdbcType=DOUBLE},
+      belong_customer = #{belongCustomer,jdbcType=VARCHAR},
+      discount_type = #{discountType,jdbcType=INTEGER},
+      accept_agreement = #{acceptAgreement,jdbcType=INTEGER},
+      tech_phone = #{techPhone,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER},
+      make_good_money = #{makeGoodMoney,jdbcType=DOUBLE},
+      make_good_status = #{makeGoodStatus,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

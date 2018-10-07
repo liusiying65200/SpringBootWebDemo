@@ -1,0 +1,387 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.OrderLogisticsMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.OrderLogistics" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="logistics_company" property="logisticsCompany" jdbcType="VARCHAR" />
+    <result column="logistics_single" property="logisticsSingle" jdbcType="VARCHAR" />
+    <result column="pickup_password" property="pickupPassword" jdbcType="VARCHAR" />
+    <result column="agent_pay" property="agentPay" jdbcType="DOUBLE" />
+    <result column="logistics_cost" property="logisticsCost" jdbcType="DOUBLE" />
+    <result column="distance" property="distance" jdbcType="DOUBLE" />
+    <result column="pickup_phone" property="pickupPhone" jdbcType="VARCHAR" />
+    <result column="pickup_address" property="pickupAddress" jdbcType="VARCHAR" />
+    <result column="dic_key" property="dicKey" jdbcType="VARCHAR" />
+    <result column="goods" property="goods" jdbcType="INTEGER" />
+    <result column="descr" property="descr" jdbcType="VARCHAR" />
+    <result column="district_id" property="districtId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_id, logistics_company, logistics_single, pickup_password, agent_pay, logistics_cost, 
+    distance, pickup_phone, pickup_address, dic_key, goods, descr, district_id, province_id, 
+    city_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogisticsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_logistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_logistics
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_logistics
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogisticsExample" >
+    delete from order_logistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogistics" >
+    insert into order_logistics (id, order_id, logistics_company, 
+      logistics_single, pickup_password, agent_pay, 
+      logistics_cost, distance, pickup_phone, 
+      pickup_address, dic_key, goods, 
+      descr, district_id, province_id, 
+      city_id)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{logisticsCompany,jdbcType=VARCHAR}, 
+      #{logisticsSingle,jdbcType=VARCHAR}, #{pickupPassword,jdbcType=VARCHAR}, #{agentPay,jdbcType=DOUBLE}, 
+      #{logisticsCost,jdbcType=DOUBLE}, #{distance,jdbcType=DOUBLE}, #{pickupPhone,jdbcType=VARCHAR}, 
+      #{pickupAddress,jdbcType=VARCHAR}, #{dicKey,jdbcType=VARCHAR}, #{goods,jdbcType=INTEGER}, 
+      #{descr,jdbcType=VARCHAR}, #{districtId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
+      #{cityId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogistics" >
+    insert into order_logistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="logisticsCompany != null" >
+        logistics_company,
+      </if>
+      <if test="logisticsSingle != null" >
+        logistics_single,
+      </if>
+      <if test="pickupPassword != null" >
+        pickup_password,
+      </if>
+      <if test="agentPay != null" >
+        agent_pay,
+      </if>
+      <if test="logisticsCost != null" >
+        logistics_cost,
+      </if>
+      <if test="distance != null" >
+        distance,
+      </if>
+      <if test="pickupPhone != null" >
+        pickup_phone,
+      </if>
+      <if test="pickupAddress != null" >
+        pickup_address,
+      </if>
+      <if test="dicKey != null" >
+        dic_key,
+      </if>
+      <if test="goods != null" >
+        goods,
+      </if>
+      <if test="descr != null" >
+        descr,
+      </if>
+      <if test="districtId != null" >
+        district_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsCompany != null" >
+        #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsSingle != null" >
+        #{logisticsSingle,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupPassword != null" >
+        #{pickupPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="agentPay != null" >
+        #{agentPay,jdbcType=DOUBLE},
+      </if>
+      <if test="logisticsCost != null" >
+        #{logisticsCost,jdbcType=DOUBLE},
+      </if>
+      <if test="distance != null" >
+        #{distance,jdbcType=DOUBLE},
+      </if>
+      <if test="pickupPhone != null" >
+        #{pickupPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupAddress != null" >
+        #{pickupAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dicKey != null" >
+        #{dicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="goods != null" >
+        #{goods,jdbcType=INTEGER},
+      </if>
+      <if test="descr != null" >
+        #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null" >
+        #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogisticsExample" resultType="java.lang.Integer" >
+    select count(*) from order_logistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_logistics
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logisticsCompany != null" >
+        logistics_company = #{record.logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.logisticsSingle != null" >
+        logistics_single = #{record.logisticsSingle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pickupPassword != null" >
+        pickup_password = #{record.pickupPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentPay != null" >
+        agent_pay = #{record.agentPay,jdbcType=DOUBLE},
+      </if>
+      <if test="record.logisticsCost != null" >
+        logistics_cost = #{record.logisticsCost,jdbcType=DOUBLE},
+      </if>
+      <if test="record.distance != null" >
+        distance = #{record.distance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.pickupPhone != null" >
+        pickup_phone = #{record.pickupPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pickupAddress != null" >
+        pickup_address = #{record.pickupAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dicKey != null" >
+        dic_key = #{record.dicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goods != null" >
+        goods = #{record.goods,jdbcType=INTEGER},
+      </if>
+      <if test="record.descr != null" >
+        descr = #{record.descr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.districtId != null" >
+        district_id = #{record.districtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_logistics
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      logistics_company = #{record.logisticsCompany,jdbcType=VARCHAR},
+      logistics_single = #{record.logisticsSingle,jdbcType=VARCHAR},
+      pickup_password = #{record.pickupPassword,jdbcType=VARCHAR},
+      agent_pay = #{record.agentPay,jdbcType=DOUBLE},
+      logistics_cost = #{record.logisticsCost,jdbcType=DOUBLE},
+      distance = #{record.distance,jdbcType=DOUBLE},
+      pickup_phone = #{record.pickupPhone,jdbcType=VARCHAR},
+      pickup_address = #{record.pickupAddress,jdbcType=VARCHAR},
+      dic_key = #{record.dicKey,jdbcType=VARCHAR},
+      goods = #{record.goods,jdbcType=INTEGER},
+      descr = #{record.descr,jdbcType=VARCHAR},
+      district_id = #{record.districtId,jdbcType=INTEGER},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogistics" >
+    update order_logistics
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsCompany != null" >
+        logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsSingle != null" >
+        logistics_single = #{logisticsSingle,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupPassword != null" >
+        pickup_password = #{pickupPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="agentPay != null" >
+        agent_pay = #{agentPay,jdbcType=DOUBLE},
+      </if>
+      <if test="logisticsCost != null" >
+        logistics_cost = #{logisticsCost,jdbcType=DOUBLE},
+      </if>
+      <if test="distance != null" >
+        distance = #{distance,jdbcType=DOUBLE},
+      </if>
+      <if test="pickupPhone != null" >
+        pickup_phone = #{pickupPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="pickupAddress != null" >
+        pickup_address = #{pickupAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="dicKey != null" >
+        dic_key = #{dicKey,jdbcType=VARCHAR},
+      </if>
+      <if test="goods != null" >
+        goods = #{goods,jdbcType=INTEGER},
+      </if>
+      <if test="descr != null" >
+        descr = #{descr,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null" >
+        district_id = #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogistics" >
+    update order_logistics
+    set order_id = #{orderId,jdbcType=INTEGER},
+      logistics_company = #{logisticsCompany,jdbcType=VARCHAR},
+      logistics_single = #{logisticsSingle,jdbcType=VARCHAR},
+      pickup_password = #{pickupPassword,jdbcType=VARCHAR},
+      agent_pay = #{agentPay,jdbcType=DOUBLE},
+      logistics_cost = #{logisticsCost,jdbcType=DOUBLE},
+      distance = #{distance,jdbcType=DOUBLE},
+      pickup_phone = #{pickupPhone,jdbcType=VARCHAR},
+      pickup_address = #{pickupAddress,jdbcType=VARCHAR},
+      dic_key = #{dicKey,jdbcType=VARCHAR},
+      goods = #{goods,jdbcType=INTEGER},
+      descr = #{descr,jdbcType=VARCHAR},
+      district_id = #{districtId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

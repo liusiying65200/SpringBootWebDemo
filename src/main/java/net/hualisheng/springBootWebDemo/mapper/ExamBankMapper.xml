@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.ExamBankMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.ExamBank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="exam_type" property="examType" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="body" property="body" jdbcType="VARCHAR" />
+    <result column="answers" property="answers" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, type, type_id, exam_type, title, body, answers, score
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.ExamBankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from exam_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from exam_bank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from exam_bank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.ExamBankExample" >
+    delete from exam_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.ExamBank" >
+    insert into exam_bank (id, type, type_id, 
+      exam_type, title, body, 
+      answers, score)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, 
+      #{examType,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
+      #{answers,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.ExamBank" >
+    insert into exam_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="examType != null" >
+        exam_type,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="body != null" >
+        body,
+      </if>
+      <if test="answers != null" >
+        answers,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="examType != null" >
+        #{examType,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="answers != null" >
+        #{answers,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.ExamBankExample" resultType="java.lang.Integer" >
+    select count(*) from exam_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update exam_bank
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.examType != null" >
+        exam_type = #{record.examType,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.body != null" >
+        body = #{record.body,jdbcType=VARCHAR},
+      </if>
+      <if test="record.answers != null" >
+        answers = #{record.answers,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null" >
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update exam_bank
+    set id = #{record.id,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      exam_type = #{record.examType,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      body = #{record.body,jdbcType=VARCHAR},
+      answers = #{record.answers,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.ExamBank" >
+    update exam_bank
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="examType != null" >
+        exam_type = #{examType,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null" >
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="answers != null" >
+        answers = #{answers,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.ExamBank" >
+    update exam_bank
+    set type = #{type,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      exam_type = #{examType,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      answers = #{answers,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

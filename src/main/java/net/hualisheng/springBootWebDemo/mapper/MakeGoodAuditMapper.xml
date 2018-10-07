@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.MakeGoodAuditMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.MakeGoodAudit" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="worker_id" property="workerId" jdbcType="INTEGER" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="audit_result" property="auditResult" jdbcType="INTEGER" />
+    <result column="result_description" property="resultDescription" jdbcType="VARCHAR" />
+    <result column="source" property="source" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_sn, worker_id, audit_time, audit_result, result_description, source
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.MakeGoodAuditExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from make_good_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from make_good_audit
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from make_good_audit
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.MakeGoodAuditExample" >
+    delete from make_good_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.MakeGoodAudit" >
+    insert into make_good_audit (id, order_sn, worker_id, 
+      audit_time, audit_result, result_description, 
+      source)
+    values (#{id,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, #{workerId,jdbcType=INTEGER}, 
+      #{auditTime,jdbcType=TIMESTAMP}, #{auditResult,jdbcType=INTEGER}, #{resultDescription,jdbcType=VARCHAR}, 
+      #{source,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.MakeGoodAudit" >
+    insert into make_good_audit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="workerId != null" >
+        worker_id,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="auditResult != null" >
+        audit_result,
+      </if>
+      <if test="resultDescription != null" >
+        result_description,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditResult != null" >
+        #{auditResult,jdbcType=INTEGER},
+      </if>
+      <if test="resultDescription != null" >
+        #{resultDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.MakeGoodAuditExample" resultType="java.lang.Integer" >
+    select count(*) from make_good_audit
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update make_good_audit
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerId != null" >
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditTime != null" >
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.auditResult != null" >
+        audit_result = #{record.auditResult,jdbcType=INTEGER},
+      </if>
+      <if test="record.resultDescription != null" >
+        result_description = #{record.resultDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update make_good_audit
+    set id = #{record.id,jdbcType=INTEGER},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      audit_result = #{record.auditResult,jdbcType=INTEGER},
+      result_description = #{record.resultDescription,jdbcType=VARCHAR},
+      source = #{record.source,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.MakeGoodAudit" >
+    update make_good_audit
+    <set >
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null" >
+        worker_id = #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditResult != null" >
+        audit_result = #{auditResult,jdbcType=INTEGER},
+      </if>
+      <if test="resultDescription != null" >
+        result_description = #{resultDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        source = #{source,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.MakeGoodAudit" >
+    update make_good_audit
+    set order_sn = #{orderSn,jdbcType=VARCHAR},
+      worker_id = #{workerId,jdbcType=INTEGER},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      audit_result = #{auditResult,jdbcType=INTEGER},
+      result_description = #{resultDescription,jdbcType=VARCHAR},
+      source = #{source,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

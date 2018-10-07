@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.OrderExceptionFeeMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.OrderExceptionFee" >
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="original_money" property="originalMoney" jdbcType="DOUBLE" />
+    <result column="original_dismoney" property="originalDismoney" jdbcType="DOUBLE" />
+    <result column="business_income" property="businessIncome" jdbcType="DOUBLE" />
+    <result column="business_outcome" property="businessOutcome" jdbcType="DOUBLE" />
+    <result column="worker_income" property="workerIncome" jdbcType="DOUBLE" />
+    <result column="worker_outcome" property="workerOutcome" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="exception_desc" property="exceptionDesc" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="finance_note" property="financeNote" jdbcType="VARCHAR" />
+    <result column="worker_id" property="workerId" jdbcType="INTEGER" />
+    <result column="enabled" property="enabled" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.OrderExceptionFee" extends="BaseResultMap" >
+    <result column="service_image" property="serviceImage" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, original_money, original_dismoney, business_income, business_outcome, worker_income, 
+    worker_outcome, status, type, exception_desc, note, create_time, finance_note, worker_id, 
+    enabled, update_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    service_image
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionFeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_exception_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionFeeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_exception_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionFeeExample" >
+    delete from order_exception_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionFee" >
+    insert into order_exception_fee (order_id, original_money, original_dismoney, 
+      business_income, business_outcome, worker_income, 
+      worker_outcome, status, type, 
+      exception_desc, note, create_time, 
+      finance_note, worker_id, enabled, 
+      update_time, service_image)
+    values (#{orderId,jdbcType=INTEGER}, #{originalMoney,jdbcType=DOUBLE}, #{originalDismoney,jdbcType=DOUBLE}, 
+      #{businessIncome,jdbcType=DOUBLE}, #{businessOutcome,jdbcType=DOUBLE}, #{workerIncome,jdbcType=DOUBLE}, 
+      #{workerOutcome,jdbcType=DOUBLE}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{exceptionDesc,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{financeNote,jdbcType=VARCHAR}, #{workerId,jdbcType=INTEGER}, #{enabled,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{serviceImage,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionFee" >
+    insert into order_exception_fee
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="originalMoney != null" >
+        original_money,
+      </if>
+      <if test="originalDismoney != null" >
+        original_dismoney,
+      </if>
+      <if test="businessIncome != null" >
+        business_income,
+      </if>
+      <if test="businessOutcome != null" >
+        business_outcome,
+      </if>
+      <if test="workerIncome != null" >
+        worker_income,
+      </if>
+      <if test="workerOutcome != null" >
+        worker_outcome,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="exceptionDesc != null" >
+        exception_desc,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="financeNote != null" >
+        finance_note,
+      </if>
+      <if test="workerId != null" >
+        worker_id,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="serviceImage != null" >
+        service_image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="originalMoney != null" >
+        #{originalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="originalDismoney != null" >
+        #{originalDismoney,jdbcType=DOUBLE},
+      </if>
+      <if test="businessIncome != null" >
+        #{businessIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="businessOutcome != null" >
+        #{businessOutcome,jdbcType=DOUBLE},
+      </if>
+      <if test="workerIncome != null" >
+        #{workerIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="workerOutcome != null" >
+        #{workerOutcome,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="exceptionDesc != null" >
+        #{exceptionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="financeNote != null" >
+        #{financeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceImage != null" >
+        #{serviceImage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderExceptionFeeExample" resultType="java.lang.Integer" >
+    select count(*) from order_exception_fee
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_exception_fee
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.originalMoney != null" >
+        original_money = #{record.originalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.originalDismoney != null" >
+        original_dismoney = #{record.originalDismoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.businessIncome != null" >
+        business_income = #{record.businessIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="record.businessOutcome != null" >
+        business_outcome = #{record.businessOutcome,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerIncome != null" >
+        worker_income = #{record.workerIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerOutcome != null" >
+        worker_outcome = #{record.workerOutcome,jdbcType=DOUBLE},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.exceptionDesc != null" >
+        exception_desc = #{record.exceptionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.note != null" >
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.financeNote != null" >
+        finance_note = #{record.financeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerId != null" >
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null" >
+        enabled = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceImage != null" >
+        service_image = #{record.serviceImage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update order_exception_fee
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      original_money = #{record.originalMoney,jdbcType=DOUBLE},
+      original_dismoney = #{record.originalDismoney,jdbcType=DOUBLE},
+      business_income = #{record.businessIncome,jdbcType=DOUBLE},
+      business_outcome = #{record.businessOutcome,jdbcType=DOUBLE},
+      worker_income = #{record.workerIncome,jdbcType=DOUBLE},
+      worker_outcome = #{record.workerOutcome,jdbcType=DOUBLE},
+      status = #{record.status,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      exception_desc = #{record.exceptionDesc,jdbcType=VARCHAR},
+      note = #{record.note,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=DATE},
+      finance_note = #{record.financeNote,jdbcType=VARCHAR},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      service_image = #{record.serviceImage,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_exception_fee
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      original_money = #{record.originalMoney,jdbcType=DOUBLE},
+      original_dismoney = #{record.originalDismoney,jdbcType=DOUBLE},
+      business_income = #{record.businessIncome,jdbcType=DOUBLE},
+      business_outcome = #{record.businessOutcome,jdbcType=DOUBLE},
+      worker_income = #{record.workerIncome,jdbcType=DOUBLE},
+      worker_outcome = #{record.workerOutcome,jdbcType=DOUBLE},
+      status = #{record.status,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      exception_desc = #{record.exceptionDesc,jdbcType=VARCHAR},
+      note = #{record.note,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=DATE},
+      finance_note = #{record.financeNote,jdbcType=VARCHAR},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

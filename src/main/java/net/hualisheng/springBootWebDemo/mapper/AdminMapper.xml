@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.Admin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uesr_name" jdbcType="VARCHAR" property="uesrName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="is_lock" jdbcType="TINYINT" property="isLock" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="invite_code" jdbcType="INTEGER" property="inviteCode" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.Admin">
+    <result column="lock_reason" jdbcType="LONGVARCHAR" property="lockReason" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, uesr_name, password, phone, last_login_time, last_login_ip, role_id, group_id, 
+    is_lock, create_time, invite_code
+  </sql>
+  <sql id="Blob_Column_List">
+    lock_reason
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.AdminExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="net.hualisheng.springBootWebDemo.model.AdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from admin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.AdminExample">
+    delete from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    insert into admin (id, uesr_name, password, 
+      phone, last_login_time, last_login_ip, 
+      role_id, group_id, is_lock, 
+      create_time, invite_code, lock_reason
+      )
+    values (#{id,jdbcType=INTEGER}, #{uesrName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, 
+      #{roleId,jdbcType=VARCHAR}, #{groupId,jdbcType=INTEGER}, #{isLock,jdbcType=TINYINT}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{inviteCode,jdbcType=INTEGER}, #{lockReason,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uesrName != null">
+        uesr_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="lastLoginIp != null">
+        last_login_ip,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="groupId != null">
+        group_id,
+      </if>
+      <if test="isLock != null">
+        is_lock,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="inviteCode != null">
+        invite_code,
+      </if>
+      <if test="lockReason != null">
+        lock_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uesrName != null">
+        #{uesrName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null">
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="isLock != null">
+        #{isLock,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inviteCode != null">
+        #{inviteCode,jdbcType=INTEGER},
+      </if>
+      <if test="lockReason != null">
+        #{lockReason,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.AdminExample" resultType="java.lang.Integer">
+    select count(*) from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update admin
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uesrName != null">
+        uesr_name = #{record.uesrName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastLoginTime != null">
+        last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lastLoginIp != null">
+        last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupId != null">
+        group_id = #{record.groupId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isLock != null">
+        is_lock = #{record.isLock,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inviteCode != null">
+        invite_code = #{record.inviteCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockReason != null">
+        lock_reason = #{record.lockReason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update admin
+    set id = #{record.id,jdbcType=INTEGER},
+      uesr_name = #{record.uesrName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      group_id = #{record.groupId,jdbcType=INTEGER},
+      is_lock = #{record.isLock,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      invite_code = #{record.inviteCode,jdbcType=INTEGER},
+      lock_reason = #{record.lockReason,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update admin
+    set id = #{record.id,jdbcType=INTEGER},
+      uesr_name = #{record.uesrName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{record.lastLoginIp,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=VARCHAR},
+      group_id = #{record.groupId,jdbcType=INTEGER},
+      is_lock = #{record.isLock,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      invite_code = #{record.inviteCode,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    update admin
+    <set>
+      <if test="uesrName != null">
+        uesr_name = #{uesrName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null">
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="groupId != null">
+        group_id = #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="isLock != null">
+        is_lock = #{isLock,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inviteCode != null">
+        invite_code = #{inviteCode,jdbcType=INTEGER},
+      </if>
+      <if test="lockReason != null">
+        lock_reason = #{lockReason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    update admin
+    set uesr_name = #{uesrName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=INTEGER},
+      is_lock = #{isLock,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      invite_code = #{inviteCode,jdbcType=INTEGER},
+      lock_reason = #{lockReason,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    update admin
+    set uesr_name = #{uesrName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      role_id = #{roleId,jdbcType=VARCHAR},
+      group_id = #{groupId,jdbcType=INTEGER},
+      is_lock = #{isLock,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      invite_code = #{inviteCode,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.Admin">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="uesr_name" jdbcType="VARCHAR" property="uesr_name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="last_login_time" />
+    <result column="last_login_ip" jdbcType="VARCHAR" property="last_login_ip" />
+    <result column="role_id" jdbcType="VARCHAR" property="role_id" />
+    <result column="group_id" jdbcType="INTEGER" property="group_id" />
+    <result column="is_lock" jdbcType="TINYINT" property="is_lock" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
+    <result column="invite_code" jdbcType="INTEGER" property="invite_code" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.Admin">
+    <result column="lock_reason" jdbcType="LONGVARCHAR" property="lock_reason" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, uesr_name, password, phone, last_login_time, last_login_ip, role_id, group_id, 
+    is_lock, create_time, invite_code
+  </sql>
+  <sql id="Blob_Column_List">
+    lock_reason
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.AdminExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="net.hualisheng.springBootWebDemo.model.AdminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from admin
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.AdminExample">
+    delete from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin (uesr_name, password, phone, 
+      last_login_time, last_login_ip, role_id, 
+      group_id, is_lock, create_time, 
+      invite_code, lock_reason)
+    values (#{uesr_name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{last_login_time,jdbcType=TIMESTAMP}, #{last_login_ip,jdbcType=VARCHAR}, #{role_id,jdbcType=VARCHAR}, 
+      #{group_id,jdbcType=INTEGER}, #{is_lock,jdbcType=TINYINT}, #{create_time,jdbcType=TIMESTAMP}, 
+      #{invite_code,jdbcType=INTEGER}, #{lock_reason,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uesr_name != null">
+        uesr_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="last_login_time != null">
+        last_login_time,
+      </if>
+      <if test="last_login_ip != null">
+        last_login_ip,
+      </if>
+      <if test="role_id != null">
+        role_id,
+      </if>
+      <if test="group_id != null">
+        group_id,
+      </if>
+      <if test="is_lock != null">
+        is_lock,
+      </if>
+      <if test="create_time != null">
+        create_time,
+      </if>
+      <if test="invite_code != null">
+        invite_code,
+      </if>
+      <if test="lock_reason != null">
+        lock_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uesr_name != null">
+        #{uesr_name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="last_login_time != null">
+        #{last_login_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="last_login_ip != null">
+        #{last_login_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="role_id != null">
+        #{role_id,jdbcType=VARCHAR},
+      </if>
+      <if test="group_id != null">
+        #{group_id,jdbcType=INTEGER},
+      </if>
+      <if test="is_lock != null">
+        #{is_lock,jdbcType=TINYINT},
+      </if>
+      <if test="create_time != null">
+        #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invite_code != null">
+        #{invite_code,jdbcType=INTEGER},
+      </if>
+      <if test="lock_reason != null">
+        #{lock_reason,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.AdminExample" resultType="java.lang.Integer">
+    select count(*) from admin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update admin
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uesr_name != null">
+        uesr_name = #{record.uesr_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.last_login_time != null">
+        last_login_time = #{record.last_login_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.last_login_ip != null">
+        last_login_ip = #{record.last_login_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.role_id != null">
+        role_id = #{record.role_id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.group_id != null">
+        group_id = #{record.group_id,jdbcType=INTEGER},
+      </if>
+      <if test="record.is_lock != null">
+        is_lock = #{record.is_lock,jdbcType=TINYINT},
+      </if>
+      <if test="record.create_time != null">
+        create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.invite_code != null">
+        invite_code = #{record.invite_code,jdbcType=INTEGER},
+      </if>
+      <if test="record.lock_reason != null">
+        lock_reason = #{record.lock_reason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update admin
+    set id = #{record.id,jdbcType=INTEGER},
+      uesr_name = #{record.uesr_name,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      last_login_time = #{record.last_login_time,jdbcType=TIMESTAMP},
+      last_login_ip = #{record.last_login_ip,jdbcType=VARCHAR},
+      role_id = #{record.role_id,jdbcType=VARCHAR},
+      group_id = #{record.group_id,jdbcType=INTEGER},
+      is_lock = #{record.is_lock,jdbcType=TINYINT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      invite_code = #{record.invite_code,jdbcType=INTEGER},
+      lock_reason = #{record.lock_reason,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update admin
+    set id = #{record.id,jdbcType=INTEGER},
+      uesr_name = #{record.uesr_name,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      last_login_time = #{record.last_login_time,jdbcType=TIMESTAMP},
+      last_login_ip = #{record.last_login_ip,jdbcType=VARCHAR},
+      role_id = #{record.role_id,jdbcType=VARCHAR},
+      group_id = #{record.group_id,jdbcType=INTEGER},
+      is_lock = #{record.is_lock,jdbcType=TINYINT},
+      create_time = #{record.create_time,jdbcType=TIMESTAMP},
+      invite_code = #{record.invite_code,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    update admin
+    <set>
+      <if test="uesr_name != null">
+        uesr_name = #{uesr_name,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="last_login_time != null">
+        last_login_time = #{last_login_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="last_login_ip != null">
+        last_login_ip = #{last_login_ip,jdbcType=VARCHAR},
+      </if>
+      <if test="role_id != null">
+        role_id = #{role_id,jdbcType=VARCHAR},
+      </if>
+      <if test="group_id != null">
+        group_id = #{group_id,jdbcType=INTEGER},
+      </if>
+      <if test="is_lock != null">
+        is_lock = #{is_lock,jdbcType=TINYINT},
+      </if>
+      <if test="create_time != null">
+        create_time = #{create_time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="invite_code != null">
+        invite_code = #{invite_code,jdbcType=INTEGER},
+      </if>
+      <if test="lock_reason != null">
+        lock_reason = #{lock_reason,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    update admin
+    set uesr_name = #{uesr_name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      last_login_time = #{last_login_time,jdbcType=TIMESTAMP},
+      last_login_ip = #{last_login_ip,jdbcType=VARCHAR},
+      role_id = #{role_id,jdbcType=VARCHAR},
+      group_id = #{group_id,jdbcType=INTEGER},
+      is_lock = #{is_lock,jdbcType=TINYINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      invite_code = #{invite_code,jdbcType=INTEGER},
+      lock_reason = #{lock_reason,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.Admin">
+    update admin
+    set uesr_name = #{uesr_name,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      last_login_time = #{last_login_time,jdbcType=TIMESTAMP},
+      last_login_ip = #{last_login_ip,jdbcType=VARCHAR},
+      role_id = #{role_id,jdbcType=VARCHAR},
+      group_id = #{group_id,jdbcType=INTEGER},
+      is_lock = #{is_lock,jdbcType=TINYINT},
+      create_time = #{create_time,jdbcType=TIMESTAMP},
+      invite_code = #{invite_code,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

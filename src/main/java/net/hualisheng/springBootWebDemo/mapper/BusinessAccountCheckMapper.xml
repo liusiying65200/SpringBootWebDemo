@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.BusinessAccountCheckMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.BusinessAccountCheck" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="begin_time" property="beginTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="recharge_money" property="rechargeMoney" jdbcType="DOUBLE" />
+    <result column="normal_money" property="normalMoney" jdbcType="DOUBLE" />
+    <result column="exception_money" property="exceptionMoney" jdbcType="DOUBLE" />
+    <result column="reparations_money" property="reparationsMoney" jdbcType="DOUBLE" />
+    <result column="balance" property="balance" jdbcType="DOUBLE" />
+    <result column="last_balance" property="lastBalance" jdbcType="DOUBLE" />
+    <result column="sort_num" property="sortNum" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="INTEGER" />
+    <result column="modify_user" property="modifyUser" jdbcType="INTEGER" />
+    <result column="empty_run_money" property="emptyRunMoney" jdbcType="DOUBLE" />
+    <result column="refund_money" property="refundMoney" jdbcType="DOUBLE" />
+    <result column="coin_total_money" property="coinTotalMoney" jdbcType="DOUBLE" />
+    <result column="coin_balance" property="coinBalance" jdbcType="DOUBLE" />
+    <result column="coin_use_money" property="coinUseMoney" jdbcType="DOUBLE" />
+    <result column="coin_refund_money" property="coinRefundMoney" jdbcType="DOUBLE" />
+    <result column="back_fee" property="backFee" jdbcType="INTEGER" />
+    <result column="hpfx_money" property="hpfxMoney" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_id, begin_time, end_time, recharge_money, normal_money, exception_money, 
+    reparations_money, balance, last_balance, sort_num, create_time, modify_time, create_user, 
+    modify_user, empty_run_money, refund_money, coin_total_money, coin_balance, coin_use_money, 
+    coin_refund_money, back_fee, hpfx_money
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.BusinessAccountCheckExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from business_account_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from business_account_check
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from business_account_check
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessAccountCheckExample" >
+    delete from business_account_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.BusinessAccountCheck" >
+    insert into business_account_check (id, business_id, begin_time, 
+      end_time, recharge_money, normal_money, 
+      exception_money, reparations_money, balance, 
+      last_balance, sort_num, create_time, 
+      modify_time, create_user, modify_user, 
+      empty_run_money, refund_money, coin_total_money, 
+      coin_balance, coin_use_money, coin_refund_money, 
+      back_fee, hpfx_money)
+    values (#{id,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{beginTime,jdbcType=TIMESTAMP}, 
+      #{endTime,jdbcType=TIMESTAMP}, #{rechargeMoney,jdbcType=DOUBLE}, #{normalMoney,jdbcType=DOUBLE}, 
+      #{exceptionMoney,jdbcType=DOUBLE}, #{reparationsMoney,jdbcType=DOUBLE}, #{balance,jdbcType=DOUBLE}, 
+      #{lastBalance,jdbcType=DOUBLE}, #{sortNum,jdbcType=DOUBLE}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=INTEGER}, #{modifyUser,jdbcType=INTEGER}, 
+      #{emptyRunMoney,jdbcType=DOUBLE}, #{refundMoney,jdbcType=DOUBLE}, #{coinTotalMoney,jdbcType=DOUBLE}, 
+      #{coinBalance,jdbcType=DOUBLE}, #{coinUseMoney,jdbcType=DOUBLE}, #{coinRefundMoney,jdbcType=DOUBLE}, 
+      #{backFee,jdbcType=INTEGER}, #{hpfxMoney,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessAccountCheck" >
+    insert into business_account_check
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="beginTime != null" >
+        begin_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="rechargeMoney != null" >
+        recharge_money,
+      </if>
+      <if test="normalMoney != null" >
+        normal_money,
+      </if>
+      <if test="exceptionMoney != null" >
+        exception_money,
+      </if>
+      <if test="reparationsMoney != null" >
+        reparations_money,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="lastBalance != null" >
+        last_balance,
+      </if>
+      <if test="sortNum != null" >
+        sort_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="modifyTime != null" >
+        modify_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="modifyUser != null" >
+        modify_user,
+      </if>
+      <if test="emptyRunMoney != null" >
+        empty_run_money,
+      </if>
+      <if test="refundMoney != null" >
+        refund_money,
+      </if>
+      <if test="coinTotalMoney != null" >
+        coin_total_money,
+      </if>
+      <if test="coinBalance != null" >
+        coin_balance,
+      </if>
+      <if test="coinUseMoney != null" >
+        coin_use_money,
+      </if>
+      <if test="coinRefundMoney != null" >
+        coin_refund_money,
+      </if>
+      <if test="backFee != null" >
+        back_fee,
+      </if>
+      <if test="hpfxMoney != null" >
+        hpfx_money,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rechargeMoney != null" >
+        #{rechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="normalMoney != null" >
+        #{normalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="exceptionMoney != null" >
+        #{exceptionMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="reparationsMoney != null" >
+        #{reparationsMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="lastBalance != null" >
+        #{lastBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="sortNum != null" >
+        #{sortNum,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUser != null" >
+        #{modifyUser,jdbcType=INTEGER},
+      </if>
+      <if test="emptyRunMoney != null" >
+        #{emptyRunMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="refundMoney != null" >
+        #{refundMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="coinTotalMoney != null" >
+        #{coinTotalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="coinBalance != null" >
+        #{coinBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="coinUseMoney != null" >
+        #{coinUseMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="coinRefundMoney != null" >
+        #{coinRefundMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="backFee != null" >
+        #{backFee,jdbcType=INTEGER},
+      </if>
+      <if test="hpfxMoney != null" >
+        #{hpfxMoney,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessAccountCheckExample" resultType="java.lang.Integer" >
+    select count(*) from business_account_check
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update business_account_check
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.beginTime != null" >
+        begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rechargeMoney != null" >
+        recharge_money = #{record.rechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.normalMoney != null" >
+        normal_money = #{record.normalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.exceptionMoney != null" >
+        exception_money = #{record.exceptionMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.reparationsMoney != null" >
+        reparations_money = #{record.reparationsMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.balance != null" >
+        balance = #{record.balance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lastBalance != null" >
+        last_balance = #{record.lastBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.sortNum != null" >
+        sort_num = #{record.sortNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null" >
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUser != null" >
+        create_user = #{record.createUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifyUser != null" >
+        modify_user = #{record.modifyUser,jdbcType=INTEGER},
+      </if>
+      <if test="record.emptyRunMoney != null" >
+        empty_run_money = #{record.emptyRunMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.refundMoney != null" >
+        refund_money = #{record.refundMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.coinTotalMoney != null" >
+        coin_total_money = #{record.coinTotalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.coinBalance != null" >
+        coin_balance = #{record.coinBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.coinUseMoney != null" >
+        coin_use_money = #{record.coinUseMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.coinRefundMoney != null" >
+        coin_refund_money = #{record.coinRefundMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.backFee != null" >
+        back_fee = #{record.backFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.hpfxMoney != null" >
+        hpfx_money = #{record.hpfxMoney,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update business_account_check
+    set id = #{record.id,jdbcType=INTEGER},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      begin_time = #{record.beginTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      recharge_money = #{record.rechargeMoney,jdbcType=DOUBLE},
+      normal_money = #{record.normalMoney,jdbcType=DOUBLE},
+      exception_money = #{record.exceptionMoney,jdbcType=DOUBLE},
+      reparations_money = #{record.reparationsMoney,jdbcType=DOUBLE},
+      balance = #{record.balance,jdbcType=DOUBLE},
+      last_balance = #{record.lastBalance,jdbcType=DOUBLE},
+      sort_num = #{record.sortNum,jdbcType=DOUBLE},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{record.createUser,jdbcType=INTEGER},
+      modify_user = #{record.modifyUser,jdbcType=INTEGER},
+      empty_run_money = #{record.emptyRunMoney,jdbcType=DOUBLE},
+      refund_money = #{record.refundMoney,jdbcType=DOUBLE},
+      coin_total_money = #{record.coinTotalMoney,jdbcType=DOUBLE},
+      coin_balance = #{record.coinBalance,jdbcType=DOUBLE},
+      coin_use_money = #{record.coinUseMoney,jdbcType=DOUBLE},
+      coin_refund_money = #{record.coinRefundMoney,jdbcType=DOUBLE},
+      back_fee = #{record.backFee,jdbcType=INTEGER},
+      hpfx_money = #{record.hpfxMoney,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessAccountCheck" >
+    update business_account_check
+    <set >
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="beginTime != null" >
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rechargeMoney != null" >
+        recharge_money = #{rechargeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="normalMoney != null" >
+        normal_money = #{normalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="exceptionMoney != null" >
+        exception_money = #{exceptionMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="reparationsMoney != null" >
+        reparations_money = #{reparationsMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DOUBLE},
+      </if>
+      <if test="lastBalance != null" >
+        last_balance = #{lastBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="sortNum != null" >
+        sort_num = #{sortNum,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null" >
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=INTEGER},
+      </if>
+      <if test="modifyUser != null" >
+        modify_user = #{modifyUser,jdbcType=INTEGER},
+      </if>
+      <if test="emptyRunMoney != null" >
+        empty_run_money = #{emptyRunMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="refundMoney != null" >
+        refund_money = #{refundMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="coinTotalMoney != null" >
+        coin_total_money = #{coinTotalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="coinBalance != null" >
+        coin_balance = #{coinBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="coinUseMoney != null" >
+        coin_use_money = #{coinUseMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="coinRefundMoney != null" >
+        coin_refund_money = #{coinRefundMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="backFee != null" >
+        back_fee = #{backFee,jdbcType=INTEGER},
+      </if>
+      <if test="hpfxMoney != null" >
+        hpfx_money = #{hpfxMoney,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.BusinessAccountCheck" >
+    update business_account_check
+    set business_id = #{businessId,jdbcType=INTEGER},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      recharge_money = #{rechargeMoney,jdbcType=DOUBLE},
+      normal_money = #{normalMoney,jdbcType=DOUBLE},
+      exception_money = #{exceptionMoney,jdbcType=DOUBLE},
+      reparations_money = #{reparationsMoney,jdbcType=DOUBLE},
+      balance = #{balance,jdbcType=DOUBLE},
+      last_balance = #{lastBalance,jdbcType=DOUBLE},
+      sort_num = #{sortNum,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=INTEGER},
+      modify_user = #{modifyUser,jdbcType=INTEGER},
+      empty_run_money = #{emptyRunMoney,jdbcType=DOUBLE},
+      refund_money = #{refundMoney,jdbcType=DOUBLE},
+      coin_total_money = #{coinTotalMoney,jdbcType=DOUBLE},
+      coin_balance = #{coinBalance,jdbcType=DOUBLE},
+      coin_use_money = #{coinUseMoney,jdbcType=DOUBLE},
+      coin_refund_money = #{coinRefundMoney,jdbcType=DOUBLE},
+      back_fee = #{backFee,jdbcType=INTEGER},
+      hpfx_money = #{hpfxMoney,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

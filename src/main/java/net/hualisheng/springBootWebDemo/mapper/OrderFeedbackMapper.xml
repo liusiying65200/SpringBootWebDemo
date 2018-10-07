@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.OrderFeedbackMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.OrderFeedback" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="worker_id" property="workerId" jdbcType="INTEGER" />
+    <result column="feedback_type" property="feedbackType" jdbcType="INTEGER" />
+    <result column="feedback_comment" property="feedbackComment" jdbcType="VARCHAR" />
+    <result column="feedback_time" property="feedbackTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="deal_id" property="dealId" jdbcType="INTEGER" />
+    <result column="is_deal" property="isDeal" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_sn, worker_id, feedback_type, feedback_comment, feedback_time, type, create_id, 
+    deal_id, is_deal
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.OrderFeedbackExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_feedback
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_feedback
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_feedback
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderFeedbackExample" >
+    delete from order_feedback
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.OrderFeedback" >
+    insert into order_feedback (id, order_sn, worker_id, 
+      feedback_type, feedback_comment, feedback_time, 
+      type, create_id, deal_id, 
+      is_deal)
+    values (#{id,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, #{workerId,jdbcType=INTEGER}, 
+      #{feedbackType,jdbcType=INTEGER}, #{feedbackComment,jdbcType=VARCHAR}, #{feedbackTime,jdbcType=TIMESTAMP}, 
+      #{type,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{dealId,jdbcType=INTEGER}, 
+      #{isDeal,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderFeedback" >
+    insert into order_feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="workerId != null" >
+        worker_id,
+      </if>
+      <if test="feedbackType != null" >
+        feedback_type,
+      </if>
+      <if test="feedbackComment != null" >
+        feedback_comment,
+      </if>
+      <if test="feedbackTime != null" >
+        feedback_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="dealId != null" >
+        deal_id,
+      </if>
+      <if test="isDeal != null" >
+        is_deal,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="feedbackType != null" >
+        #{feedbackType,jdbcType=INTEGER},
+      </if>
+      <if test="feedbackComment != null" >
+        #{feedbackComment,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackTime != null" >
+        #{feedbackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="dealId != null" >
+        #{dealId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeal != null" >
+        #{isDeal,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderFeedbackExample" resultType="java.lang.Integer" >
+    select count(*) from order_feedback
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_feedback
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerId != null" >
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.feedbackType != null" >
+        feedback_type = #{record.feedbackType,jdbcType=INTEGER},
+      </if>
+      <if test="record.feedbackComment != null" >
+        feedback_comment = #{record.feedbackComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.feedbackTime != null" >
+        feedback_time = #{record.feedbackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.createId != null" >
+        create_id = #{record.createId,jdbcType=INTEGER},
+      </if>
+      <if test="record.dealId != null" >
+        deal_id = #{record.dealId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDeal != null" >
+        is_deal = #{record.isDeal,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_feedback
+    set id = #{record.id,jdbcType=INTEGER},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      feedback_type = #{record.feedbackType,jdbcType=INTEGER},
+      feedback_comment = #{record.feedbackComment,jdbcType=VARCHAR},
+      feedback_time = #{record.feedbackTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
+      create_id = #{record.createId,jdbcType=INTEGER},
+      deal_id = #{record.dealId,jdbcType=INTEGER},
+      is_deal = #{record.isDeal,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderFeedback" >
+    update order_feedback
+    <set >
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null" >
+        worker_id = #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="feedbackType != null" >
+        feedback_type = #{feedbackType,jdbcType=INTEGER},
+      </if>
+      <if test="feedbackComment != null" >
+        feedback_comment = #{feedbackComment,jdbcType=VARCHAR},
+      </if>
+      <if test="feedbackTime != null" >
+        feedback_time = #{feedbackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="dealId != null" >
+        deal_id = #{dealId,jdbcType=INTEGER},
+      </if>
+      <if test="isDeal != null" >
+        is_deal = #{isDeal,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.OrderFeedback" >
+    update order_feedback
+    set order_sn = #{orderSn,jdbcType=VARCHAR},
+      worker_id = #{workerId,jdbcType=INTEGER},
+      feedback_type = #{feedbackType,jdbcType=INTEGER},
+      feedback_comment = #{feedbackComment,jdbcType=VARCHAR},
+      feedback_time = #{feedbackTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=INTEGER},
+      deal_id = #{dealId,jdbcType=INTEGER},
+      is_deal = #{isDeal,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

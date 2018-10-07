@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.OrderLogBakupMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.OrderLogBakup" >
+    <result column="order_log_id" property="orderLogId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="worker_id" property="workerId" jdbcType="INTEGER" />
+    <result column="worker_phone" property="workerPhone" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="order_exception_status" property="orderExceptionStatus" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="REAL" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="log_status" property="logStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="service_time" property="serviceTime" jdbcType="VARCHAR" />
+    <result column="times" property="times" jdbcType="INTEGER" />
+    <result column="bisiness_user_id" property="bisinessUserId" jdbcType="INTEGER" />
+    <result column="createbusiness" property="createbusiness" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.OrderLogBakupWithBLOBs" extends="BaseResultMap" >
+    <result column="log_content" property="logContent" jdbcType="LONGVARCHAR" />
+    <result column="images" property="images" jdbcType="LONGVARCHAR" />
+    <result column="sign_imgs" property="signImgs" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_log_id, order_id, worker_id, worker_phone, order_status, order_exception_status, 
+    admin_id, money, description, parent_id, log_status, create_time, service_time, times, 
+    bisiness_user_id, createbusiness
+  </sql>
+  <sql id="Blob_Column_List" >
+    log_content, images, sign_imgs
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogBakupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from order_log_bakup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogBakupExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_log_bakup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogBakupExample" >
+    delete from order_log_bakup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogBakupWithBLOBs" >
+    insert into order_log_bakup (order_log_id, order_id, worker_id, 
+      worker_phone, order_status, order_exception_status, 
+      admin_id, money, description, 
+      parent_id, log_status, create_time, 
+      service_time, times, bisiness_user_id, 
+      createbusiness, log_content, images, 
+      sign_imgs)
+    values (#{orderLogId,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{workerId,jdbcType=INTEGER}, 
+      #{workerPhone,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, #{orderExceptionStatus,jdbcType=INTEGER}, 
+      #{adminId,jdbcType=INTEGER}, #{money,jdbcType=REAL}, #{description,jdbcType=VARCHAR}, 
+      #{parentId,jdbcType=INTEGER}, #{logStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{serviceTime,jdbcType=VARCHAR}, #{times,jdbcType=INTEGER}, #{bisinessUserId,jdbcType=INTEGER}, 
+      #{createbusiness,jdbcType=INTEGER}, #{logContent,jdbcType=LONGVARCHAR}, #{images,jdbcType=LONGVARCHAR}, 
+      #{signImgs,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogBakupWithBLOBs" >
+    insert into order_log_bakup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderLogId != null" >
+        order_log_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="workerId != null" >
+        worker_id,
+      </if>
+      <if test="workerPhone != null" >
+        worker_phone,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="orderExceptionStatus != null" >
+        order_exception_status,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="logStatus != null" >
+        log_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="serviceTime != null" >
+        service_time,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+      <if test="bisinessUserId != null" >
+        bisiness_user_id,
+      </if>
+      <if test="createbusiness != null" >
+        createbusiness,
+      </if>
+      <if test="logContent != null" >
+        log_content,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+      <if test="signImgs != null" >
+        sign_imgs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderLogId != null" >
+        #{orderLogId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="workerPhone != null" >
+        #{workerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderExceptionStatus != null" >
+        #{orderExceptionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=REAL},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="logStatus != null" >
+        #{logStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="serviceTime != null" >
+        #{serviceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=INTEGER},
+      </if>
+      <if test="bisinessUserId != null" >
+        #{bisinessUserId,jdbcType=INTEGER},
+      </if>
+      <if test="createbusiness != null" >
+        #{createbusiness,jdbcType=INTEGER},
+      </if>
+      <if test="logContent != null" >
+        #{logContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="signImgs != null" >
+        #{signImgs,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderLogBakupExample" resultType="java.lang.Integer" >
+    select count(*) from order_log_bakup
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_log_bakup
+    <set >
+      <if test="record.orderLogId != null" >
+        order_log_id = #{record.orderLogId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerId != null" >
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerPhone != null" >
+        worker_phone = #{record.workerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderExceptionStatus != null" >
+        order_exception_status = #{record.orderExceptionStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.money != null" >
+        money = #{record.money,jdbcType=REAL},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
+      </if>
+      <if test="record.logStatus != null" >
+        log_status = #{record.logStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.serviceTime != null" >
+        service_time = #{record.serviceTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.times != null" >
+        times = #{record.times,jdbcType=INTEGER},
+      </if>
+      <if test="record.bisinessUserId != null" >
+        bisiness_user_id = #{record.bisinessUserId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createbusiness != null" >
+        createbusiness = #{record.createbusiness,jdbcType=INTEGER},
+      </if>
+      <if test="record.logContent != null" >
+        log_content = #{record.logContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.signImgs != null" >
+        sign_imgs = #{record.signImgs,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update order_log_bakup
+    set order_log_id = #{record.orderLogId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      worker_phone = #{record.workerPhone,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      order_exception_status = #{record.orderExceptionStatus,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=REAL},
+      description = #{record.description,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      log_status = #{record.logStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      service_time = #{record.serviceTime,jdbcType=VARCHAR},
+      times = #{record.times,jdbcType=INTEGER},
+      bisiness_user_id = #{record.bisinessUserId,jdbcType=INTEGER},
+      createbusiness = #{record.createbusiness,jdbcType=INTEGER},
+      log_content = #{record.logContent,jdbcType=LONGVARCHAR},
+      images = #{record.images,jdbcType=LONGVARCHAR},
+      sign_imgs = #{record.signImgs,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_log_bakup
+    set order_log_id = #{record.orderLogId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      worker_phone = #{record.workerPhone,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      order_exception_status = #{record.orderExceptionStatus,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      money = #{record.money,jdbcType=REAL},
+      description = #{record.description,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
+      log_status = #{record.logStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      service_time = #{record.serviceTime,jdbcType=VARCHAR},
+      times = #{record.times,jdbcType=INTEGER},
+      bisiness_user_id = #{record.bisinessUserId,jdbcType=INTEGER},
+      createbusiness = #{record.createbusiness,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

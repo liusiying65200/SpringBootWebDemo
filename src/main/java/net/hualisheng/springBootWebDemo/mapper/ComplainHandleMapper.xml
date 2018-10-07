@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.ComplainHandleMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.ComplainHandle" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="complain_id" property="complainId" jdbcType="INTEGER" />
+    <result column="is_found" property="isFound" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="deduct_grouth" property="deductGrouth" jdbcType="INTEGER" />
+    <result column="pay" property="pay" jdbcType="DOUBLE" />
+    <result column="cus_evidence" property="cusEvidence" jdbcType="VARCHAR" />
+    <result column="wor_evidence" property="worEvidence" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="sign_imgs" property="signImgs" jdbcType="VARCHAR" />
+    <result column="compensate" property="compensate" jdbcType="INTEGER" />
+    <result column="cash_voucher" property="cashVoucher" jdbcType="INTEGER" />
+    <result column="integral" property="integral" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="leader_comment" property="leaderComment" jdbcType="VARCHAR" />
+    <result column="leader_check" property="leaderCheck" jdbcType="INTEGER" />
+    <result column="is_modification" property="isModification" jdbcType="INTEGER" />
+    <result column="deduct_deposit" property="deductDeposit" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, complain_id, is_found, level, type, deduct_grouth, pay, cus_evidence, wor_evidence, 
+    description, sign_imgs, compensate, cash_voucher, integral, admin_id, create_time, 
+    leader_comment, leader_check, is_modification, deduct_deposit
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.ComplainHandleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from complain_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from complain_handle
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from complain_handle
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.ComplainHandleExample" >
+    delete from complain_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.ComplainHandle" >
+    insert into complain_handle (id, complain_id, is_found, 
+      level, type, deduct_grouth, 
+      pay, cus_evidence, wor_evidence, 
+      description, sign_imgs, compensate, 
+      cash_voucher, integral, admin_id, 
+      create_time, leader_comment, leader_check, 
+      is_modification, deduct_deposit)
+    values (#{id,jdbcType=INTEGER}, #{complainId,jdbcType=INTEGER}, #{isFound,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{deductGrouth,jdbcType=INTEGER}, 
+      #{pay,jdbcType=DOUBLE}, #{cusEvidence,jdbcType=VARCHAR}, #{worEvidence,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{signImgs,jdbcType=VARCHAR}, #{compensate,jdbcType=INTEGER}, 
+      #{cashVoucher,jdbcType=INTEGER}, #{integral,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{leaderComment,jdbcType=VARCHAR}, #{leaderCheck,jdbcType=INTEGER}, 
+      #{isModification,jdbcType=INTEGER}, #{deductDeposit,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.ComplainHandle" >
+    insert into complain_handle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="complainId != null" >
+        complain_id,
+      </if>
+      <if test="isFound != null" >
+        is_found,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="deductGrouth != null" >
+        deduct_grouth,
+      </if>
+      <if test="pay != null" >
+        pay,
+      </if>
+      <if test="cusEvidence != null" >
+        cus_evidence,
+      </if>
+      <if test="worEvidence != null" >
+        wor_evidence,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="signImgs != null" >
+        sign_imgs,
+      </if>
+      <if test="compensate != null" >
+        compensate,
+      </if>
+      <if test="cashVoucher != null" >
+        cash_voucher,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="leaderComment != null" >
+        leader_comment,
+      </if>
+      <if test="leaderCheck != null" >
+        leader_check,
+      </if>
+      <if test="isModification != null" >
+        is_modification,
+      </if>
+      <if test="deductDeposit != null" >
+        deduct_deposit,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="complainId != null" >
+        #{complainId,jdbcType=INTEGER},
+      </if>
+      <if test="isFound != null" >
+        #{isFound,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="deductGrouth != null" >
+        #{deductGrouth,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null" >
+        #{pay,jdbcType=DOUBLE},
+      </if>
+      <if test="cusEvidence != null" >
+        #{cusEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="worEvidence != null" >
+        #{worEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="signImgs != null" >
+        #{signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="compensate != null" >
+        #{compensate,jdbcType=INTEGER},
+      </if>
+      <if test="cashVoucher != null" >
+        #{cashVoucher,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaderComment != null" >
+        #{leaderComment,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderCheck != null" >
+        #{leaderCheck,jdbcType=INTEGER},
+      </if>
+      <if test="isModification != null" >
+        #{isModification,jdbcType=INTEGER},
+      </if>
+      <if test="deductDeposit != null" >
+        #{deductDeposit,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.ComplainHandleExample" resultType="java.lang.Integer" >
+    select count(*) from complain_handle
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update complain_handle
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.complainId != null" >
+        complain_id = #{record.complainId,jdbcType=INTEGER},
+      </if>
+      <if test="record.isFound != null" >
+        is_found = #{record.isFound,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.deductGrouth != null" >
+        deduct_grouth = #{record.deductGrouth,jdbcType=INTEGER},
+      </if>
+      <if test="record.pay != null" >
+        pay = #{record.pay,jdbcType=DOUBLE},
+      </if>
+      <if test="record.cusEvidence != null" >
+        cus_evidence = #{record.cusEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.worEvidence != null" >
+        wor_evidence = #{record.worEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signImgs != null" >
+        sign_imgs = #{record.signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.compensate != null" >
+        compensate = #{record.compensate,jdbcType=INTEGER},
+      </if>
+      <if test="record.cashVoucher != null" >
+        cash_voucher = #{record.cashVoucher,jdbcType=INTEGER},
+      </if>
+      <if test="record.integral != null" >
+        integral = #{record.integral,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.leaderComment != null" >
+        leader_comment = #{record.leaderComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.leaderCheck != null" >
+        leader_check = #{record.leaderCheck,jdbcType=INTEGER},
+      </if>
+      <if test="record.isModification != null" >
+        is_modification = #{record.isModification,jdbcType=INTEGER},
+      </if>
+      <if test="record.deductDeposit != null" >
+        deduct_deposit = #{record.deductDeposit,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update complain_handle
+    set id = #{record.id,jdbcType=INTEGER},
+      complain_id = #{record.complainId,jdbcType=INTEGER},
+      is_found = #{record.isFound,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      deduct_grouth = #{record.deductGrouth,jdbcType=INTEGER},
+      pay = #{record.pay,jdbcType=DOUBLE},
+      cus_evidence = #{record.cusEvidence,jdbcType=VARCHAR},
+      wor_evidence = #{record.worEvidence,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      sign_imgs = #{record.signImgs,jdbcType=VARCHAR},
+      compensate = #{record.compensate,jdbcType=INTEGER},
+      cash_voucher = #{record.cashVoucher,jdbcType=INTEGER},
+      integral = #{record.integral,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      leader_comment = #{record.leaderComment,jdbcType=VARCHAR},
+      leader_check = #{record.leaderCheck,jdbcType=INTEGER},
+      is_modification = #{record.isModification,jdbcType=INTEGER},
+      deduct_deposit = #{record.deductDeposit,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.ComplainHandle" >
+    update complain_handle
+    <set >
+      <if test="complainId != null" >
+        complain_id = #{complainId,jdbcType=INTEGER},
+      </if>
+      <if test="isFound != null" >
+        is_found = #{isFound,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="deductGrouth != null" >
+        deduct_grouth = #{deductGrouth,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null" >
+        pay = #{pay,jdbcType=DOUBLE},
+      </if>
+      <if test="cusEvidence != null" >
+        cus_evidence = #{cusEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="worEvidence != null" >
+        wor_evidence = #{worEvidence,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="signImgs != null" >
+        sign_imgs = #{signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="compensate != null" >
+        compensate = #{compensate,jdbcType=INTEGER},
+      </if>
+      <if test="cashVoucher != null" >
+        cash_voucher = #{cashVoucher,jdbcType=INTEGER},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="leaderComment != null" >
+        leader_comment = #{leaderComment,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderCheck != null" >
+        leader_check = #{leaderCheck,jdbcType=INTEGER},
+      </if>
+      <if test="isModification != null" >
+        is_modification = #{isModification,jdbcType=INTEGER},
+      </if>
+      <if test="deductDeposit != null" >
+        deduct_deposit = #{deductDeposit,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.ComplainHandle" >
+    update complain_handle
+    set complain_id = #{complainId,jdbcType=INTEGER},
+      is_found = #{isFound,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      deduct_grouth = #{deductGrouth,jdbcType=INTEGER},
+      pay = #{pay,jdbcType=DOUBLE},
+      cus_evidence = #{cusEvidence,jdbcType=VARCHAR},
+      wor_evidence = #{worEvidence,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      sign_imgs = #{signImgs,jdbcType=VARCHAR},
+      compensate = #{compensate,jdbcType=INTEGER},
+      cash_voucher = #{cashVoucher,jdbcType=INTEGER},
+      integral = #{integral,jdbcType=INTEGER},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      leader_comment = #{leaderComment,jdbcType=VARCHAR},
+      leader_check = #{leaderCheck,jdbcType=INTEGER},
+      is_modification = #{isModification,jdbcType=INTEGER},
+      deduct_deposit = #{deductDeposit,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

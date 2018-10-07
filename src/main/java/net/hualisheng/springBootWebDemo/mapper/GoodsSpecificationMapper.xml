@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.GoodsSpecificationMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.GoodsSpecification" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="INTEGER" />
+    <result column="spec_name" property="specName" jdbcType="VARCHAR" />
+    <result column="spec_price" property="specPrice" jdbcType="REAL" />
+    <result column="is_delete" property="isDelete" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="cover_image" property="coverImage" jdbcType="VARCHAR" />
+    <result column="goods_repair" property="goodsRepair" jdbcType="REAL" />
+    <result column="distribution" property="distribution" jdbcType="REAL" />
+    <result column="scale" property="scale" jdbcType="REAL" />
+    <result column="disassembly" property="disassembly" jdbcType="REAL" />
+    <result column="minimum_servicefee" property="minimumServicefee" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, goods_id, spec_name, spec_price, is_delete, create_time, remark, cover_image, 
+    goods_repair, distribution, scale, disassembly, minimum_servicefee
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.GoodsSpecificationExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from goods_specification
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from goods_specification
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods_specification
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.GoodsSpecificationExample" >
+    delete from goods_specification
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.GoodsSpecification" >
+    insert into goods_specification (id, goods_id, spec_name, 
+      spec_price, is_delete, create_time, 
+      remark, cover_image, goods_repair, 
+      distribution, scale, disassembly, 
+      minimum_servicefee)
+    values (#{id,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER}, #{specName,jdbcType=VARCHAR}, 
+      #{specPrice,jdbcType=REAL}, #{isDelete,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{coverImage,jdbcType=VARCHAR}, #{goodsRepair,jdbcType=REAL}, 
+      #{distribution,jdbcType=REAL}, #{scale,jdbcType=REAL}, #{disassembly,jdbcType=REAL}, 
+      #{minimumServicefee,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.GoodsSpecification" >
+    insert into goods_specification
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="specName != null" >
+        spec_name,
+      </if>
+      <if test="specPrice != null" >
+        spec_price,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="coverImage != null" >
+        cover_image,
+      </if>
+      <if test="goodsRepair != null" >
+        goods_repair,
+      </if>
+      <if test="distribution != null" >
+        distribution,
+      </if>
+      <if test="scale != null" >
+        scale,
+      </if>
+      <if test="disassembly != null" >
+        disassembly,
+      </if>
+      <if test="minimumServicefee != null" >
+        minimum_servicefee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="specName != null" >
+        #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="specPrice != null" >
+        #{specPrice,jdbcType=REAL},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImage != null" >
+        #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsRepair != null" >
+        #{goodsRepair,jdbcType=REAL},
+      </if>
+      <if test="distribution != null" >
+        #{distribution,jdbcType=REAL},
+      </if>
+      <if test="scale != null" >
+        #{scale,jdbcType=REAL},
+      </if>
+      <if test="disassembly != null" >
+        #{disassembly,jdbcType=REAL},
+      </if>
+      <if test="minimumServicefee != null" >
+        #{minimumServicefee,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.GoodsSpecificationExample" resultType="java.lang.Integer" >
+    select count(*) from goods_specification
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update goods_specification
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.specName != null" >
+        spec_name = #{record.specName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.specPrice != null" >
+        spec_price = #{record.specPrice,jdbcType=REAL},
+      </if>
+      <if test="record.isDelete != null" >
+        is_delete = #{record.isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverImage != null" >
+        cover_image = #{record.coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsRepair != null" >
+        goods_repair = #{record.goodsRepair,jdbcType=REAL},
+      </if>
+      <if test="record.distribution != null" >
+        distribution = #{record.distribution,jdbcType=REAL},
+      </if>
+      <if test="record.scale != null" >
+        scale = #{record.scale,jdbcType=REAL},
+      </if>
+      <if test="record.disassembly != null" >
+        disassembly = #{record.disassembly,jdbcType=REAL},
+      </if>
+      <if test="record.minimumServicefee != null" >
+        minimum_servicefee = #{record.minimumServicefee,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update goods_specification
+    set id = #{record.id,jdbcType=INTEGER},
+      goods_id = #{record.goodsId,jdbcType=INTEGER},
+      spec_name = #{record.specName,jdbcType=VARCHAR},
+      spec_price = #{record.specPrice,jdbcType=REAL},
+      is_delete = #{record.isDelete,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      cover_image = #{record.coverImage,jdbcType=VARCHAR},
+      goods_repair = #{record.goodsRepair,jdbcType=REAL},
+      distribution = #{record.distribution,jdbcType=REAL},
+      scale = #{record.scale,jdbcType=REAL},
+      disassembly = #{record.disassembly,jdbcType=REAL},
+      minimum_servicefee = #{record.minimumServicefee,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.GoodsSpecification" >
+    update goods_specification
+    <set >
+      <if test="goodsId != null" >
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="specName != null" >
+        spec_name = #{specName,jdbcType=VARCHAR},
+      </if>
+      <if test="specPrice != null" >
+        spec_price = #{specPrice,jdbcType=REAL},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImage != null" >
+        cover_image = #{coverImage,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsRepair != null" >
+        goods_repair = #{goodsRepair,jdbcType=REAL},
+      </if>
+      <if test="distribution != null" >
+        distribution = #{distribution,jdbcType=REAL},
+      </if>
+      <if test="scale != null" >
+        scale = #{scale,jdbcType=REAL},
+      </if>
+      <if test="disassembly != null" >
+        disassembly = #{disassembly,jdbcType=REAL},
+      </if>
+      <if test="minimumServicefee != null" >
+        minimum_servicefee = #{minimumServicefee,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.GoodsSpecification" >
+    update goods_specification
+    set goods_id = #{goodsId,jdbcType=INTEGER},
+      spec_name = #{specName,jdbcType=VARCHAR},
+      spec_price = #{specPrice,jdbcType=REAL},
+      is_delete = #{isDelete,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      cover_image = #{coverImage,jdbcType=VARCHAR},
+      goods_repair = #{goodsRepair,jdbcType=REAL},
+      distribution = #{distribution,jdbcType=REAL},
+      scale = #{scale,jdbcType=REAL},
+      disassembly = #{disassembly,jdbcType=REAL},
+      minimum_servicefee = #{minimumServicefee,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

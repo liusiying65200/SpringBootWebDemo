@@ -1,0 +1,876 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.OrderStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.OrderStatistics" >
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="is_exception" property="isException" jdbcType="INTEGER" />
+    <result column="source_order_id" property="sourceOrderId" jdbcType="VARCHAR" />
+    <result column="servicetype" property="servicetype" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="business_name" property="businessName" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="worker_id" property="workerId" jdbcType="INTEGER" />
+    <result column="worker_name" property="workerName" jdbcType="VARCHAR" />
+    <result column="worker_tel" property="workerTel" jdbcType="VARCHAR" />
+    <result column="worker_grade" property="workerGrade" jdbcType="INTEGER" />
+    <result column="sale_id" property="saleId" jdbcType="INTEGER" />
+    <result column="sale_name" property="saleName" jdbcType="VARCHAR" />
+    <result column="admin_name" property="adminName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="complete_time" property="completeTime" jdbcType="TIMESTAMP" />
+    <result column="settlement_time" property="settlementTime" jdbcType="TIMESTAMP" />
+    <result column="finish_time" property="finishTime" jdbcType="TIMESTAMP" />
+    <result column="close_time" property="closeTime" jdbcType="TIMESTAMP" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR" />
+    <result column="customer_aliww" property="customerAliww" jdbcType="VARCHAR" />
+    <result column="order_goods_catgory_id" property="orderGoodsCatgoryId" jdbcType="INTEGER" />
+    <result column="order_goods_catgory" property="orderGoodsCatgory" jdbcType="VARCHAR" />
+    <result column="order_goods_map" property="orderGoodsMap" jdbcType="VARCHAR" />
+    <result column="order_goods_id" property="orderGoodsId" jdbcType="VARCHAR" />
+    <result column="order_goods_name" property="orderGoodsName" jdbcType="VARCHAR" />
+    <result column="order_total_fee" property="orderTotalFee" jdbcType="DOUBLE" />
+    <result column="business_total_fee" property="businessTotalFee" jdbcType="DOUBLE" />
+    <result column="customer_total_fee" property="customerTotalFee" jdbcType="DOUBLE" />
+    <result column="worker_total_fee" property="workerTotalFee" jdbcType="DOUBLE" />
+    <result column="base_total_fee" property="baseTotalFee" jdbcType="DOUBLE" />
+    <result column="discount_base_total_fee" property="discountBaseTotalFee" jdbcType="DOUBLE" />
+    <result column="additional_total_fee" property="additionalTotalFee" jdbcType="DOUBLE" />
+    <result column="urgent_fee" property="urgentFee" jdbcType="DOUBLE" />
+    <result column="add_luban_fee" property="addLubanFee" jdbcType="DOUBLE" />
+    <result column="add_business_fee" property="addBusinessFee" jdbcType="DOUBLE" />
+    <result column="add_luban_nocc_fee" property="addLubanNoccFee" jdbcType="DOUBLE" />
+    <result column="add_business_nocc_fee" property="addBusinessNoccFee" jdbcType="DOUBLE" />
+    <result column="add_fee_map" property="addFeeMap" jdbcType="VARCHAR" />
+    <result column="business_income_fee" property="businessIncomeFee" jdbcType="DOUBLE" />
+    <result column="business_outcome_fee" property="businessOutcomeFee" jdbcType="DOUBLE" />
+    <result column="worker_income_fee" property="workerIncomeFee" jdbcType="DOUBLE" />
+    <result column="worker_outcome_fee" property="workerOutcomeFee" jdbcType="DOUBLE" />
+    <result column="ps_fee" property="psFee" jdbcType="DOUBLE" />
+    <result column="agent_pay_fee" property="agentPayFee" jdbcType="DOUBLE" />
+    <result column="worker_award_fee" property="workerAwardFee" jdbcType="DOUBLE" />
+    <result column="worker_activity_fee" property="workerActivityFee" jdbcType="DOUBLE" />
+    <result column="worker_deposit_fee" property="workerDepositFee" jdbcType="DOUBLE" />
+    <result column="worker_award_rate" property="workerAwardRate" jdbcType="REAL" />
+    <result column="worker_activity_rate" property="workerActivityRate" jdbcType="REAL" />
+    <result column="worker_deposit_rate" property="workerDepositRate" jdbcType="REAL" />
+    <result column="hongbao_fee" property="hongbaoFee" jdbcType="DOUBLE" />
+    <result column="info_fee" property="infoFee" jdbcType="DOUBLE" />
+    <result column="luban_dakuan_fee" property="lubanDakuanFee" jdbcType="DOUBLE" />
+    <result column="change_money" property="changeMoney" jdbcType="DOUBLE" />
+    <result column="order_deduct_fee" property="orderDeductFee" jdbcType="DOUBLE" />
+    <result column="order_remark" property="orderRemark" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    order_id, order_sn, order_status, is_exception, source_order_id, servicetype, business_id, 
+    business_name, grade, shop_id, shop_name, worker_id, worker_name, worker_tel, worker_grade, 
+    sale_id, sale_name, admin_name, create_time, pay_time, complete_time, settlement_time, 
+    finish_time, close_time, customer_name, customer_phone, customer_aliww, order_goods_catgory_id, 
+    order_goods_catgory, order_goods_map, order_goods_id, order_goods_name, order_total_fee, 
+    business_total_fee, customer_total_fee, worker_total_fee, base_total_fee, discount_base_total_fee, 
+    additional_total_fee, urgent_fee, add_luban_fee, add_business_fee, add_luban_nocc_fee, 
+    add_business_nocc_fee, add_fee_map, business_income_fee, business_outcome_fee, worker_income_fee, 
+    worker_outcome_fee, ps_fee, agent_pay_fee, worker_award_fee, worker_activity_fee, 
+    worker_deposit_fee, worker_award_rate, worker_activity_rate, worker_deposit_rate, 
+    hongbao_fee, info_fee, luban_dakuan_fee, change_money, order_deduct_fee, order_remark, 
+    remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.OrderStatisticsExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_statistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderStatisticsExample" >
+    delete from order_statistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.OrderStatistics" >
+    insert into order_statistics (order_id, order_sn, order_status, 
+      is_exception, source_order_id, servicetype, 
+      business_id, business_name, grade, 
+      shop_id, shop_name, worker_id, 
+      worker_name, worker_tel, worker_grade, 
+      sale_id, sale_name, admin_name, 
+      create_time, pay_time, complete_time, 
+      settlement_time, finish_time, close_time, 
+      customer_name, customer_phone, customer_aliww, 
+      order_goods_catgory_id, order_goods_catgory, 
+      order_goods_map, order_goods_id, order_goods_name, 
+      order_total_fee, business_total_fee, customer_total_fee, 
+      worker_total_fee, base_total_fee, discount_base_total_fee, 
+      additional_total_fee, urgent_fee, add_luban_fee, 
+      add_business_fee, add_luban_nocc_fee, add_business_nocc_fee, 
+      add_fee_map, business_income_fee, business_outcome_fee, 
+      worker_income_fee, worker_outcome_fee, ps_fee, 
+      agent_pay_fee, worker_award_fee, worker_activity_fee, 
+      worker_deposit_fee, worker_award_rate, worker_activity_rate, 
+      worker_deposit_rate, hongbao_fee, info_fee, 
+      luban_dakuan_fee, change_money, order_deduct_fee, 
+      order_remark, remark)
+    values (#{orderId,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, #{orderStatus,jdbcType=INTEGER}, 
+      #{isException,jdbcType=INTEGER}, #{sourceOrderId,jdbcType=VARCHAR}, #{servicetype,jdbcType=INTEGER}, 
+      #{businessId,jdbcType=INTEGER}, #{businessName,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
+      #{shopId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR}, #{workerId,jdbcType=INTEGER}, 
+      #{workerName,jdbcType=VARCHAR}, #{workerTel,jdbcType=VARCHAR}, #{workerGrade,jdbcType=INTEGER}, 
+      #{saleId,jdbcType=INTEGER}, #{saleName,jdbcType=VARCHAR}, #{adminName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, #{completeTime,jdbcType=TIMESTAMP}, 
+      #{settlementTime,jdbcType=TIMESTAMP}, #{finishTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
+      #{customerName,jdbcType=VARCHAR}, #{customerPhone,jdbcType=VARCHAR}, #{customerAliww,jdbcType=VARCHAR}, 
+      #{orderGoodsCatgoryId,jdbcType=INTEGER}, #{orderGoodsCatgory,jdbcType=VARCHAR}, 
+      #{orderGoodsMap,jdbcType=VARCHAR}, #{orderGoodsId,jdbcType=VARCHAR}, #{orderGoodsName,jdbcType=VARCHAR}, 
+      #{orderTotalFee,jdbcType=DOUBLE}, #{businessTotalFee,jdbcType=DOUBLE}, #{customerTotalFee,jdbcType=DOUBLE}, 
+      #{workerTotalFee,jdbcType=DOUBLE}, #{baseTotalFee,jdbcType=DOUBLE}, #{discountBaseTotalFee,jdbcType=DOUBLE}, 
+      #{additionalTotalFee,jdbcType=DOUBLE}, #{urgentFee,jdbcType=DOUBLE}, #{addLubanFee,jdbcType=DOUBLE}, 
+      #{addBusinessFee,jdbcType=DOUBLE}, #{addLubanNoccFee,jdbcType=DOUBLE}, #{addBusinessNoccFee,jdbcType=DOUBLE}, 
+      #{addFeeMap,jdbcType=VARCHAR}, #{businessIncomeFee,jdbcType=DOUBLE}, #{businessOutcomeFee,jdbcType=DOUBLE}, 
+      #{workerIncomeFee,jdbcType=DOUBLE}, #{workerOutcomeFee,jdbcType=DOUBLE}, #{psFee,jdbcType=DOUBLE}, 
+      #{agentPayFee,jdbcType=DOUBLE}, #{workerAwardFee,jdbcType=DOUBLE}, #{workerActivityFee,jdbcType=DOUBLE}, 
+      #{workerDepositFee,jdbcType=DOUBLE}, #{workerAwardRate,jdbcType=REAL}, #{workerActivityRate,jdbcType=REAL}, 
+      #{workerDepositRate,jdbcType=REAL}, #{hongbaoFee,jdbcType=DOUBLE}, #{infoFee,jdbcType=DOUBLE}, 
+      #{lubanDakuanFee,jdbcType=DOUBLE}, #{changeMoney,jdbcType=DOUBLE}, #{orderDeductFee,jdbcType=DOUBLE}, 
+      #{orderRemark,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderStatistics" >
+    insert into order_statistics
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="isException != null" >
+        is_exception,
+      </if>
+      <if test="sourceOrderId != null" >
+        source_order_id,
+      </if>
+      <if test="servicetype != null" >
+        servicetype,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="businessName != null" >
+        business_name,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="workerId != null" >
+        worker_id,
+      </if>
+      <if test="workerName != null" >
+        worker_name,
+      </if>
+      <if test="workerTel != null" >
+        worker_tel,
+      </if>
+      <if test="workerGrade != null" >
+        worker_grade,
+      </if>
+      <if test="saleId != null" >
+        sale_id,
+      </if>
+      <if test="saleName != null" >
+        sale_name,
+      </if>
+      <if test="adminName != null" >
+        admin_name,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="completeTime != null" >
+        complete_time,
+      </if>
+      <if test="settlementTime != null" >
+        settlement_time,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="closeTime != null" >
+        close_time,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone,
+      </if>
+      <if test="customerAliww != null" >
+        customer_aliww,
+      </if>
+      <if test="orderGoodsCatgoryId != null" >
+        order_goods_catgory_id,
+      </if>
+      <if test="orderGoodsCatgory != null" >
+        order_goods_catgory,
+      </if>
+      <if test="orderGoodsMap != null" >
+        order_goods_map,
+      </if>
+      <if test="orderGoodsId != null" >
+        order_goods_id,
+      </if>
+      <if test="orderGoodsName != null" >
+        order_goods_name,
+      </if>
+      <if test="orderTotalFee != null" >
+        order_total_fee,
+      </if>
+      <if test="businessTotalFee != null" >
+        business_total_fee,
+      </if>
+      <if test="customerTotalFee != null" >
+        customer_total_fee,
+      </if>
+      <if test="workerTotalFee != null" >
+        worker_total_fee,
+      </if>
+      <if test="baseTotalFee != null" >
+        base_total_fee,
+      </if>
+      <if test="discountBaseTotalFee != null" >
+        discount_base_total_fee,
+      </if>
+      <if test="additionalTotalFee != null" >
+        additional_total_fee,
+      </if>
+      <if test="urgentFee != null" >
+        urgent_fee,
+      </if>
+      <if test="addLubanFee != null" >
+        add_luban_fee,
+      </if>
+      <if test="addBusinessFee != null" >
+        add_business_fee,
+      </if>
+      <if test="addLubanNoccFee != null" >
+        add_luban_nocc_fee,
+      </if>
+      <if test="addBusinessNoccFee != null" >
+        add_business_nocc_fee,
+      </if>
+      <if test="addFeeMap != null" >
+        add_fee_map,
+      </if>
+      <if test="businessIncomeFee != null" >
+        business_income_fee,
+      </if>
+      <if test="businessOutcomeFee != null" >
+        business_outcome_fee,
+      </if>
+      <if test="workerIncomeFee != null" >
+        worker_income_fee,
+      </if>
+      <if test="workerOutcomeFee != null" >
+        worker_outcome_fee,
+      </if>
+      <if test="psFee != null" >
+        ps_fee,
+      </if>
+      <if test="agentPayFee != null" >
+        agent_pay_fee,
+      </if>
+      <if test="workerAwardFee != null" >
+        worker_award_fee,
+      </if>
+      <if test="workerActivityFee != null" >
+        worker_activity_fee,
+      </if>
+      <if test="workerDepositFee != null" >
+        worker_deposit_fee,
+      </if>
+      <if test="workerAwardRate != null" >
+        worker_award_rate,
+      </if>
+      <if test="workerActivityRate != null" >
+        worker_activity_rate,
+      </if>
+      <if test="workerDepositRate != null" >
+        worker_deposit_rate,
+      </if>
+      <if test="hongbaoFee != null" >
+        hongbao_fee,
+      </if>
+      <if test="infoFee != null" >
+        info_fee,
+      </if>
+      <if test="lubanDakuanFee != null" >
+        luban_dakuan_fee,
+      </if>
+      <if test="changeMoney != null" >
+        change_money,
+      </if>
+      <if test="orderDeductFee != null" >
+        order_deduct_fee,
+      </if>
+      <if test="orderRemark != null" >
+        order_remark,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isException != null" >
+        #{isException,jdbcType=INTEGER},
+      </if>
+      <if test="sourceOrderId != null" >
+        #{sourceOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="servicetype != null" >
+        #{servicetype,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="businessName != null" >
+        #{businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="workerName != null" >
+        #{workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="workerTel != null" >
+        #{workerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="workerGrade != null" >
+        #{workerGrade,jdbcType=INTEGER},
+      </if>
+      <if test="saleId != null" >
+        #{saleId,jdbcType=INTEGER},
+      </if>
+      <if test="saleName != null" >
+        #{saleName,jdbcType=VARCHAR},
+      </if>
+      <if test="adminName != null" >
+        #{adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="completeTime != null" >
+        #{completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="settlementTime != null" >
+        #{settlementTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null" >
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAliww != null" >
+        #{customerAliww,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsCatgoryId != null" >
+        #{orderGoodsCatgoryId,jdbcType=INTEGER},
+      </if>
+      <if test="orderGoodsCatgory != null" >
+        #{orderGoodsCatgory,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsMap != null" >
+        #{orderGoodsMap,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsId != null" >
+        #{orderGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderGoodsName != null" >
+        #{orderGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="orderTotalFee != null" >
+        #{orderTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="businessTotalFee != null" >
+        #{businessTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="customerTotalFee != null" >
+        #{customerTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="workerTotalFee != null" >
+        #{workerTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="baseTotalFee != null" >
+        #{baseTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="discountBaseTotalFee != null" >
+        #{discountBaseTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="additionalTotalFee != null" >
+        #{additionalTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="urgentFee != null" >
+        #{urgentFee,jdbcType=DOUBLE},
+      </if>
+      <if test="addLubanFee != null" >
+        #{addLubanFee,jdbcType=DOUBLE},
+      </if>
+      <if test="addBusinessFee != null" >
+        #{addBusinessFee,jdbcType=DOUBLE},
+      </if>
+      <if test="addLubanNoccFee != null" >
+        #{addLubanNoccFee,jdbcType=DOUBLE},
+      </if>
+      <if test="addBusinessNoccFee != null" >
+        #{addBusinessNoccFee,jdbcType=DOUBLE},
+      </if>
+      <if test="addFeeMap != null" >
+        #{addFeeMap,jdbcType=VARCHAR},
+      </if>
+      <if test="businessIncomeFee != null" >
+        #{businessIncomeFee,jdbcType=DOUBLE},
+      </if>
+      <if test="businessOutcomeFee != null" >
+        #{businessOutcomeFee,jdbcType=DOUBLE},
+      </if>
+      <if test="workerIncomeFee != null" >
+        #{workerIncomeFee,jdbcType=DOUBLE},
+      </if>
+      <if test="workerOutcomeFee != null" >
+        #{workerOutcomeFee,jdbcType=DOUBLE},
+      </if>
+      <if test="psFee != null" >
+        #{psFee,jdbcType=DOUBLE},
+      </if>
+      <if test="agentPayFee != null" >
+        #{agentPayFee,jdbcType=DOUBLE},
+      </if>
+      <if test="workerAwardFee != null" >
+        #{workerAwardFee,jdbcType=DOUBLE},
+      </if>
+      <if test="workerActivityFee != null" >
+        #{workerActivityFee,jdbcType=DOUBLE},
+      </if>
+      <if test="workerDepositFee != null" >
+        #{workerDepositFee,jdbcType=DOUBLE},
+      </if>
+      <if test="workerAwardRate != null" >
+        #{workerAwardRate,jdbcType=REAL},
+      </if>
+      <if test="workerActivityRate != null" >
+        #{workerActivityRate,jdbcType=REAL},
+      </if>
+      <if test="workerDepositRate != null" >
+        #{workerDepositRate,jdbcType=REAL},
+      </if>
+      <if test="hongbaoFee != null" >
+        #{hongbaoFee,jdbcType=DOUBLE},
+      </if>
+      <if test="infoFee != null" >
+        #{infoFee,jdbcType=DOUBLE},
+      </if>
+      <if test="lubanDakuanFee != null" >
+        #{lubanDakuanFee,jdbcType=DOUBLE},
+      </if>
+      <if test="changeMoney != null" >
+        #{changeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="orderDeductFee != null" >
+        #{orderDeductFee,jdbcType=DOUBLE},
+      </if>
+      <if test="orderRemark != null" >
+        #{orderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderStatisticsExample" resultType="java.lang.Integer" >
+    select count(*) from order_statistics
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_statistics
+    <set >
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.isException != null" >
+        is_exception = #{record.isException,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceOrderId != null" >
+        source_order_id = #{record.sourceOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.servicetype != null" >
+        servicetype = #{record.servicetype,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessName != null" >
+        business_name = #{record.businessName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopName != null" >
+        shop_name = #{record.shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerId != null" >
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerName != null" >
+        worker_name = #{record.workerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerTel != null" >
+        worker_tel = #{record.workerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workerGrade != null" >
+        worker_grade = #{record.workerGrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.saleId != null" >
+        sale_id = #{record.saleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.saleName != null" >
+        sale_name = #{record.saleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminName != null" >
+        admin_name = #{record.adminName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payTime != null" >
+        pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.completeTime != null" >
+        complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.settlementTime != null" >
+        settlement_time = #{record.settlementTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.finishTime != null" >
+        finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.closeTime != null" >
+        close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerPhone != null" >
+        customer_phone = #{record.customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerAliww != null" >
+        customer_aliww = #{record.customerAliww,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderGoodsCatgoryId != null" >
+        order_goods_catgory_id = #{record.orderGoodsCatgoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderGoodsCatgory != null" >
+        order_goods_catgory = #{record.orderGoodsCatgory,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderGoodsMap != null" >
+        order_goods_map = #{record.orderGoodsMap,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderGoodsId != null" >
+        order_goods_id = #{record.orderGoodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderGoodsName != null" >
+        order_goods_name = #{record.orderGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderTotalFee != null" >
+        order_total_fee = #{record.orderTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.businessTotalFee != null" >
+        business_total_fee = #{record.businessTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.customerTotalFee != null" >
+        customer_total_fee = #{record.customerTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerTotalFee != null" >
+        worker_total_fee = #{record.workerTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.baseTotalFee != null" >
+        base_total_fee = #{record.baseTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.discountBaseTotalFee != null" >
+        discount_base_total_fee = #{record.discountBaseTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.additionalTotalFee != null" >
+        additional_total_fee = #{record.additionalTotalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.urgentFee != null" >
+        urgent_fee = #{record.urgentFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.addLubanFee != null" >
+        add_luban_fee = #{record.addLubanFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.addBusinessFee != null" >
+        add_business_fee = #{record.addBusinessFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.addLubanNoccFee != null" >
+        add_luban_nocc_fee = #{record.addLubanNoccFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.addBusinessNoccFee != null" >
+        add_business_nocc_fee = #{record.addBusinessNoccFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.addFeeMap != null" >
+        add_fee_map = #{record.addFeeMap,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessIncomeFee != null" >
+        business_income_fee = #{record.businessIncomeFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.businessOutcomeFee != null" >
+        business_outcome_fee = #{record.businessOutcomeFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerIncomeFee != null" >
+        worker_income_fee = #{record.workerIncomeFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerOutcomeFee != null" >
+        worker_outcome_fee = #{record.workerOutcomeFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.psFee != null" >
+        ps_fee = #{record.psFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.agentPayFee != null" >
+        agent_pay_fee = #{record.agentPayFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerAwardFee != null" >
+        worker_award_fee = #{record.workerAwardFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerActivityFee != null" >
+        worker_activity_fee = #{record.workerActivityFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerDepositFee != null" >
+        worker_deposit_fee = #{record.workerDepositFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.workerAwardRate != null" >
+        worker_award_rate = #{record.workerAwardRate,jdbcType=REAL},
+      </if>
+      <if test="record.workerActivityRate != null" >
+        worker_activity_rate = #{record.workerActivityRate,jdbcType=REAL},
+      </if>
+      <if test="record.workerDepositRate != null" >
+        worker_deposit_rate = #{record.workerDepositRate,jdbcType=REAL},
+      </if>
+      <if test="record.hongbaoFee != null" >
+        hongbao_fee = #{record.hongbaoFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.infoFee != null" >
+        info_fee = #{record.infoFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lubanDakuanFee != null" >
+        luban_dakuan_fee = #{record.lubanDakuanFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.changeMoney != null" >
+        change_money = #{record.changeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderDeductFee != null" >
+        order_deduct_fee = #{record.orderDeductFee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.orderRemark != null" >
+        order_remark = #{record.orderRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_statistics
+    set order_id = #{record.orderId,jdbcType=INTEGER},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      is_exception = #{record.isException,jdbcType=INTEGER},
+      source_order_id = #{record.sourceOrderId,jdbcType=VARCHAR},
+      servicetype = #{record.servicetype,jdbcType=INTEGER},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      business_name = #{record.businessName,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=INTEGER},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      shop_name = #{record.shopName,jdbcType=VARCHAR},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      worker_name = #{record.workerName,jdbcType=VARCHAR},
+      worker_tel = #{record.workerTel,jdbcType=VARCHAR},
+      worker_grade = #{record.workerGrade,jdbcType=INTEGER},
+      sale_id = #{record.saleId,jdbcType=INTEGER},
+      sale_name = #{record.saleName,jdbcType=VARCHAR},
+      admin_name = #{record.adminName,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      pay_time = #{record.payTime,jdbcType=TIMESTAMP},
+      complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+      settlement_time = #{record.settlementTime,jdbcType=TIMESTAMP},
+      finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+      close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_phone = #{record.customerPhone,jdbcType=VARCHAR},
+      customer_aliww = #{record.customerAliww,jdbcType=VARCHAR},
+      order_goods_catgory_id = #{record.orderGoodsCatgoryId,jdbcType=INTEGER},
+      order_goods_catgory = #{record.orderGoodsCatgory,jdbcType=VARCHAR},
+      order_goods_map = #{record.orderGoodsMap,jdbcType=VARCHAR},
+      order_goods_id = #{record.orderGoodsId,jdbcType=VARCHAR},
+      order_goods_name = #{record.orderGoodsName,jdbcType=VARCHAR},
+      order_total_fee = #{record.orderTotalFee,jdbcType=DOUBLE},
+      business_total_fee = #{record.businessTotalFee,jdbcType=DOUBLE},
+      customer_total_fee = #{record.customerTotalFee,jdbcType=DOUBLE},
+      worker_total_fee = #{record.workerTotalFee,jdbcType=DOUBLE},
+      base_total_fee = #{record.baseTotalFee,jdbcType=DOUBLE},
+      discount_base_total_fee = #{record.discountBaseTotalFee,jdbcType=DOUBLE},
+      additional_total_fee = #{record.additionalTotalFee,jdbcType=DOUBLE},
+      urgent_fee = #{record.urgentFee,jdbcType=DOUBLE},
+      add_luban_fee = #{record.addLubanFee,jdbcType=DOUBLE},
+      add_business_fee = #{record.addBusinessFee,jdbcType=DOUBLE},
+      add_luban_nocc_fee = #{record.addLubanNoccFee,jdbcType=DOUBLE},
+      add_business_nocc_fee = #{record.addBusinessNoccFee,jdbcType=DOUBLE},
+      add_fee_map = #{record.addFeeMap,jdbcType=VARCHAR},
+      business_income_fee = #{record.businessIncomeFee,jdbcType=DOUBLE},
+      business_outcome_fee = #{record.businessOutcomeFee,jdbcType=DOUBLE},
+      worker_income_fee = #{record.workerIncomeFee,jdbcType=DOUBLE},
+      worker_outcome_fee = #{record.workerOutcomeFee,jdbcType=DOUBLE},
+      ps_fee = #{record.psFee,jdbcType=DOUBLE},
+      agent_pay_fee = #{record.agentPayFee,jdbcType=DOUBLE},
+      worker_award_fee = #{record.workerAwardFee,jdbcType=DOUBLE},
+      worker_activity_fee = #{record.workerActivityFee,jdbcType=DOUBLE},
+      worker_deposit_fee = #{record.workerDepositFee,jdbcType=DOUBLE},
+      worker_award_rate = #{record.workerAwardRate,jdbcType=REAL},
+      worker_activity_rate = #{record.workerActivityRate,jdbcType=REAL},
+      worker_deposit_rate = #{record.workerDepositRate,jdbcType=REAL},
+      hongbao_fee = #{record.hongbaoFee,jdbcType=DOUBLE},
+      info_fee = #{record.infoFee,jdbcType=DOUBLE},
+      luban_dakuan_fee = #{record.lubanDakuanFee,jdbcType=DOUBLE},
+      change_money = #{record.changeMoney,jdbcType=DOUBLE},
+      order_deduct_fee = #{record.orderDeductFee,jdbcType=DOUBLE},
+      order_remark = #{record.orderRemark,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

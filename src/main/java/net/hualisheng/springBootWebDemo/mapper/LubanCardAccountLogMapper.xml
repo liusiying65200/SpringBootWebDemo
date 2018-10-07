@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.LubanCardAccountLogMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.LubanCardAccountLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="luban_card_account_id" property="lubanCardAccountId" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="account_sn" property="accountSn" jdbcType="VARCHAR" />
+    <result column="luban_coin_change" property="lubanCoinChange" jdbcType="DOUBLE" />
+    <result column="luban_coin_balance" property="lubanCoinBalance" jdbcType="DOUBLE" />
+    <result column="log_type" property="logType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="detail_desc" property="detailDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_id, luban_card_account_id, order_sn, account_sn, luban_coin_change, 
+    luban_coin_balance, log_type, create_time, detail_desc
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.LubanCardAccountLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from luban_card_account_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from luban_card_account_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from luban_card_account_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.LubanCardAccountLogExample" >
+    delete from luban_card_account_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.LubanCardAccountLog" >
+    insert into luban_card_account_log (id, business_id, luban_card_account_id, 
+      order_sn, account_sn, luban_coin_change, 
+      luban_coin_balance, log_type, create_time, 
+      detail_desc)
+    values (#{id,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{lubanCardAccountId,jdbcType=INTEGER}, 
+      #{orderSn,jdbcType=VARCHAR}, #{accountSn,jdbcType=VARCHAR}, #{lubanCoinChange,jdbcType=DOUBLE}, 
+      #{lubanCoinBalance,jdbcType=DOUBLE}, #{logType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{detailDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.LubanCardAccountLog" >
+    insert into luban_card_account_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="lubanCardAccountId != null" >
+        luban_card_account_id,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="accountSn != null" >
+        account_sn,
+      </if>
+      <if test="lubanCoinChange != null" >
+        luban_coin_change,
+      </if>
+      <if test="lubanCoinBalance != null" >
+        luban_coin_balance,
+      </if>
+      <if test="logType != null" >
+        log_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="detailDesc != null" >
+        detail_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="lubanCardAccountId != null" >
+        #{lubanCardAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="accountSn != null" >
+        #{accountSn,jdbcType=VARCHAR},
+      </if>
+      <if test="lubanCoinChange != null" >
+        #{lubanCoinChange,jdbcType=DOUBLE},
+      </if>
+      <if test="lubanCoinBalance != null" >
+        #{lubanCoinBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="logType != null" >
+        #{logType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detailDesc != null" >
+        #{detailDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.LubanCardAccountLogExample" resultType="java.lang.Integer" >
+    select count(*) from luban_card_account_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update luban_card_account_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lubanCardAccountId != null" >
+        luban_card_account_id = #{record.lubanCardAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountSn != null" >
+        account_sn = #{record.accountSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lubanCoinChange != null" >
+        luban_coin_change = #{record.lubanCoinChange,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lubanCoinBalance != null" >
+        luban_coin_balance = #{record.lubanCoinBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="record.logType != null" >
+        log_type = #{record.logType,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.detailDesc != null" >
+        detail_desc = #{record.detailDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update luban_card_account_log
+    set id = #{record.id,jdbcType=INTEGER},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      luban_card_account_id = #{record.lubanCardAccountId,jdbcType=INTEGER},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      account_sn = #{record.accountSn,jdbcType=VARCHAR},
+      luban_coin_change = #{record.lubanCoinChange,jdbcType=DOUBLE},
+      luban_coin_balance = #{record.lubanCoinBalance,jdbcType=DOUBLE},
+      log_type = #{record.logType,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      detail_desc = #{record.detailDesc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.LubanCardAccountLog" >
+    update luban_card_account_log
+    <set >
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="lubanCardAccountId != null" >
+        luban_card_account_id = #{lubanCardAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="accountSn != null" >
+        account_sn = #{accountSn,jdbcType=VARCHAR},
+      </if>
+      <if test="lubanCoinChange != null" >
+        luban_coin_change = #{lubanCoinChange,jdbcType=DOUBLE},
+      </if>
+      <if test="lubanCoinBalance != null" >
+        luban_coin_balance = #{lubanCoinBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="logType != null" >
+        log_type = #{logType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="detailDesc != null" >
+        detail_desc = #{detailDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.LubanCardAccountLog" >
+    update luban_card_account_log
+    set business_id = #{businessId,jdbcType=INTEGER},
+      luban_card_account_id = #{lubanCardAccountId,jdbcType=INTEGER},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      account_sn = #{accountSn,jdbcType=VARCHAR},
+      luban_coin_change = #{lubanCoinChange,jdbcType=DOUBLE},
+      luban_coin_balance = #{lubanCoinBalance,jdbcType=DOUBLE},
+      log_type = #{logType,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      detail_desc = #{detailDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

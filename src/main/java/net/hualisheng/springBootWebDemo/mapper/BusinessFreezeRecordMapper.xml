@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.BusinessFreezeRecordMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.BusinessFreezeRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="business_id" property="businessId" jdbcType="INTEGER" />
+    <result column="operation" property="operation" jdbcType="INTEGER" />
+    <result column="operationer" property="operationer" jdbcType="INTEGER" />
+    <result column="operationtime" property="operationtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_id, operation, operationer, operationtime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.BusinessFreezeRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from business_freeze_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from business_freeze_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from business_freeze_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessFreezeRecordExample" >
+    delete from business_freeze_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.BusinessFreezeRecord" >
+    insert into business_freeze_record (id, business_id, operation, 
+      operationer, operationtime)
+    values (#{id,jdbcType=INTEGER}, #{businessId,jdbcType=INTEGER}, #{operation,jdbcType=INTEGER}, 
+      #{operationer,jdbcType=INTEGER}, #{operationtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessFreezeRecord" >
+    insert into business_freeze_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessId != null" >
+        business_id,
+      </if>
+      <if test="operation != null" >
+        operation,
+      </if>
+      <if test="operationer != null" >
+        operationer,
+      </if>
+      <if test="operationtime != null" >
+        operationtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null" >
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="operation != null" >
+        #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="operationer != null" >
+        #{operationer,jdbcType=INTEGER},
+      </if>
+      <if test="operationtime != null" >
+        #{operationtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessFreezeRecordExample" resultType="java.lang.Integer" >
+    select count(*) from business_freeze_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update business_freeze_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessId != null" >
+        business_id = #{record.businessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.operation != null" >
+        operation = #{record.operation,jdbcType=INTEGER},
+      </if>
+      <if test="record.operationer != null" >
+        operationer = #{record.operationer,jdbcType=INTEGER},
+      </if>
+      <if test="record.operationtime != null" >
+        operationtime = #{record.operationtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update business_freeze_record
+    set id = #{record.id,jdbcType=INTEGER},
+      business_id = #{record.businessId,jdbcType=INTEGER},
+      operation = #{record.operation,jdbcType=INTEGER},
+      operationer = #{record.operationer,jdbcType=INTEGER},
+      operationtime = #{record.operationtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessFreezeRecord" >
+    update business_freeze_record
+    <set >
+      <if test="businessId != null" >
+        business_id = #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="operation != null" >
+        operation = #{operation,jdbcType=INTEGER},
+      </if>
+      <if test="operationer != null" >
+        operationer = #{operationer,jdbcType=INTEGER},
+      </if>
+      <if test="operationtime != null" >
+        operationtime = #{operationtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.BusinessFreezeRecord" >
+    update business_freeze_record
+    set business_id = #{businessId,jdbcType=INTEGER},
+      operation = #{operation,jdbcType=INTEGER},
+      operationer = #{operationer,jdbcType=INTEGER},
+      operationtime = #{operationtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

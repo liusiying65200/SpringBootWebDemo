@@ -1,0 +1,1326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.Orders2017Mapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.Orders2017" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bussiness_id" property="bussinessId" jdbcType="INTEGER" />
+    <result column="bussername" property="bussername" jdbcType="VARCHAR" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="order_cat" property="orderCat" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+    <result column="is_exception" property="isException" jdbcType="TINYINT" />
+    <result column="exception_reason" property="exceptionReason" jdbcType="INTEGER" />
+    <result column="source_order_id" property="sourceOrderId" jdbcType="VARCHAR" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR" />
+    <result column="customer_aliww" property="customerAliww" jdbcType="VARCHAR" />
+    <result column="customer_province" property="customerProvince" jdbcType="INTEGER" />
+    <result column="customer_city" property="customerCity" jdbcType="INTEGER" />
+    <result column="customer_district" property="customerDistrict" jdbcType="INTEGER" />
+    <result column="customer_address" property="customerAddress" jdbcType="VARCHAR" />
+    <result column="express_company" property="expressCompany" jdbcType="VARCHAR" />
+    <result column="express_no" property="expressNo" jdbcType="VARCHAR" />
+    <result column="business_payment" property="businessPayment" jdbcType="REAL" />
+    <result column="worker_payment" property="workerPayment" jdbcType="REAL" />
+    <result column="worker_servicetype_code" property="workerServicetypeCode" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="worker_id" property="workerId" jdbcType="INTEGER" />
+    <result column="validate_code" property="validateCode" jdbcType="INTEGER" />
+    <result column="service_code" property="serviceCode" jdbcType="INTEGER" />
+    <result column="alternate_code" property="alternateCode" jdbcType="INTEGER" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="discount" property="discount" jdbcType="DOUBLE" />
+    <result column="service_time" property="serviceTime" jdbcType="TIMESTAMP" />
+    <result column="business_note" property="businessNote" jdbcType="VARCHAR" />
+    <result column="is_pause" property="isPause" jdbcType="INTEGER" />
+    <result column="pause_reason" property="pauseReason" jdbcType="VARCHAR" />
+    <result column="pause_note" property="pauseNote" jdbcType="VARCHAR" />
+    <result column="pause_time" property="pauseTime" jdbcType="TIMESTAMP" />
+    <result column="urgentFee" property="urgentfee" jdbcType="DOUBLE" />
+    <result column="is_assigned" property="isAssigned" jdbcType="INTEGER" />
+    <result column="reSend_signCode" property="resendSigncode" jdbcType="INTEGER" />
+    <result column="reSend_serviceCode" property="resendServicecode" jdbcType="INTEGER" />
+    <result column="need_ontime_install" property="needOntimeInstall" jdbcType="INTEGER" />
+    <result column="install_note" property="installNote" jdbcType="VARCHAR" />
+    <result column="exception_subscribe" property="exceptionSubscribe" jdbcType="INTEGER" />
+    <result column="excep_subscribe_time" property="excepSubscribeTime" jdbcType="TIMESTAMP" />
+    <result column="excep_sbuscribe_reason" property="excepSbuscribeReason" jdbcType="VARCHAR" />
+    <result column="excep_sbuscribe_note" property="excepSbuscribeNote" jdbcType="VARCHAR" />
+    <result column="is_sign" property="isSign" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="package_no" property="packageNo" jdbcType="VARCHAR" />
+    <result column="refuse_pay_flag" property="refusePayFlag" jdbcType="INTEGER" />
+    <result column="belong_customer" property="belongCustomer" jdbcType="VARCHAR" />
+    <result column="finish_order_flag" property="finishOrderFlag" jdbcType="INTEGER" />
+    <result column="settlement_belong_customer" property="settlementBelongCustomer" jdbcType="VARCHAR" />
+    <result column="business_min_fee" property="businessMinFee" jdbcType="REAL" />
+    <result column="worker_min_fee" property="workerMinFee" jdbcType="REAL" />
+    <result column="develop_worker" property="developWorker" jdbcType="INTEGER" />
+    <result column="develop_note" property="developNote" jdbcType="VARCHAR" />
+    <result column="make_good_status" property="makeGoodStatus" jdbcType="INTEGER" />
+    <result column="make_good_money" property="makeGoodMoney" jdbcType="DOUBLE" />
+    <result column="make_good_fail_reason" property="makeGoodFailReason" jdbcType="VARCHAR" />
+    <result column="yy_status" property="yyStatus" jdbcType="INTEGER" />
+    <result column="order_deal_flag" property="orderDealFlag" jdbcType="INTEGER" />
+    <result column="luban_coin" property="lubanCoin" jdbcType="DOUBLE" />
+    <result column="luban_card_account_id" property="lubanCardAccountId" jdbcType="INTEGER" />
+    <result column="refuse_case" property="refuseCase" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.Orders2017" extends="BaseResultMap" >
+    <result column="customer_desc" property="customerDesc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bussiness_id, bussername, shop_id, order_cat, order_sn, order_status, is_exception, 
+    exception_reason, source_order_id, customer_name, customer_phone, customer_aliww, 
+    customer_province, customer_city, customer_district, customer_address, express_company, 
+    express_no, business_payment, worker_payment, worker_servicetype_code, create_time, 
+    worker_id, validate_code, service_code, alternate_code, notes, discount, service_time, 
+    business_note, is_pause, pause_reason, pause_note, pause_time, urgentFee, is_assigned, 
+    reSend_signCode, reSend_serviceCode, need_ontime_install, install_note, exception_subscribe, 
+    excep_subscribe_time, excep_sbuscribe_reason, excep_sbuscribe_note, is_sign, update_time, 
+    package_no, refuse_pay_flag, belong_customer, finish_order_flag, settlement_belong_customer, 
+    business_min_fee, worker_min_fee, develop_worker, develop_note, make_good_status, 
+    make_good_money, make_good_fail_reason, yy_status, order_deal_flag, luban_coin, luban_card_account_id, 
+    refuse_case
+  </sql>
+  <sql id="Blob_Column_List" >
+    customer_desc
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from orders_2017
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017Example" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from orders_2017
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from orders_2017
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orders_2017
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017Example" >
+    delete from orders_2017
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017" >
+    insert into orders_2017 (id, bussiness_id, bussername, 
+      shop_id, order_cat, order_sn, 
+      order_status, is_exception, exception_reason, 
+      source_order_id, customer_name, customer_phone, 
+      customer_aliww, customer_province, customer_city, 
+      customer_district, customer_address, express_company, 
+      express_no, business_payment, worker_payment, 
+      worker_servicetype_code, create_time, worker_id, 
+      validate_code, service_code, alternate_code, 
+      notes, discount, service_time, 
+      business_note, is_pause, pause_reason, 
+      pause_note, pause_time, urgentFee, 
+      is_assigned, reSend_signCode, reSend_serviceCode, 
+      need_ontime_install, install_note, exception_subscribe, 
+      excep_subscribe_time, excep_sbuscribe_reason, 
+      excep_sbuscribe_note, is_sign, update_time, 
+      package_no, refuse_pay_flag, belong_customer, 
+      finish_order_flag, settlement_belong_customer, 
+      business_min_fee, worker_min_fee, develop_worker, 
+      develop_note, make_good_status, make_good_money, 
+      make_good_fail_reason, yy_status, order_deal_flag, 
+      luban_coin, luban_card_account_id, refuse_case, 
+      customer_desc)
+    values (#{id,jdbcType=INTEGER}, #{bussinessId,jdbcType=INTEGER}, #{bussername,jdbcType=VARCHAR}, 
+      #{shopId,jdbcType=INTEGER}, #{orderCat,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, 
+      #{orderStatus,jdbcType=INTEGER}, #{isException,jdbcType=TINYINT}, #{exceptionReason,jdbcType=INTEGER}, 
+      #{sourceOrderId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR}, #{customerPhone,jdbcType=VARCHAR}, 
+      #{customerAliww,jdbcType=VARCHAR}, #{customerProvince,jdbcType=INTEGER}, #{customerCity,jdbcType=INTEGER}, 
+      #{customerDistrict,jdbcType=INTEGER}, #{customerAddress,jdbcType=VARCHAR}, #{expressCompany,jdbcType=VARCHAR}, 
+      #{expressNo,jdbcType=VARCHAR}, #{businessPayment,jdbcType=REAL}, #{workerPayment,jdbcType=REAL}, 
+      #{workerServicetypeCode,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{workerId,jdbcType=INTEGER}, 
+      #{validateCode,jdbcType=INTEGER}, #{serviceCode,jdbcType=INTEGER}, #{alternateCode,jdbcType=INTEGER}, 
+      #{notes,jdbcType=VARCHAR}, #{discount,jdbcType=DOUBLE}, #{serviceTime,jdbcType=TIMESTAMP}, 
+      #{businessNote,jdbcType=VARCHAR}, #{isPause,jdbcType=INTEGER}, #{pauseReason,jdbcType=VARCHAR}, 
+      #{pauseNote,jdbcType=VARCHAR}, #{pauseTime,jdbcType=TIMESTAMP}, #{urgentfee,jdbcType=DOUBLE}, 
+      #{isAssigned,jdbcType=INTEGER}, #{resendSigncode,jdbcType=INTEGER}, #{resendServicecode,jdbcType=INTEGER}, 
+      #{needOntimeInstall,jdbcType=INTEGER}, #{installNote,jdbcType=VARCHAR}, #{exceptionSubscribe,jdbcType=INTEGER}, 
+      #{excepSubscribeTime,jdbcType=TIMESTAMP}, #{excepSbuscribeReason,jdbcType=VARCHAR}, 
+      #{excepSbuscribeNote,jdbcType=VARCHAR}, #{isSign,jdbcType=INTEGER}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{packageNo,jdbcType=VARCHAR}, #{refusePayFlag,jdbcType=INTEGER}, #{belongCustomer,jdbcType=VARCHAR}, 
+      #{finishOrderFlag,jdbcType=INTEGER}, #{settlementBelongCustomer,jdbcType=VARCHAR}, 
+      #{businessMinFee,jdbcType=REAL}, #{workerMinFee,jdbcType=REAL}, #{developWorker,jdbcType=INTEGER}, 
+      #{developNote,jdbcType=VARCHAR}, #{makeGoodStatus,jdbcType=INTEGER}, #{makeGoodMoney,jdbcType=DOUBLE}, 
+      #{makeGoodFailReason,jdbcType=VARCHAR}, #{yyStatus,jdbcType=INTEGER}, #{orderDealFlag,jdbcType=INTEGER}, 
+      #{lubanCoin,jdbcType=DOUBLE}, #{lubanCardAccountId,jdbcType=INTEGER}, #{refuseCase,jdbcType=VARCHAR}, 
+      #{customerDesc,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017" >
+    insert into orders_2017
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bussinessId != null" >
+        bussiness_id,
+      </if>
+      <if test="bussername != null" >
+        bussername,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="orderCat != null" >
+        order_cat,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="orderStatus != null" >
+        order_status,
+      </if>
+      <if test="isException != null" >
+        is_exception,
+      </if>
+      <if test="exceptionReason != null" >
+        exception_reason,
+      </if>
+      <if test="sourceOrderId != null" >
+        source_order_id,
+      </if>
+      <if test="customerName != null" >
+        customer_name,
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone,
+      </if>
+      <if test="customerAliww != null" >
+        customer_aliww,
+      </if>
+      <if test="customerProvince != null" >
+        customer_province,
+      </if>
+      <if test="customerCity != null" >
+        customer_city,
+      </if>
+      <if test="customerDistrict != null" >
+        customer_district,
+      </if>
+      <if test="customerAddress != null" >
+        customer_address,
+      </if>
+      <if test="expressCompany != null" >
+        express_company,
+      </if>
+      <if test="expressNo != null" >
+        express_no,
+      </if>
+      <if test="businessPayment != null" >
+        business_payment,
+      </if>
+      <if test="workerPayment != null" >
+        worker_payment,
+      </if>
+      <if test="workerServicetypeCode != null" >
+        worker_servicetype_code,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="workerId != null" >
+        worker_id,
+      </if>
+      <if test="validateCode != null" >
+        validate_code,
+      </if>
+      <if test="serviceCode != null" >
+        service_code,
+      </if>
+      <if test="alternateCode != null" >
+        alternate_code,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="serviceTime != null" >
+        service_time,
+      </if>
+      <if test="businessNote != null" >
+        business_note,
+      </if>
+      <if test="isPause != null" >
+        is_pause,
+      </if>
+      <if test="pauseReason != null" >
+        pause_reason,
+      </if>
+      <if test="pauseNote != null" >
+        pause_note,
+      </if>
+      <if test="pauseTime != null" >
+        pause_time,
+      </if>
+      <if test="urgentfee != null" >
+        urgentFee,
+      </if>
+      <if test="isAssigned != null" >
+        is_assigned,
+      </if>
+      <if test="resendSigncode != null" >
+        reSend_signCode,
+      </if>
+      <if test="resendServicecode != null" >
+        reSend_serviceCode,
+      </if>
+      <if test="needOntimeInstall != null" >
+        need_ontime_install,
+      </if>
+      <if test="installNote != null" >
+        install_note,
+      </if>
+      <if test="exceptionSubscribe != null" >
+        exception_subscribe,
+      </if>
+      <if test="excepSubscribeTime != null" >
+        excep_subscribe_time,
+      </if>
+      <if test="excepSbuscribeReason != null" >
+        excep_sbuscribe_reason,
+      </if>
+      <if test="excepSbuscribeNote != null" >
+        excep_sbuscribe_note,
+      </if>
+      <if test="isSign != null" >
+        is_sign,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="packageNo != null" >
+        package_no,
+      </if>
+      <if test="refusePayFlag != null" >
+        refuse_pay_flag,
+      </if>
+      <if test="belongCustomer != null" >
+        belong_customer,
+      </if>
+      <if test="finishOrderFlag != null" >
+        finish_order_flag,
+      </if>
+      <if test="settlementBelongCustomer != null" >
+        settlement_belong_customer,
+      </if>
+      <if test="businessMinFee != null" >
+        business_min_fee,
+      </if>
+      <if test="workerMinFee != null" >
+        worker_min_fee,
+      </if>
+      <if test="developWorker != null" >
+        develop_worker,
+      </if>
+      <if test="developNote != null" >
+        develop_note,
+      </if>
+      <if test="makeGoodStatus != null" >
+        make_good_status,
+      </if>
+      <if test="makeGoodMoney != null" >
+        make_good_money,
+      </if>
+      <if test="makeGoodFailReason != null" >
+        make_good_fail_reason,
+      </if>
+      <if test="yyStatus != null" >
+        yy_status,
+      </if>
+      <if test="orderDealFlag != null" >
+        order_deal_flag,
+      </if>
+      <if test="lubanCoin != null" >
+        luban_coin,
+      </if>
+      <if test="lubanCardAccountId != null" >
+        luban_card_account_id,
+      </if>
+      <if test="refuseCase != null" >
+        refuse_case,
+      </if>
+      <if test="customerDesc != null" >
+        customer_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bussinessId != null" >
+        #{bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="bussername != null" >
+        #{bussername,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="orderCat != null" >
+        #{orderCat,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isException != null" >
+        #{isException,jdbcType=TINYINT},
+      </if>
+      <if test="exceptionReason != null" >
+        #{exceptionReason,jdbcType=INTEGER},
+      </if>
+      <if test="sourceOrderId != null" >
+        #{sourceOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAliww != null" >
+        #{customerAliww,jdbcType=VARCHAR},
+      </if>
+      <if test="customerProvince != null" >
+        #{customerProvince,jdbcType=INTEGER},
+      </if>
+      <if test="customerCity != null" >
+        #{customerCity,jdbcType=INTEGER},
+      </if>
+      <if test="customerDistrict != null" >
+        #{customerDistrict,jdbcType=INTEGER},
+      </if>
+      <if test="customerAddress != null" >
+        #{customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompany != null" >
+        #{expressCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessPayment != null" >
+        #{businessPayment,jdbcType=REAL},
+      </if>
+      <if test="workerPayment != null" >
+        #{workerPayment,jdbcType=REAL},
+      </if>
+      <if test="workerServicetypeCode != null" >
+        #{workerServicetypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="validateCode != null" >
+        #{validateCode,jdbcType=INTEGER},
+      </if>
+      <if test="serviceCode != null" >
+        #{serviceCode,jdbcType=INTEGER},
+      </if>
+      <if test="alternateCode != null" >
+        #{alternateCode,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceTime != null" >
+        #{serviceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessNote != null" >
+        #{businessNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isPause != null" >
+        #{isPause,jdbcType=INTEGER},
+      </if>
+      <if test="pauseReason != null" >
+        #{pauseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseNote != null" >
+        #{pauseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseTime != null" >
+        #{pauseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="urgentfee != null" >
+        #{urgentfee,jdbcType=DOUBLE},
+      </if>
+      <if test="isAssigned != null" >
+        #{isAssigned,jdbcType=INTEGER},
+      </if>
+      <if test="resendSigncode != null" >
+        #{resendSigncode,jdbcType=INTEGER},
+      </if>
+      <if test="resendServicecode != null" >
+        #{resendServicecode,jdbcType=INTEGER},
+      </if>
+      <if test="needOntimeInstall != null" >
+        #{needOntimeInstall,jdbcType=INTEGER},
+      </if>
+      <if test="installNote != null" >
+        #{installNote,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionSubscribe != null" >
+        #{exceptionSubscribe,jdbcType=INTEGER},
+      </if>
+      <if test="excepSubscribeTime != null" >
+        #{excepSubscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="excepSbuscribeReason != null" >
+        #{excepSbuscribeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="excepSbuscribeNote != null" >
+        #{excepSbuscribeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isSign != null" >
+        #{isSign,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageNo != null" >
+        #{packageNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refusePayFlag != null" >
+        #{refusePayFlag,jdbcType=INTEGER},
+      </if>
+      <if test="belongCustomer != null" >
+        #{belongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="finishOrderFlag != null" >
+        #{finishOrderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="settlementBelongCustomer != null" >
+        #{settlementBelongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="businessMinFee != null" >
+        #{businessMinFee,jdbcType=REAL},
+      </if>
+      <if test="workerMinFee != null" >
+        #{workerMinFee,jdbcType=REAL},
+      </if>
+      <if test="developWorker != null" >
+        #{developWorker,jdbcType=INTEGER},
+      </if>
+      <if test="developNote != null" >
+        #{developNote,jdbcType=VARCHAR},
+      </if>
+      <if test="makeGoodStatus != null" >
+        #{makeGoodStatus,jdbcType=INTEGER},
+      </if>
+      <if test="makeGoodMoney != null" >
+        #{makeGoodMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="makeGoodFailReason != null" >
+        #{makeGoodFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="yyStatus != null" >
+        #{yyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderDealFlag != null" >
+        #{orderDealFlag,jdbcType=INTEGER},
+      </if>
+      <if test="lubanCoin != null" >
+        #{lubanCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="lubanCardAccountId != null" >
+        #{lubanCardAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="refuseCase != null" >
+        #{refuseCase,jdbcType=VARCHAR},
+      </if>
+      <if test="customerDesc != null" >
+        #{customerDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017Example" resultType="java.lang.Integer" >
+    select count(*) from orders_2017
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orders_2017
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bussinessId != null" >
+        bussiness_id = #{record.bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bussername != null" >
+        bussername = #{record.bussername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderCat != null" >
+        order_cat = #{record.orderCat,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderStatus != null" >
+        order_status = #{record.orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.isException != null" >
+        is_exception = #{record.isException,jdbcType=TINYINT},
+      </if>
+      <if test="record.exceptionReason != null" >
+        exception_reason = #{record.exceptionReason,jdbcType=INTEGER},
+      </if>
+      <if test="record.sourceOrderId != null" >
+        source_order_id = #{record.sourceOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerName != null" >
+        customer_name = #{record.customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerPhone != null" >
+        customer_phone = #{record.customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerAliww != null" >
+        customer_aliww = #{record.customerAliww,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerProvince != null" >
+        customer_province = #{record.customerProvince,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerCity != null" >
+        customer_city = #{record.customerCity,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerDistrict != null" >
+        customer_district = #{record.customerDistrict,jdbcType=INTEGER},
+      </if>
+      <if test="record.customerAddress != null" >
+        customer_address = #{record.customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressCompany != null" >
+        express_company = #{record.expressCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expressNo != null" >
+        express_no = #{record.expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessPayment != null" >
+        business_payment = #{record.businessPayment,jdbcType=REAL},
+      </if>
+      <if test="record.workerPayment != null" >
+        worker_payment = #{record.workerPayment,jdbcType=REAL},
+      </if>
+      <if test="record.workerServicetypeCode != null" >
+        worker_servicetype_code = #{record.workerServicetypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.workerId != null" >
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.validateCode != null" >
+        validate_code = #{record.validateCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceCode != null" >
+        service_code = #{record.serviceCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.alternateCode != null" >
+        alternate_code = #{record.alternateCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.notes != null" >
+        notes = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discount != null" >
+        discount = #{record.discount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.serviceTime != null" >
+        service_time = #{record.serviceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.businessNote != null" >
+        business_note = #{record.businessNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPause != null" >
+        is_pause = #{record.isPause,jdbcType=INTEGER},
+      </if>
+      <if test="record.pauseReason != null" >
+        pause_reason = #{record.pauseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pauseNote != null" >
+        pause_note = #{record.pauseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pauseTime != null" >
+        pause_time = #{record.pauseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.urgentfee != null" >
+        urgentFee = #{record.urgentfee,jdbcType=DOUBLE},
+      </if>
+      <if test="record.isAssigned != null" >
+        is_assigned = #{record.isAssigned,jdbcType=INTEGER},
+      </if>
+      <if test="record.resendSigncode != null" >
+        reSend_signCode = #{record.resendSigncode,jdbcType=INTEGER},
+      </if>
+      <if test="record.resendServicecode != null" >
+        reSend_serviceCode = #{record.resendServicecode,jdbcType=INTEGER},
+      </if>
+      <if test="record.needOntimeInstall != null" >
+        need_ontime_install = #{record.needOntimeInstall,jdbcType=INTEGER},
+      </if>
+      <if test="record.installNote != null" >
+        install_note = #{record.installNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exceptionSubscribe != null" >
+        exception_subscribe = #{record.exceptionSubscribe,jdbcType=INTEGER},
+      </if>
+      <if test="record.excepSubscribeTime != null" >
+        excep_subscribe_time = #{record.excepSubscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.excepSbuscribeReason != null" >
+        excep_sbuscribe_reason = #{record.excepSbuscribeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.excepSbuscribeNote != null" >
+        excep_sbuscribe_note = #{record.excepSbuscribeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSign != null" >
+        is_sign = #{record.isSign,jdbcType=INTEGER},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.packageNo != null" >
+        package_no = #{record.packageNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refusePayFlag != null" >
+        refuse_pay_flag = #{record.refusePayFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.belongCustomer != null" >
+        belong_customer = #{record.belongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finishOrderFlag != null" >
+        finish_order_flag = #{record.finishOrderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.settlementBelongCustomer != null" >
+        settlement_belong_customer = #{record.settlementBelongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessMinFee != null" >
+        business_min_fee = #{record.businessMinFee,jdbcType=REAL},
+      </if>
+      <if test="record.workerMinFee != null" >
+        worker_min_fee = #{record.workerMinFee,jdbcType=REAL},
+      </if>
+      <if test="record.developWorker != null" >
+        develop_worker = #{record.developWorker,jdbcType=INTEGER},
+      </if>
+      <if test="record.developNote != null" >
+        develop_note = #{record.developNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.makeGoodStatus != null" >
+        make_good_status = #{record.makeGoodStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.makeGoodMoney != null" >
+        make_good_money = #{record.makeGoodMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.makeGoodFailReason != null" >
+        make_good_fail_reason = #{record.makeGoodFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.yyStatus != null" >
+        yy_status = #{record.yyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderDealFlag != null" >
+        order_deal_flag = #{record.orderDealFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.lubanCoin != null" >
+        luban_coin = #{record.lubanCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lubanCardAccountId != null" >
+        luban_card_account_id = #{record.lubanCardAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="record.refuseCase != null" >
+        refuse_case = #{record.refuseCase,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerDesc != null" >
+        customer_desc = #{record.customerDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update orders_2017
+    set id = #{record.id,jdbcType=INTEGER},
+      bussiness_id = #{record.bussinessId,jdbcType=INTEGER},
+      bussername = #{record.bussername,jdbcType=VARCHAR},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      order_cat = #{record.orderCat,jdbcType=INTEGER},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      is_exception = #{record.isException,jdbcType=TINYINT},
+      exception_reason = #{record.exceptionReason,jdbcType=INTEGER},
+      source_order_id = #{record.sourceOrderId,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_phone = #{record.customerPhone,jdbcType=VARCHAR},
+      customer_aliww = #{record.customerAliww,jdbcType=VARCHAR},
+      customer_province = #{record.customerProvince,jdbcType=INTEGER},
+      customer_city = #{record.customerCity,jdbcType=INTEGER},
+      customer_district = #{record.customerDistrict,jdbcType=INTEGER},
+      customer_address = #{record.customerAddress,jdbcType=VARCHAR},
+      express_company = #{record.expressCompany,jdbcType=VARCHAR},
+      express_no = #{record.expressNo,jdbcType=VARCHAR},
+      business_payment = #{record.businessPayment,jdbcType=REAL},
+      worker_payment = #{record.workerPayment,jdbcType=REAL},
+      worker_servicetype_code = #{record.workerServicetypeCode,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      validate_code = #{record.validateCode,jdbcType=INTEGER},
+      service_code = #{record.serviceCode,jdbcType=INTEGER},
+      alternate_code = #{record.alternateCode,jdbcType=INTEGER},
+      notes = #{record.notes,jdbcType=VARCHAR},
+      discount = #{record.discount,jdbcType=DOUBLE},
+      service_time = #{record.serviceTime,jdbcType=TIMESTAMP},
+      business_note = #{record.businessNote,jdbcType=VARCHAR},
+      is_pause = #{record.isPause,jdbcType=INTEGER},
+      pause_reason = #{record.pauseReason,jdbcType=VARCHAR},
+      pause_note = #{record.pauseNote,jdbcType=VARCHAR},
+      pause_time = #{record.pauseTime,jdbcType=TIMESTAMP},
+      urgentFee = #{record.urgentfee,jdbcType=DOUBLE},
+      is_assigned = #{record.isAssigned,jdbcType=INTEGER},
+      reSend_signCode = #{record.resendSigncode,jdbcType=INTEGER},
+      reSend_serviceCode = #{record.resendServicecode,jdbcType=INTEGER},
+      need_ontime_install = #{record.needOntimeInstall,jdbcType=INTEGER},
+      install_note = #{record.installNote,jdbcType=VARCHAR},
+      exception_subscribe = #{record.exceptionSubscribe,jdbcType=INTEGER},
+      excep_subscribe_time = #{record.excepSubscribeTime,jdbcType=TIMESTAMP},
+      excep_sbuscribe_reason = #{record.excepSbuscribeReason,jdbcType=VARCHAR},
+      excep_sbuscribe_note = #{record.excepSbuscribeNote,jdbcType=VARCHAR},
+      is_sign = #{record.isSign,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      package_no = #{record.packageNo,jdbcType=VARCHAR},
+      refuse_pay_flag = #{record.refusePayFlag,jdbcType=INTEGER},
+      belong_customer = #{record.belongCustomer,jdbcType=VARCHAR},
+      finish_order_flag = #{record.finishOrderFlag,jdbcType=INTEGER},
+      settlement_belong_customer = #{record.settlementBelongCustomer,jdbcType=VARCHAR},
+      business_min_fee = #{record.businessMinFee,jdbcType=REAL},
+      worker_min_fee = #{record.workerMinFee,jdbcType=REAL},
+      develop_worker = #{record.developWorker,jdbcType=INTEGER},
+      develop_note = #{record.developNote,jdbcType=VARCHAR},
+      make_good_status = #{record.makeGoodStatus,jdbcType=INTEGER},
+      make_good_money = #{record.makeGoodMoney,jdbcType=DOUBLE},
+      make_good_fail_reason = #{record.makeGoodFailReason,jdbcType=VARCHAR},
+      yy_status = #{record.yyStatus,jdbcType=INTEGER},
+      order_deal_flag = #{record.orderDealFlag,jdbcType=INTEGER},
+      luban_coin = #{record.lubanCoin,jdbcType=DOUBLE},
+      luban_card_account_id = #{record.lubanCardAccountId,jdbcType=INTEGER},
+      refuse_case = #{record.refuseCase,jdbcType=VARCHAR},
+      customer_desc = #{record.customerDesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orders_2017
+    set id = #{record.id,jdbcType=INTEGER},
+      bussiness_id = #{record.bussinessId,jdbcType=INTEGER},
+      bussername = #{record.bussername,jdbcType=VARCHAR},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      order_cat = #{record.orderCat,jdbcType=INTEGER},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      order_status = #{record.orderStatus,jdbcType=INTEGER},
+      is_exception = #{record.isException,jdbcType=TINYINT},
+      exception_reason = #{record.exceptionReason,jdbcType=INTEGER},
+      source_order_id = #{record.sourceOrderId,jdbcType=VARCHAR},
+      customer_name = #{record.customerName,jdbcType=VARCHAR},
+      customer_phone = #{record.customerPhone,jdbcType=VARCHAR},
+      customer_aliww = #{record.customerAliww,jdbcType=VARCHAR},
+      customer_province = #{record.customerProvince,jdbcType=INTEGER},
+      customer_city = #{record.customerCity,jdbcType=INTEGER},
+      customer_district = #{record.customerDistrict,jdbcType=INTEGER},
+      customer_address = #{record.customerAddress,jdbcType=VARCHAR},
+      express_company = #{record.expressCompany,jdbcType=VARCHAR},
+      express_no = #{record.expressNo,jdbcType=VARCHAR},
+      business_payment = #{record.businessPayment,jdbcType=REAL},
+      worker_payment = #{record.workerPayment,jdbcType=REAL},
+      worker_servicetype_code = #{record.workerServicetypeCode,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      validate_code = #{record.validateCode,jdbcType=INTEGER},
+      service_code = #{record.serviceCode,jdbcType=INTEGER},
+      alternate_code = #{record.alternateCode,jdbcType=INTEGER},
+      notes = #{record.notes,jdbcType=VARCHAR},
+      discount = #{record.discount,jdbcType=DOUBLE},
+      service_time = #{record.serviceTime,jdbcType=TIMESTAMP},
+      business_note = #{record.businessNote,jdbcType=VARCHAR},
+      is_pause = #{record.isPause,jdbcType=INTEGER},
+      pause_reason = #{record.pauseReason,jdbcType=VARCHAR},
+      pause_note = #{record.pauseNote,jdbcType=VARCHAR},
+      pause_time = #{record.pauseTime,jdbcType=TIMESTAMP},
+      urgentFee = #{record.urgentfee,jdbcType=DOUBLE},
+      is_assigned = #{record.isAssigned,jdbcType=INTEGER},
+      reSend_signCode = #{record.resendSigncode,jdbcType=INTEGER},
+      reSend_serviceCode = #{record.resendServicecode,jdbcType=INTEGER},
+      need_ontime_install = #{record.needOntimeInstall,jdbcType=INTEGER},
+      install_note = #{record.installNote,jdbcType=VARCHAR},
+      exception_subscribe = #{record.exceptionSubscribe,jdbcType=INTEGER},
+      excep_subscribe_time = #{record.excepSubscribeTime,jdbcType=TIMESTAMP},
+      excep_sbuscribe_reason = #{record.excepSbuscribeReason,jdbcType=VARCHAR},
+      excep_sbuscribe_note = #{record.excepSbuscribeNote,jdbcType=VARCHAR},
+      is_sign = #{record.isSign,jdbcType=INTEGER},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      package_no = #{record.packageNo,jdbcType=VARCHAR},
+      refuse_pay_flag = #{record.refusePayFlag,jdbcType=INTEGER},
+      belong_customer = #{record.belongCustomer,jdbcType=VARCHAR},
+      finish_order_flag = #{record.finishOrderFlag,jdbcType=INTEGER},
+      settlement_belong_customer = #{record.settlementBelongCustomer,jdbcType=VARCHAR},
+      business_min_fee = #{record.businessMinFee,jdbcType=REAL},
+      worker_min_fee = #{record.workerMinFee,jdbcType=REAL},
+      develop_worker = #{record.developWorker,jdbcType=INTEGER},
+      develop_note = #{record.developNote,jdbcType=VARCHAR},
+      make_good_status = #{record.makeGoodStatus,jdbcType=INTEGER},
+      make_good_money = #{record.makeGoodMoney,jdbcType=DOUBLE},
+      make_good_fail_reason = #{record.makeGoodFailReason,jdbcType=VARCHAR},
+      yy_status = #{record.yyStatus,jdbcType=INTEGER},
+      order_deal_flag = #{record.orderDealFlag,jdbcType=INTEGER},
+      luban_coin = #{record.lubanCoin,jdbcType=DOUBLE},
+      luban_card_account_id = #{record.lubanCardAccountId,jdbcType=INTEGER},
+      refuse_case = #{record.refuseCase,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017" >
+    update orders_2017
+    <set >
+      <if test="bussinessId != null" >
+        bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="bussername != null" >
+        bussername = #{bussername,jdbcType=VARCHAR},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="orderCat != null" >
+        order_cat = #{orderCat,jdbcType=INTEGER},
+      </if>
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=INTEGER},
+      </if>
+      <if test="isException != null" >
+        is_exception = #{isException,jdbcType=TINYINT},
+      </if>
+      <if test="exceptionReason != null" >
+        exception_reason = #{exceptionReason,jdbcType=INTEGER},
+      </if>
+      <if test="sourceOrderId != null" >
+        source_order_id = #{sourceOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="customerName != null" >
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null" >
+        customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAliww != null" >
+        customer_aliww = #{customerAliww,jdbcType=VARCHAR},
+      </if>
+      <if test="customerProvince != null" >
+        customer_province = #{customerProvince,jdbcType=INTEGER},
+      </if>
+      <if test="customerCity != null" >
+        customer_city = #{customerCity,jdbcType=INTEGER},
+      </if>
+      <if test="customerDistrict != null" >
+        customer_district = #{customerDistrict,jdbcType=INTEGER},
+      </if>
+      <if test="customerAddress != null" >
+        customer_address = #{customerAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="expressCompany != null" >
+        express_company = #{expressCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="expressNo != null" >
+        express_no = #{expressNo,jdbcType=VARCHAR},
+      </if>
+      <if test="businessPayment != null" >
+        business_payment = #{businessPayment,jdbcType=REAL},
+      </if>
+      <if test="workerPayment != null" >
+        worker_payment = #{workerPayment,jdbcType=REAL},
+      </if>
+      <if test="workerServicetypeCode != null" >
+        worker_servicetype_code = #{workerServicetypeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workerId != null" >
+        worker_id = #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="validateCode != null" >
+        validate_code = #{validateCode,jdbcType=INTEGER},
+      </if>
+      <if test="serviceCode != null" >
+        service_code = #{serviceCode,jdbcType=INTEGER},
+      </if>
+      <if test="alternateCode != null" >
+        alternate_code = #{alternateCode,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DOUBLE},
+      </if>
+      <if test="serviceTime != null" >
+        service_time = #{serviceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="businessNote != null" >
+        business_note = #{businessNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isPause != null" >
+        is_pause = #{isPause,jdbcType=INTEGER},
+      </if>
+      <if test="pauseReason != null" >
+        pause_reason = #{pauseReason,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseNote != null" >
+        pause_note = #{pauseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="pauseTime != null" >
+        pause_time = #{pauseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="urgentfee != null" >
+        urgentFee = #{urgentfee,jdbcType=DOUBLE},
+      </if>
+      <if test="isAssigned != null" >
+        is_assigned = #{isAssigned,jdbcType=INTEGER},
+      </if>
+      <if test="resendSigncode != null" >
+        reSend_signCode = #{resendSigncode,jdbcType=INTEGER},
+      </if>
+      <if test="resendServicecode != null" >
+        reSend_serviceCode = #{resendServicecode,jdbcType=INTEGER},
+      </if>
+      <if test="needOntimeInstall != null" >
+        need_ontime_install = #{needOntimeInstall,jdbcType=INTEGER},
+      </if>
+      <if test="installNote != null" >
+        install_note = #{installNote,jdbcType=VARCHAR},
+      </if>
+      <if test="exceptionSubscribe != null" >
+        exception_subscribe = #{exceptionSubscribe,jdbcType=INTEGER},
+      </if>
+      <if test="excepSubscribeTime != null" >
+        excep_subscribe_time = #{excepSubscribeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="excepSbuscribeReason != null" >
+        excep_sbuscribe_reason = #{excepSbuscribeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="excepSbuscribeNote != null" >
+        excep_sbuscribe_note = #{excepSbuscribeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="isSign != null" >
+        is_sign = #{isSign,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="packageNo != null" >
+        package_no = #{packageNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refusePayFlag != null" >
+        refuse_pay_flag = #{refusePayFlag,jdbcType=INTEGER},
+      </if>
+      <if test="belongCustomer != null" >
+        belong_customer = #{belongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="finishOrderFlag != null" >
+        finish_order_flag = #{finishOrderFlag,jdbcType=INTEGER},
+      </if>
+      <if test="settlementBelongCustomer != null" >
+        settlement_belong_customer = #{settlementBelongCustomer,jdbcType=VARCHAR},
+      </if>
+      <if test="businessMinFee != null" >
+        business_min_fee = #{businessMinFee,jdbcType=REAL},
+      </if>
+      <if test="workerMinFee != null" >
+        worker_min_fee = #{workerMinFee,jdbcType=REAL},
+      </if>
+      <if test="developWorker != null" >
+        develop_worker = #{developWorker,jdbcType=INTEGER},
+      </if>
+      <if test="developNote != null" >
+        develop_note = #{developNote,jdbcType=VARCHAR},
+      </if>
+      <if test="makeGoodStatus != null" >
+        make_good_status = #{makeGoodStatus,jdbcType=INTEGER},
+      </if>
+      <if test="makeGoodMoney != null" >
+        make_good_money = #{makeGoodMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="makeGoodFailReason != null" >
+        make_good_fail_reason = #{makeGoodFailReason,jdbcType=VARCHAR},
+      </if>
+      <if test="yyStatus != null" >
+        yy_status = #{yyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="orderDealFlag != null" >
+        order_deal_flag = #{orderDealFlag,jdbcType=INTEGER},
+      </if>
+      <if test="lubanCoin != null" >
+        luban_coin = #{lubanCoin,jdbcType=DOUBLE},
+      </if>
+      <if test="lubanCardAccountId != null" >
+        luban_card_account_id = #{lubanCardAccountId,jdbcType=INTEGER},
+      </if>
+      <if test="refuseCase != null" >
+        refuse_case = #{refuseCase,jdbcType=VARCHAR},
+      </if>
+      <if test="customerDesc != null" >
+        customer_desc = #{customerDesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017" >
+    update orders_2017
+    set bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      bussername = #{bussername,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      order_cat = #{orderCat,jdbcType=INTEGER},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      is_exception = #{isException,jdbcType=TINYINT},
+      exception_reason = #{exceptionReason,jdbcType=INTEGER},
+      source_order_id = #{sourceOrderId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      customer_aliww = #{customerAliww,jdbcType=VARCHAR},
+      customer_province = #{customerProvince,jdbcType=INTEGER},
+      customer_city = #{customerCity,jdbcType=INTEGER},
+      customer_district = #{customerDistrict,jdbcType=INTEGER},
+      customer_address = #{customerAddress,jdbcType=VARCHAR},
+      express_company = #{expressCompany,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      business_payment = #{businessPayment,jdbcType=REAL},
+      worker_payment = #{workerPayment,jdbcType=REAL},
+      worker_servicetype_code = #{workerServicetypeCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      worker_id = #{workerId,jdbcType=INTEGER},
+      validate_code = #{validateCode,jdbcType=INTEGER},
+      service_code = #{serviceCode,jdbcType=INTEGER},
+      alternate_code = #{alternateCode,jdbcType=INTEGER},
+      notes = #{notes,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=DOUBLE},
+      service_time = #{serviceTime,jdbcType=TIMESTAMP},
+      business_note = #{businessNote,jdbcType=VARCHAR},
+      is_pause = #{isPause,jdbcType=INTEGER},
+      pause_reason = #{pauseReason,jdbcType=VARCHAR},
+      pause_note = #{pauseNote,jdbcType=VARCHAR},
+      pause_time = #{pauseTime,jdbcType=TIMESTAMP},
+      urgentFee = #{urgentfee,jdbcType=DOUBLE},
+      is_assigned = #{isAssigned,jdbcType=INTEGER},
+      reSend_signCode = #{resendSigncode,jdbcType=INTEGER},
+      reSend_serviceCode = #{resendServicecode,jdbcType=INTEGER},
+      need_ontime_install = #{needOntimeInstall,jdbcType=INTEGER},
+      install_note = #{installNote,jdbcType=VARCHAR},
+      exception_subscribe = #{exceptionSubscribe,jdbcType=INTEGER},
+      excep_subscribe_time = #{excepSubscribeTime,jdbcType=TIMESTAMP},
+      excep_sbuscribe_reason = #{excepSbuscribeReason,jdbcType=VARCHAR},
+      excep_sbuscribe_note = #{excepSbuscribeNote,jdbcType=VARCHAR},
+      is_sign = #{isSign,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      package_no = #{packageNo,jdbcType=VARCHAR},
+      refuse_pay_flag = #{refusePayFlag,jdbcType=INTEGER},
+      belong_customer = #{belongCustomer,jdbcType=VARCHAR},
+      finish_order_flag = #{finishOrderFlag,jdbcType=INTEGER},
+      settlement_belong_customer = #{settlementBelongCustomer,jdbcType=VARCHAR},
+      business_min_fee = #{businessMinFee,jdbcType=REAL},
+      worker_min_fee = #{workerMinFee,jdbcType=REAL},
+      develop_worker = #{developWorker,jdbcType=INTEGER},
+      develop_note = #{developNote,jdbcType=VARCHAR},
+      make_good_status = #{makeGoodStatus,jdbcType=INTEGER},
+      make_good_money = #{makeGoodMoney,jdbcType=DOUBLE},
+      make_good_fail_reason = #{makeGoodFailReason,jdbcType=VARCHAR},
+      yy_status = #{yyStatus,jdbcType=INTEGER},
+      order_deal_flag = #{orderDealFlag,jdbcType=INTEGER},
+      luban_coin = #{lubanCoin,jdbcType=DOUBLE},
+      luban_card_account_id = #{lubanCardAccountId,jdbcType=INTEGER},
+      refuse_case = #{refuseCase,jdbcType=VARCHAR},
+      customer_desc = #{customerDesc,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.Orders2017" >
+    update orders_2017
+    set bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      bussername = #{bussername,jdbcType=VARCHAR},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      order_cat = #{orderCat,jdbcType=INTEGER},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      order_status = #{orderStatus,jdbcType=INTEGER},
+      is_exception = #{isException,jdbcType=TINYINT},
+      exception_reason = #{exceptionReason,jdbcType=INTEGER},
+      source_order_id = #{sourceOrderId,jdbcType=VARCHAR},
+      customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      customer_aliww = #{customerAliww,jdbcType=VARCHAR},
+      customer_province = #{customerProvince,jdbcType=INTEGER},
+      customer_city = #{customerCity,jdbcType=INTEGER},
+      customer_district = #{customerDistrict,jdbcType=INTEGER},
+      customer_address = #{customerAddress,jdbcType=VARCHAR},
+      express_company = #{expressCompany,jdbcType=VARCHAR},
+      express_no = #{expressNo,jdbcType=VARCHAR},
+      business_payment = #{businessPayment,jdbcType=REAL},
+      worker_payment = #{workerPayment,jdbcType=REAL},
+      worker_servicetype_code = #{workerServicetypeCode,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      worker_id = #{workerId,jdbcType=INTEGER},
+      validate_code = #{validateCode,jdbcType=INTEGER},
+      service_code = #{serviceCode,jdbcType=INTEGER},
+      alternate_code = #{alternateCode,jdbcType=INTEGER},
+      notes = #{notes,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=DOUBLE},
+      service_time = #{serviceTime,jdbcType=TIMESTAMP},
+      business_note = #{businessNote,jdbcType=VARCHAR},
+      is_pause = #{isPause,jdbcType=INTEGER},
+      pause_reason = #{pauseReason,jdbcType=VARCHAR},
+      pause_note = #{pauseNote,jdbcType=VARCHAR},
+      pause_time = #{pauseTime,jdbcType=TIMESTAMP},
+      urgentFee = #{urgentfee,jdbcType=DOUBLE},
+      is_assigned = #{isAssigned,jdbcType=INTEGER},
+      reSend_signCode = #{resendSigncode,jdbcType=INTEGER},
+      reSend_serviceCode = #{resendServicecode,jdbcType=INTEGER},
+      need_ontime_install = #{needOntimeInstall,jdbcType=INTEGER},
+      install_note = #{installNote,jdbcType=VARCHAR},
+      exception_subscribe = #{exceptionSubscribe,jdbcType=INTEGER},
+      excep_subscribe_time = #{excepSubscribeTime,jdbcType=TIMESTAMP},
+      excep_sbuscribe_reason = #{excepSbuscribeReason,jdbcType=VARCHAR},
+      excep_sbuscribe_note = #{excepSbuscribeNote,jdbcType=VARCHAR},
+      is_sign = #{isSign,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      package_no = #{packageNo,jdbcType=VARCHAR},
+      refuse_pay_flag = #{refusePayFlag,jdbcType=INTEGER},
+      belong_customer = #{belongCustomer,jdbcType=VARCHAR},
+      finish_order_flag = #{finishOrderFlag,jdbcType=INTEGER},
+      settlement_belong_customer = #{settlementBelongCustomer,jdbcType=VARCHAR},
+      business_min_fee = #{businessMinFee,jdbcType=REAL},
+      worker_min_fee = #{workerMinFee,jdbcType=REAL},
+      develop_worker = #{developWorker,jdbcType=INTEGER},
+      develop_note = #{developNote,jdbcType=VARCHAR},
+      make_good_status = #{makeGoodStatus,jdbcType=INTEGER},
+      make_good_money = #{makeGoodMoney,jdbcType=DOUBLE},
+      make_good_fail_reason = #{makeGoodFailReason,jdbcType=VARCHAR},
+      yy_status = #{yyStatus,jdbcType=INTEGER},
+      order_deal_flag = #{orderDealFlag,jdbcType=INTEGER},
+      luban_coin = #{lubanCoin,jdbcType=DOUBLE},
+      luban_card_account_id = #{lubanCardAccountId,jdbcType=INTEGER},
+      refuse_case = #{refuseCase,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.AfterSaleMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.AfterSale" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="shop_name" property="shopName" jdbcType="VARCHAR" />
+    <result column="buss_name" property="bussName" jdbcType="VARCHAR" />
+    <result column="buss_id" property="bussId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="problem" property="problem" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="sign_imgs" property="signImgs" jdbcType="VARCHAR" />
+    <result column="is_pay" property="isPay" jdbcType="INTEGER" />
+    <result column="pay" property="pay" jdbcType="DOUBLE" />
+    <result column="review" property="review" jdbcType="INTEGER" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="review_time" property="reviewTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, number, order_sn, phone, name, shop_name, buss_name, buss_id, type, problem, 
+    content, sign_imgs, is_pay, pay, review, reason, admin_id, review_time, status, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.AfterSaleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from after_sale
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from after_sale
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from after_sale
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.AfterSaleExample" >
+    delete from after_sale
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.AfterSale" >
+    insert into after_sale (id, number, order_sn, 
+      phone, name, shop_name, 
+      buss_name, buss_id, type, 
+      problem, content, sign_imgs, 
+      is_pay, pay, review, 
+      reason, admin_id, review_time, 
+      status, create_time)
+    values (#{id,jdbcType=INTEGER}, #{number,jdbcType=VARCHAR}, #{orderSn,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{shopName,jdbcType=VARCHAR}, 
+      #{bussName,jdbcType=VARCHAR}, #{bussId,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{problem,jdbcType=INTEGER}, #{content,jdbcType=VARCHAR}, #{signImgs,jdbcType=VARCHAR}, 
+      #{isPay,jdbcType=INTEGER}, #{pay,jdbcType=DOUBLE}, #{review,jdbcType=INTEGER}, 
+      #{reason,jdbcType=VARCHAR}, #{adminId,jdbcType=INTEGER}, #{reviewTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.AfterSale" >
+    insert into after_sale
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="orderSn != null" >
+        order_sn,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="shopName != null" >
+        shop_name,
+      </if>
+      <if test="bussName != null" >
+        buss_name,
+      </if>
+      <if test="bussId != null" >
+        buss_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="problem != null" >
+        problem,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="signImgs != null" >
+        sign_imgs,
+      </if>
+      <if test="isPay != null" >
+        is_pay,
+      </if>
+      <if test="pay != null" >
+        pay,
+      </if>
+      <if test="review != null" >
+        review,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="reviewTime != null" >
+        review_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSn != null" >
+        #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="shopName != null" >
+        #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="bussName != null" >
+        #{bussName,jdbcType=VARCHAR},
+      </if>
+      <if test="bussId != null" >
+        #{bussId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="problem != null" >
+        #{problem,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="signImgs != null" >
+        #{signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="isPay != null" >
+        #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null" >
+        #{pay,jdbcType=DOUBLE},
+      </if>
+      <if test="review != null" >
+        #{review,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="reviewTime != null" >
+        #{reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.AfterSaleExample" resultType="java.lang.Integer" >
+    select count(*) from after_sale
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update after_sale
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderSn != null" >
+        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.shopName != null" >
+        shop_name = #{record.shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussName != null" >
+        buss_name = #{record.bussName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussId != null" >
+        buss_id = #{record.bussId,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.problem != null" >
+        problem = #{record.problem,jdbcType=INTEGER},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signImgs != null" >
+        sign_imgs = #{record.signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isPay != null" >
+        is_pay = #{record.isPay,jdbcType=INTEGER},
+      </if>
+      <if test="record.pay != null" >
+        pay = #{record.pay,jdbcType=DOUBLE},
+      </if>
+      <if test="record.review != null" >
+        review = #{record.review,jdbcType=INTEGER},
+      </if>
+      <if test="record.reason != null" >
+        reason = #{record.reason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.reviewTime != null" >
+        review_time = #{record.reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update after_sale
+    set id = #{record.id,jdbcType=INTEGER},
+      number = #{record.number,jdbcType=VARCHAR},
+      order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      shop_name = #{record.shopName,jdbcType=VARCHAR},
+      buss_name = #{record.bussName,jdbcType=VARCHAR},
+      buss_id = #{record.bussId,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      problem = #{record.problem,jdbcType=INTEGER},
+      content = #{record.content,jdbcType=VARCHAR},
+      sign_imgs = #{record.signImgs,jdbcType=VARCHAR},
+      is_pay = #{record.isPay,jdbcType=INTEGER},
+      pay = #{record.pay,jdbcType=DOUBLE},
+      review = #{record.review,jdbcType=INTEGER},
+      reason = #{record.reason,jdbcType=VARCHAR},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      review_time = #{record.reviewTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.AfterSale" >
+    update after_sale
+    <set >
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSn != null" >
+        order_sn = #{orderSn,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="shopName != null" >
+        shop_name = #{shopName,jdbcType=VARCHAR},
+      </if>
+      <if test="bussName != null" >
+        buss_name = #{bussName,jdbcType=VARCHAR},
+      </if>
+      <if test="bussId != null" >
+        buss_id = #{bussId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="problem != null" >
+        problem = #{problem,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="signImgs != null" >
+        sign_imgs = #{signImgs,jdbcType=VARCHAR},
+      </if>
+      <if test="isPay != null" >
+        is_pay = #{isPay,jdbcType=INTEGER},
+      </if>
+      <if test="pay != null" >
+        pay = #{pay,jdbcType=DOUBLE},
+      </if>
+      <if test="review != null" >
+        review = #{review,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="reviewTime != null" >
+        review_time = #{reviewTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.AfterSale" >
+    update after_sale
+    set number = #{number,jdbcType=VARCHAR},
+      order_sn = #{orderSn,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      shop_name = #{shopName,jdbcType=VARCHAR},
+      buss_name = #{bussName,jdbcType=VARCHAR},
+      buss_id = #{bussId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      problem = #{problem,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      sign_imgs = #{signImgs,jdbcType=VARCHAR},
+      is_pay = #{isPay,jdbcType=INTEGER},
+      pay = #{pay,jdbcType=DOUBLE},
+      review = #{review,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      admin_id = #{adminId,jdbcType=INTEGER},
+      review_time = #{reviewTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

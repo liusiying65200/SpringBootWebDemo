@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.LbdjActivityRuleMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.LbdjActivityRule" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="act_id" property="actId" jdbcType="INTEGER" />
+    <result column="rules" property="rules" jdbcType="VARCHAR" />
+    <result column="rules_type" property="rulesType" jdbcType="INTEGER" />
+    <result column="effective_times" property="effectiveTimes" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, act_id, rules, rules_type, effective_times
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityRuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from lbdj_activity_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lbdj_activity_rule
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lbdj_activity_rule
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityRuleExample" >
+    delete from lbdj_activity_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityRule" >
+    insert into lbdj_activity_rule (id, act_id, rules, 
+      rules_type, effective_times)
+    values (#{id,jdbcType=INTEGER}, #{actId,jdbcType=INTEGER}, #{rules,jdbcType=VARCHAR}, 
+      #{rulesType,jdbcType=INTEGER}, #{effectiveTimes,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityRule" >
+    insert into lbdj_activity_rule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="actId != null" >
+        act_id,
+      </if>
+      <if test="rules != null" >
+        rules,
+      </if>
+      <if test="rulesType != null" >
+        rules_type,
+      </if>
+      <if test="effectiveTimes != null" >
+        effective_times,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="actId != null" >
+        #{actId,jdbcType=INTEGER},
+      </if>
+      <if test="rules != null" >
+        #{rules,jdbcType=VARCHAR},
+      </if>
+      <if test="rulesType != null" >
+        #{rulesType,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTimes != null" >
+        #{effectiveTimes,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityRuleExample" resultType="java.lang.Integer" >
+    select count(*) from lbdj_activity_rule
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update lbdj_activity_rule
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.actId != null" >
+        act_id = #{record.actId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rules != null" >
+        rules = #{record.rules,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rulesType != null" >
+        rules_type = #{record.rulesType,jdbcType=INTEGER},
+      </if>
+      <if test="record.effectiveTimes != null" >
+        effective_times = #{record.effectiveTimes,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update lbdj_activity_rule
+    set id = #{record.id,jdbcType=INTEGER},
+      act_id = #{record.actId,jdbcType=INTEGER},
+      rules = #{record.rules,jdbcType=VARCHAR},
+      rules_type = #{record.rulesType,jdbcType=INTEGER},
+      effective_times = #{record.effectiveTimes,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityRule" >
+    update lbdj_activity_rule
+    <set >
+      <if test="actId != null" >
+        act_id = #{actId,jdbcType=INTEGER},
+      </if>
+      <if test="rules != null" >
+        rules = #{rules,jdbcType=VARCHAR},
+      </if>
+      <if test="rulesType != null" >
+        rules_type = #{rulesType,jdbcType=INTEGER},
+      </if>
+      <if test="effectiveTimes != null" >
+        effective_times = #{effectiveTimes,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.LbdjActivityRule" >
+    update lbdj_activity_rule
+    set act_id = #{actId,jdbcType=INTEGER},
+      rules = #{rules,jdbcType=VARCHAR},
+      rules_type = #{rulesType,jdbcType=INTEGER},
+      effective_times = #{effectiveTimes,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,492 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.Article" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="source_title" property="sourceTitle" jdbcType="VARCHAR" />
+    <result column="source_file_path" property="sourceFilePath" jdbcType="VARCHAR" />
+    <result column="is_open" property="isOpen" jdbcType="INTEGER" />
+    <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
+    <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="title_link" property="titleLink" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="source_alt" property="sourceAlt" jdbcType="VARCHAR" />
+    <result column="alt" property="alt" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.ArticleWithBLOBs" extends="BaseResultMap" >
+    <result column="title" property="title" jdbcType="LONGVARCHAR" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="html_title" property="htmlTitle" jdbcType="LONGVARCHAR" />
+    <result column="html_keywords" property="htmlKeywords" jdbcType="LONGVARCHAR" />
+    <result column="html_description" property="htmlDescription" jdbcType="LONGVARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, cat_id, introduction, source_title, source_file_path, is_open, sort_order, publish_time, 
+    type, title_link, create_time, source_alt, alt
+  </sql>
+  <sql id="Blob_Column_List" >
+    title, content, html_title, html_keywords, html_description, file_path
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.ArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.ArticleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from article
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from article
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.ArticleExample" >
+    delete from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.ArticleWithBLOBs" >
+    insert into article (id, cat_id, introduction, 
+      source_title, source_file_path, is_open, 
+      sort_order, publish_time, type, 
+      title_link, create_time, source_alt, 
+      alt, title, content, 
+      html_title, html_keywords, html_description, 
+      file_path)
+    values (#{id,jdbcType=INTEGER}, #{catId,jdbcType=INTEGER}, #{introduction,jdbcType=VARCHAR}, 
+      #{sourceTitle,jdbcType=VARCHAR}, #{sourceFilePath,jdbcType=VARCHAR}, #{isOpen,jdbcType=INTEGER}, 
+      #{sortOrder,jdbcType=INTEGER}, #{publishTime,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, 
+      #{titleLink,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{sourceAlt,jdbcType=VARCHAR}, 
+      #{alt,jdbcType=VARCHAR}, #{title,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}, 
+      #{htmlTitle,jdbcType=LONGVARCHAR}, #{htmlKeywords,jdbcType=LONGVARCHAR}, #{htmlDescription,jdbcType=LONGVARCHAR}, 
+      #{filePath,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.ArticleWithBLOBs" >
+    insert into article
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="catId != null" >
+        cat_id,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="sourceTitle != null" >
+        source_title,
+      </if>
+      <if test="sourceFilePath != null" >
+        source_file_path,
+      </if>
+      <if test="isOpen != null" >
+        is_open,
+      </if>
+      <if test="sortOrder != null" >
+        sort_order,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="titleLink != null" >
+        title_link,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="sourceAlt != null" >
+        source_alt,
+      </if>
+      <if test="alt != null" >
+        alt,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="htmlTitle != null" >
+        html_title,
+      </if>
+      <if test="htmlKeywords != null" >
+        html_keywords,
+      </if>
+      <if test="htmlDescription != null" >
+        html_description,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="catId != null" >
+        #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTitle != null" >
+        #{sourceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceFilePath != null" >
+        #{sourceFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null" >
+        #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="sortOrder != null" >
+        #{sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="titleLink != null" >
+        #{titleLink,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceAlt != null" >
+        #{sourceAlt,jdbcType=VARCHAR},
+      </if>
+      <if test="alt != null" >
+        #{alt,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="htmlTitle != null" >
+        #{htmlTitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="htmlKeywords != null" >
+        #{htmlKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="htmlDescription != null" >
+        #{htmlDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.ArticleExample" resultType="java.lang.Integer" >
+    select count(*) from article
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update article
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.catId != null" >
+        cat_id = #{record.catId,jdbcType=INTEGER},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceTitle != null" >
+        source_title = #{record.sourceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sourceFilePath != null" >
+        source_file_path = #{record.sourceFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isOpen != null" >
+        is_open = #{record.isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="record.sortOrder != null" >
+        sort_order = #{record.sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.publishTime != null" >
+        publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.titleLink != null" >
+        title_link = #{record.titleLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sourceAlt != null" >
+        source_alt = #{record.sourceAlt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alt != null" >
+        alt = #{record.alt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.htmlTitle != null" >
+        html_title = #{record.htmlTitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.htmlKeywords != null" >
+        html_keywords = #{record.htmlKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.htmlDescription != null" >
+        html_description = #{record.htmlDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.filePath != null" >
+        file_path = #{record.filePath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update article
+    set id = #{record.id,jdbcType=INTEGER},
+      cat_id = #{record.catId,jdbcType=INTEGER},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      source_title = #{record.sourceTitle,jdbcType=VARCHAR},
+      source_file_path = #{record.sourceFilePath,jdbcType=VARCHAR},
+      is_open = #{record.isOpen,jdbcType=INTEGER},
+      sort_order = #{record.sortOrder,jdbcType=INTEGER},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
+      title_link = #{record.titleLink,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      source_alt = #{record.sourceAlt,jdbcType=VARCHAR},
+      alt = #{record.alt,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=LONGVARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      html_title = #{record.htmlTitle,jdbcType=LONGVARCHAR},
+      html_keywords = #{record.htmlKeywords,jdbcType=LONGVARCHAR},
+      html_description = #{record.htmlDescription,jdbcType=LONGVARCHAR},
+      file_path = #{record.filePath,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update article
+    set id = #{record.id,jdbcType=INTEGER},
+      cat_id = #{record.catId,jdbcType=INTEGER},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      source_title = #{record.sourceTitle,jdbcType=VARCHAR},
+      source_file_path = #{record.sourceFilePath,jdbcType=VARCHAR},
+      is_open = #{record.isOpen,jdbcType=INTEGER},
+      sort_order = #{record.sortOrder,jdbcType=INTEGER},
+      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
+      title_link = #{record.titleLink,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      source_alt = #{record.sourceAlt,jdbcType=VARCHAR},
+      alt = #{record.alt,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.ArticleWithBLOBs" >
+    update article
+    <set >
+      <if test="catId != null" >
+        cat_id = #{catId,jdbcType=INTEGER},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTitle != null" >
+        source_title = #{sourceTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceFilePath != null" >
+        source_file_path = #{sourceFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpen != null" >
+        is_open = #{isOpen,jdbcType=INTEGER},
+      </if>
+      <if test="sortOrder != null" >
+        sort_order = #{sortOrder,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="titleLink != null" >
+        title_link = #{titleLink,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceAlt != null" >
+        source_alt = #{sourceAlt,jdbcType=VARCHAR},
+      </if>
+      <if test="alt != null" >
+        alt = #{alt,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="htmlTitle != null" >
+        html_title = #{htmlTitle,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="htmlKeywords != null" >
+        html_keywords = #{htmlKeywords,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="htmlDescription != null" >
+        html_description = #{htmlDescription,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.ArticleWithBLOBs" >
+    update article
+    set cat_id = #{catId,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      source_title = #{sourceTitle,jdbcType=VARCHAR},
+      source_file_path = #{sourceFilePath,jdbcType=VARCHAR},
+      is_open = #{isOpen,jdbcType=INTEGER},
+      sort_order = #{sortOrder,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      title_link = #{titleLink,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      source_alt = #{sourceAlt,jdbcType=VARCHAR},
+      alt = #{alt,jdbcType=VARCHAR},
+      title = #{title,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      html_title = #{htmlTitle,jdbcType=LONGVARCHAR},
+      html_keywords = #{htmlKeywords,jdbcType=LONGVARCHAR},
+      html_description = #{htmlDescription,jdbcType=LONGVARCHAR},
+      file_path = #{filePath,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.Article" >
+    update article
+    set cat_id = #{catId,jdbcType=INTEGER},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      source_title = #{sourceTitle,jdbcType=VARCHAR},
+      source_file_path = #{sourceFilePath,jdbcType=VARCHAR},
+      is_open = #{isOpen,jdbcType=INTEGER},
+      sort_order = #{sortOrder,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      title_link = #{titleLink,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      source_alt = #{sourceAlt,jdbcType=VARCHAR},
+      alt = #{alt,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

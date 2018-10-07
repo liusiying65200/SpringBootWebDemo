@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.BusinessBillMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.BusinessBill" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bill_sn" property="billSn" jdbcType="VARCHAR" />
+    <result column="bill_name" property="billName" jdbcType="VARCHAR" />
+    <result column="bussiness_id" property="bussinessId" jdbcType="INTEGER" />
+    <result column="shop_id" property="shopId" jdbcType="INTEGER" />
+    <result column="bill_money" property="billMoney" jdbcType="DOUBLE" />
+    <result column="bill_check_money" property="billCheckMoney" jdbcType="REAL" />
+    <result column="bill_check_money_time" property="billCheckMoneyTime" jdbcType="TIMESTAMP" />
+    <result column="bill_pay_money" property="billPayMoney" jdbcType="REAL" />
+    <result column="bill_pay_money_time" property="billPayMoneyTime" jdbcType="TIMESTAMP" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="net.hualisheng.springBootWebDemo.model.BusinessBillWithBLOBs" extends="BaseResultMap" >
+    <result column="bill_check_money_desc" property="billCheckMoneyDesc" jdbcType="LONGVARCHAR" />
+    <result column="bill_pay_money_desc" property="billPayMoneyDesc" jdbcType="LONGVARCHAR" />
+    <result column="orderIds" property="orderids" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bill_sn, bill_name, bussiness_id, shop_id, bill_money, bill_check_money, bill_check_money_time, 
+    bill_pay_money, bill_pay_money_time, start_time, end_time, status, create_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    bill_check_money_desc, bill_pay_money_desc, orderIds
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from business_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBillExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from business_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from business_bill
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from business_bill
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBillExample" >
+    delete from business_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBillWithBLOBs" >
+    insert into business_bill (id, bill_sn, bill_name, 
+      bussiness_id, shop_id, bill_money, 
+      bill_check_money, bill_check_money_time, bill_pay_money, 
+      bill_pay_money_time, start_time, end_time, 
+      status, create_time, bill_check_money_desc, 
+      bill_pay_money_desc, orderIds)
+    values (#{id,jdbcType=INTEGER}, #{billSn,jdbcType=VARCHAR}, #{billName,jdbcType=VARCHAR}, 
+      #{bussinessId,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{billMoney,jdbcType=DOUBLE}, 
+      #{billCheckMoney,jdbcType=REAL}, #{billCheckMoneyTime,jdbcType=TIMESTAMP}, #{billPayMoney,jdbcType=REAL}, 
+      #{billPayMoneyTime,jdbcType=TIMESTAMP}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{billCheckMoneyDesc,jdbcType=LONGVARCHAR}, 
+      #{billPayMoneyDesc,jdbcType=LONGVARCHAR}, #{orderids,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBillWithBLOBs" >
+    insert into business_bill
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="billSn != null" >
+        bill_sn,
+      </if>
+      <if test="billName != null" >
+        bill_name,
+      </if>
+      <if test="bussinessId != null" >
+        bussiness_id,
+      </if>
+      <if test="shopId != null" >
+        shop_id,
+      </if>
+      <if test="billMoney != null" >
+        bill_money,
+      </if>
+      <if test="billCheckMoney != null" >
+        bill_check_money,
+      </if>
+      <if test="billCheckMoneyTime != null" >
+        bill_check_money_time,
+      </if>
+      <if test="billPayMoney != null" >
+        bill_pay_money,
+      </if>
+      <if test="billPayMoneyTime != null" >
+        bill_pay_money_time,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="billCheckMoneyDesc != null" >
+        bill_check_money_desc,
+      </if>
+      <if test="billPayMoneyDesc != null" >
+        bill_pay_money_desc,
+      </if>
+      <if test="orderids != null" >
+        orderIds,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="billSn != null" >
+        #{billSn,jdbcType=VARCHAR},
+      </if>
+      <if test="billName != null" >
+        #{billName,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessId != null" >
+        #{bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="billMoney != null" >
+        #{billMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="billCheckMoney != null" >
+        #{billCheckMoney,jdbcType=REAL},
+      </if>
+      <if test="billCheckMoneyTime != null" >
+        #{billCheckMoneyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billPayMoney != null" >
+        #{billPayMoney,jdbcType=REAL},
+      </if>
+      <if test="billPayMoneyTime != null" >
+        #{billPayMoneyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billCheckMoneyDesc != null" >
+        #{billCheckMoneyDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="billPayMoneyDesc != null" >
+        #{billPayMoneyDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="orderids != null" >
+        #{orderids,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBillExample" resultType="java.lang.Integer" >
+    select count(*) from business_bill
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update business_bill
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.billSn != null" >
+        bill_sn = #{record.billSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.billName != null" >
+        bill_name = #{record.billName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bussinessId != null" >
+        bussiness_id = #{record.bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopId != null" >
+        shop_id = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.billMoney != null" >
+        bill_money = #{record.billMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.billCheckMoney != null" >
+        bill_check_money = #{record.billCheckMoney,jdbcType=REAL},
+      </if>
+      <if test="record.billCheckMoneyTime != null" >
+        bill_check_money_time = #{record.billCheckMoneyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.billPayMoney != null" >
+        bill_pay_money = #{record.billPayMoney,jdbcType=REAL},
+      </if>
+      <if test="record.billPayMoneyTime != null" >
+        bill_pay_money_time = #{record.billPayMoneyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.startTime != null" >
+        start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endTime != null" >
+        end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.billCheckMoneyDesc != null" >
+        bill_check_money_desc = #{record.billCheckMoneyDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.billPayMoneyDesc != null" >
+        bill_pay_money_desc = #{record.billPayMoneyDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.orderids != null" >
+        orderIds = #{record.orderids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update business_bill
+    set id = #{record.id,jdbcType=INTEGER},
+      bill_sn = #{record.billSn,jdbcType=VARCHAR},
+      bill_name = #{record.billName,jdbcType=VARCHAR},
+      bussiness_id = #{record.bussinessId,jdbcType=INTEGER},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      bill_money = #{record.billMoney,jdbcType=DOUBLE},
+      bill_check_money = #{record.billCheckMoney,jdbcType=REAL},
+      bill_check_money_time = #{record.billCheckMoneyTime,jdbcType=TIMESTAMP},
+      bill_pay_money = #{record.billPayMoney,jdbcType=REAL},
+      bill_pay_money_time = #{record.billPayMoneyTime,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      bill_check_money_desc = #{record.billCheckMoneyDesc,jdbcType=LONGVARCHAR},
+      bill_pay_money_desc = #{record.billPayMoneyDesc,jdbcType=LONGVARCHAR},
+      orderIds = #{record.orderids,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update business_bill
+    set id = #{record.id,jdbcType=INTEGER},
+      bill_sn = #{record.billSn,jdbcType=VARCHAR},
+      bill_name = #{record.billName,jdbcType=VARCHAR},
+      bussiness_id = #{record.bussinessId,jdbcType=INTEGER},
+      shop_id = #{record.shopId,jdbcType=INTEGER},
+      bill_money = #{record.billMoney,jdbcType=DOUBLE},
+      bill_check_money = #{record.billCheckMoney,jdbcType=REAL},
+      bill_check_money_time = #{record.billCheckMoneyTime,jdbcType=TIMESTAMP},
+      bill_pay_money = #{record.billPayMoney,jdbcType=REAL},
+      bill_pay_money_time = #{record.billPayMoneyTime,jdbcType=TIMESTAMP},
+      start_time = #{record.startTime,jdbcType=TIMESTAMP},
+      end_time = #{record.endTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBillWithBLOBs" >
+    update business_bill
+    <set >
+      <if test="billSn != null" >
+        bill_sn = #{billSn,jdbcType=VARCHAR},
+      </if>
+      <if test="billName != null" >
+        bill_name = #{billName,jdbcType=VARCHAR},
+      </if>
+      <if test="bussinessId != null" >
+        bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null" >
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="billMoney != null" >
+        bill_money = #{billMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="billCheckMoney != null" >
+        bill_check_money = #{billCheckMoney,jdbcType=REAL},
+      </if>
+      <if test="billCheckMoneyTime != null" >
+        bill_check_money_time = #{billCheckMoneyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billPayMoney != null" >
+        bill_pay_money = #{billPayMoney,jdbcType=REAL},
+      </if>
+      <if test="billPayMoneyTime != null" >
+        bill_pay_money_time = #{billPayMoneyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billCheckMoneyDesc != null" >
+        bill_check_money_desc = #{billCheckMoneyDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="billPayMoneyDesc != null" >
+        bill_pay_money_desc = #{billPayMoneyDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="orderids != null" >
+        orderIds = #{orderids,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBillWithBLOBs" >
+    update business_bill
+    set bill_sn = #{billSn,jdbcType=VARCHAR},
+      bill_name = #{billName,jdbcType=VARCHAR},
+      bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      bill_money = #{billMoney,jdbcType=DOUBLE},
+      bill_check_money = #{billCheckMoney,jdbcType=REAL},
+      bill_check_money_time = #{billCheckMoneyTime,jdbcType=TIMESTAMP},
+      bill_pay_money = #{billPayMoney,jdbcType=REAL},
+      bill_pay_money_time = #{billPayMoneyTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      bill_check_money_desc = #{billCheckMoneyDesc,jdbcType=LONGVARCHAR},
+      bill_pay_money_desc = #{billPayMoneyDesc,jdbcType=LONGVARCHAR},
+      orderIds = #{orderids,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.BusinessBill" >
+    update business_bill
+    set bill_sn = #{billSn,jdbcType=VARCHAR},
+      bill_name = #{billName,jdbcType=VARCHAR},
+      bussiness_id = #{bussinessId,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      bill_money = #{billMoney,jdbcType=DOUBLE},
+      bill_check_money = #{billCheckMoney,jdbcType=REAL},
+      bill_check_money_time = #{billCheckMoneyTime,jdbcType=TIMESTAMP},
+      bill_pay_money = #{billPayMoney,jdbcType=REAL},
+      bill_pay_money_time = #{billPayMoneyTime,jdbcType=TIMESTAMP},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

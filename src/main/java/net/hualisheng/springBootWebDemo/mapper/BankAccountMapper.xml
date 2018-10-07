@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.BankAccountMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.BankAccount" >
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="bank_realname" property="bankRealname" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="bank_phone" property="bankPhone" jdbcType="VARCHAR" />
+    <result column="bank_code" property="bankCode" jdbcType="VARCHAR" />
+    <result column="bank_province_id" property="bankProvinceId" jdbcType="INTEGER" />
+    <result column="bank_city_id" property="bankCityId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="change_time" property="changeTime" jdbcType="TIMESTAMP" />
+    <result column="change_user" property="changeUser" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, bank_realname, bank_name, bank_card, status, type, bank_phone, bank_code, 
+    bank_province_id, bank_city_id, create_time, change_time, change_user, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.BankAccountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bank_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.BankAccountExample" >
+    delete from bank_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.BankAccount" >
+    insert into bank_account (user_id, bank_realname, bank_name, 
+      bank_card, status, type, 
+      bank_phone, bank_code, bank_province_id, 
+      bank_city_id, create_time, change_time, 
+      change_user, remark)
+    values (#{userId,jdbcType=INTEGER}, #{bankRealname,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, 
+      #{bankCard,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{bankPhone,jdbcType=VARCHAR}, #{bankCode,jdbcType=VARCHAR}, #{bankProvinceId,jdbcType=INTEGER}, 
+      #{bankCityId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{changeTime,jdbcType=TIMESTAMP}, 
+      #{changeUser,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.BankAccount" >
+    insert into bank_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="bankRealname != null" >
+        bank_realname,
+      </if>
+      <if test="bankName != null" >
+        bank_name,
+      </if>
+      <if test="bankCard != null" >
+        bank_card,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="bankPhone != null" >
+        bank_phone,
+      </if>
+      <if test="bankCode != null" >
+        bank_code,
+      </if>
+      <if test="bankProvinceId != null" >
+        bank_province_id,
+      </if>
+      <if test="bankCityId != null" >
+        bank_city_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="changeTime != null" >
+        change_time,
+      </if>
+      <if test="changeUser != null" >
+        change_user,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bankRealname != null" >
+        #{bankRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="bankPhone != null" >
+        #{bankPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankProvinceId != null" >
+        #{bankProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCityId != null" >
+        #{bankCityId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeTime != null" >
+        #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeUser != null" >
+        #{changeUser,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.BankAccountExample" resultType="java.lang.Integer" >
+    select count(*) from bank_account
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update bank_account
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankRealname != null" >
+        bank_realname = #{record.bankRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        bank_name = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCard != null" >
+        bank_card = #{record.bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankPhone != null" >
+        bank_phone = #{record.bankPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankCode != null" >
+        bank_code = #{record.bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankProvinceId != null" >
+        bank_province_id = #{record.bankProvinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.bankCityId != null" >
+        bank_city_id = #{record.bankCityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeTime != null" >
+        change_time = #{record.changeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.changeUser != null" >
+        change_user = #{record.changeUser,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update bank_account
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      bank_realname = #{record.bankRealname,jdbcType=VARCHAR},
+      bank_name = #{record.bankName,jdbcType=VARCHAR},
+      bank_card = #{record.bankCard,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      bank_phone = #{record.bankPhone,jdbcType=VARCHAR},
+      bank_code = #{record.bankCode,jdbcType=VARCHAR},
+      bank_province_id = #{record.bankProvinceId,jdbcType=INTEGER},
+      bank_city_id = #{record.bankCityId,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      change_time = #{record.changeTime,jdbcType=TIMESTAMP},
+      change_user = #{record.changeUser,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

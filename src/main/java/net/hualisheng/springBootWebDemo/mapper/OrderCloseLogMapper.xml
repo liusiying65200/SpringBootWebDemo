@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.hualisheng.springBootWebDemo.dao.OrderCloseLogMapper" >
+  <resultMap id="BaseResultMap" type="net.hualisheng.springBootWebDemo.model.OrderCloseLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="worker_id" property="workerId" jdbcType="INTEGER" />
+    <result column="close_reason" property="closeReason" jdbcType="VARCHAR" />
+    <result column="close_note" property="closeNote" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+    <result column="createbusiness" property="createbusiness" jdbcType="INTEGER" />
+    <result column="do_admin" property="doAdmin" jdbcType="INTEGER" />
+    <result column="do_time" property="doTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, order_id, worker_id, close_reason, close_note, create_time, result, createbusiness, 
+    do_admin, do_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="net.hualisheng.springBootWebDemo.model.OrderCloseLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from order_close_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_close_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from order_close_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderCloseLogExample" >
+    delete from order_close_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="net.hualisheng.springBootWebDemo.model.OrderCloseLog" >
+    insert into order_close_log (id, order_id, worker_id, 
+      close_reason, close_note, create_time, 
+      result, createbusiness, do_admin, 
+      do_time)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=INTEGER}, #{workerId,jdbcType=INTEGER}, 
+      #{closeReason,jdbcType=VARCHAR}, #{closeNote,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{result,jdbcType=INTEGER}, #{createbusiness,jdbcType=INTEGER}, #{doAdmin,jdbcType=INTEGER}, 
+      #{doTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderCloseLog" >
+    insert into order_close_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="workerId != null" >
+        worker_id,
+      </if>
+      <if test="closeReason != null" >
+        close_reason,
+      </if>
+      <if test="closeNote != null" >
+        close_note,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="createbusiness != null" >
+        createbusiness,
+      </if>
+      <if test="doAdmin != null" >
+        do_admin,
+      </if>
+      <if test="doTime != null" >
+        do_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="workerId != null" >
+        #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="closeReason != null" >
+        #{closeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="closeNote != null" >
+        #{closeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="createbusiness != null" >
+        #{createbusiness,jdbcType=INTEGER},
+      </if>
+      <if test="doAdmin != null" >
+        #{doAdmin,jdbcType=INTEGER},
+      </if>
+      <if test="doTime != null" >
+        #{doTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="net.hualisheng.springBootWebDemo.model.OrderCloseLogExample" resultType="java.lang.Integer" >
+    select count(*) from order_close_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update order_close_log
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.workerId != null" >
+        worker_id = #{record.workerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.closeReason != null" >
+        close_reason = #{record.closeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.closeNote != null" >
+        close_note = #{record.closeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.result != null" >
+        result = #{record.result,jdbcType=INTEGER},
+      </if>
+      <if test="record.createbusiness != null" >
+        createbusiness = #{record.createbusiness,jdbcType=INTEGER},
+      </if>
+      <if test="record.doAdmin != null" >
+        do_admin = #{record.doAdmin,jdbcType=INTEGER},
+      </if>
+      <if test="record.doTime != null" >
+        do_time = #{record.doTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update order_close_log
+    set id = #{record.id,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      worker_id = #{record.workerId,jdbcType=INTEGER},
+      close_reason = #{record.closeReason,jdbcType=VARCHAR},
+      close_note = #{record.closeNote,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      result = #{record.result,jdbcType=INTEGER},
+      createbusiness = #{record.createbusiness,jdbcType=INTEGER},
+      do_admin = #{record.doAdmin,jdbcType=INTEGER},
+      do_time = #{record.doTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="net.hualisheng.springBootWebDemo.model.OrderCloseLog" >
+    update order_close_log
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="workerId != null" >
+        worker_id = #{workerId,jdbcType=INTEGER},
+      </if>
+      <if test="closeReason != null" >
+        close_reason = #{closeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="closeNote != null" >
+        close_note = #{closeNote,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="createbusiness != null" >
+        createbusiness = #{createbusiness,jdbcType=INTEGER},
+      </if>
+      <if test="doAdmin != null" >
+        do_admin = #{doAdmin,jdbcType=INTEGER},
+      </if>
+      <if test="doTime != null" >
+        do_time = #{doTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.hualisheng.springBootWebDemo.model.OrderCloseLog" >
+    update order_close_log
+    set order_id = #{orderId,jdbcType=INTEGER},
+      worker_id = #{workerId,jdbcType=INTEGER},
+      close_reason = #{closeReason,jdbcType=VARCHAR},
+      close_note = #{closeNote,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      result = #{result,jdbcType=INTEGER},
+      createbusiness = #{createbusiness,jdbcType=INTEGER},
+      do_admin = #{doAdmin,jdbcType=INTEGER},
+      do_time = #{doTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
