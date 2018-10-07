@@ -3,7 +3,7 @@
 org.apache.tomcat.jdbc.pool.DataSource@2a3a299{ConnectionPool[defaultAutoCommit=null; defaultReadOnly=null; defaultTransactionIsolation=-1; defaultCatalog=null; driverClassName=com.mysql.jdbc.Driver; maxActive=100; maxIdle=100; minIdle=10; initialSize=10; maxWait=30000; testOnBorrow=true; testOnReturn=false; timeBetweenEvictionRunsMillis=5000; numTestsPerEvictionRun=0; minEvictableIdleTimeMillis=60000; testWhileIdle=false; testOnConnect=false; password=********; url=jdbc:mysql://127.0.0.1:3306/vip_local_test; username=root; validationQuery=SELECT 1; validationQueryTimeout=-1; validatorClassName=null; validationInterval=3000; accessToUnderlyingConnectionAllowed=true; removeAbandoned=false; removeAbandonedTimeout=60; logAbandoned=false; connectionProperties=null; initSQL=null; jdbcInterceptors=null; jmxEnabled=true; fairQueue=true; useEquals=true; abandonWhenPercentageFull=0; maxAge=0; useLock=false; dataSource=null; dataSourceJNDI=null; suspectTimeout=0; alternateUsernameAllowed=false; commitOnReturn=false; rollbackOnReturn=false; useDisposableConnectionFacade=true; logValidationErrors=false; propagateInterruptState=false; ignoreExceptionOnPreLoad=false; }
 ```
 * 1.spring boot 自带使用的datasource是使用的tomcat的
->spring boot 内部自带的一个类
+* spring boot 内部自带的一个类
 ```java
 /*
  * Copyright 2012-2016 the original author or authors.
@@ -523,4 +523,21 @@ public class DataSourceProperties
 
 }
 
+```
+
+### spring boot 配置Datasource
+* 1.添加数据库驱动jar依赖
+```xml
+    <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    
+```
+* 2.在配置文件中添加datasource的相关参数:
+```properties
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/vip_local_test
+spring.datasource.username=root
+spring.datasource.password=root
 ```
