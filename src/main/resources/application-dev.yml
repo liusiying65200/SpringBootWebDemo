@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/vip_local_test
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  mapper-locations: classpath:net.hualisheng.mapper/*.xml
+  type-aliases: net.hualisheng.springBootWebDemo.model
